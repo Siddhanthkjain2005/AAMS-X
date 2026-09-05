@@ -1,0 +1,14 @@
+{
+  "station": "INDIA-GAURI",
+  "freq_min": 30.0,
+  "freq_max": 89.93800354003906,
+  "cadence": 0.25,
+  "time_bin": 4,
+  "occupancy": 0.06186848506331444,
+  "live_channels": 134,
+  "n_source_files": 48,
+  "source_url": "http://soleil.i4ds.ch/solarradio/data/2002-20yy_Callisto/2026/08/25/",
+  "retrieved_at": "2026-08-27T08:21:57.501497+00:00",
+  "checksum": "44fd56f400927040be966965c0157da7",
+  "notes": "Gauribidanur, India (Asia) \u2014 low VHF. Densest live-channel count in the cache and the only station publishing a full 24 h. Persistent carriers, intermittent utility traffic and quiet guard bands coexist in one recording."
+}

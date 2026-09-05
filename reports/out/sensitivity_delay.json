@@ -1,0 +1,653 @@
+{
+  "kind": "measured",
+  "weight": "delay",
+  "values": [
+    0.1,
+    0.5
+  ],
+  "seeds": 2,
+  "sweeps": [
+    {
+      "scenario_id": "easy-static",
+      "weight": "delay",
+      "protocol_value": 0.5,
+      "schedulers": [
+        "thompson",
+        "nts",
+        "mag-nts"
+      ],
+      "seeds": 2,
+      "rows": [
+        {
+          "value": 0.1,
+          "winner": "thompson",
+          "ranking": [
+            [
+              "thompson",
+              730.421257
+            ],
+            [
+              "mag-nts",
+              695.326907
+            ],
+            [
+              "nts",
+              623.546174
+            ]
+          ],
+          "aggregates": {
+            "thompson": {
+              "cumulative_reward": {
+                "metric": "cumulative_reward",
+                "n": 2,
+                "mean": 730.421257,
+                "std": 29.682144,
+                "sem": 20.988445,
+                "ci_low": 463.737778,
+                "ci_high": 997.104736,
+                "min": 709.432812,
+                "max": 751.409702,
+                "median": 730.421257,
+                "values": [
+                  751.409702,
+                  709.432812
+                ]
+              },
+              "sustained_detection_probability": {
+                "metric": "sustained_detection_probability",
+                "n": 2,
+                "mean": 0.596942,
+                "std": 0.024684,
+                "sem": 0.017455,
+                "ci_low": 0.375161,
+                "ci_high": 0.818722,
+                "min": 0.579487,
+                "max": 0.614396,
+                "median": 0.596942,
+                "values": [
+                  0.579487,
+                  0.614396
+                ]
+              },
+              "sustained_detection_delay": {
+                "metric": "sustained_detection_delay",
+                "n": 2,
+                "mean": 0.952892,
+                "std": 0.010303,
+                "sem": 0.007285,
+                "ci_low": 0.860327,
+                "ci_high": 1.045457,
+                "min": 0.945607,
+                "max": 0.960177,
+                "median": 0.952892,
+                "values": [
+                  0.960177,
+                  0.945607
+                ]
+              },
+              "false_alarm_rate": {
+                "metric": "false_alarm_rate",
+                "n": 2,
+                "mean": 0.139091,
+                "std": 0.003285,
+                "sem": 0.002323,
+                "ci_low": 0.109574,
+                "ci_high": 0.168608,
+                "min": 0.136768,
+                "max": 0.141414,
+                "median": 0.139091,
+                "values": [
+                  0.136768,
+                  0.141414
+                ]
+              },
+              "detections_per_cost": {
+                "metric": "detections_per_cost",
+                "n": 2,
+                "mean": 1.989536,
+                "std": 0.029493,
+                "sem": 0.020854,
+                "ci_low": 1.724555,
+                "ci_high": 2.254518,
+                "min": 1.968682,
+                "max": 2.010391,
+                "median": 1.989536,
+                "values": [
+                  2.010391,
+                  1.968682
+                ]
+              },
+              "band_coverage": {
+                "metric": "band_coverage",
+                "n": 2,
+                "mean": 0.766667,
+                "std": 0.078567,
+                "sem": 0.055555,
+                "ci_low": 0.060767,
+                "ci_high": 1.472566,
+                "min": 0.711111,
+                "max": 0.822222,
+                "median": 0.766667,
+                "values": [
+                  0.822222,
+                  0.711111
+                ]
+              }
+            },
+            "nts": {
+              "cumulative_reward": {
+                "metric": "cumulative_reward",
+                "n": 2,
+                "mean": 623.546174,
+                "std": 3.863969,
+                "sem": 2.732239,
+                "ci_low": 588.829786,
+                "ci_high": 658.262562,
+                "min": 620.813935,
+                "max": 626.278413,
+                "median": 623.546174,
+                "values": [
+                  620.813935,
+                  626.278413
+                ]
+              },
+              "sustained_detection_probability": {
+                "metric": "sustained_detection_probability",
+                "n": 2,
+                "mean": 0.679419,
+                "std": 0.009329,
+                "sem": 0.006597,
+                "ci_low": 0.595603,
+                "ci_high": 0.763236,
+                "min": 0.672823,
+                "max": 0.686016,
+                "median": 0.679419,
+                "values": [
+                  0.672823,
+                  0.686016
+                ]
+              },
+              "sustained_detection_delay": {
+                "metric": "sustained_detection_delay",
+                "n": 2,
+                "mean": 1.306448,
+                "std": 0.514972,
+                "sem": 0.36414,
+                "ci_low": -3.320389,
+                "ci_high": 5.933285,
+                "min": 0.942308,
+                "max": 1.670588,
+                "median": 1.306448,
+                "values": [
+                  1.670588,
+                  0.942308
+                ]
+              },
+              "false_alarm_rate": {
+                "metric": "false_alarm_rate",
+                "n": 2,
+                "mean": 0.115595,
+                "std": 0.005615,
+                "sem": 0.003971,
+                "ci_low": 0.065145,
+                "ci_high": 0.166044,
+                "min": 0.111624,
+                "max": 0.119565,
+                "median": 0.115595,
+                "values": [
+                  0.119565,
+                  0.111624
+                ]
+              },
+              "detections_per_cost": {
+                "metric": "detections_per_cost",
+                "n": 2,
+                "mean": 1.789235,
+                "std": 0.037957,
+                "sem": 0.02684,
+                "ci_low": 1.448206,
+                "ci_high": 2.130263,
+                "min": 1.762395,
+                "max": 1.816074,
+                "median": 1.789235,
+                "values": [
+                  1.816074,
+                  1.762395
+                ]
+              },
+              "band_coverage": {
+                "metric": "band_coverage",
+                "n": 2,
+                "mean": 0.977778,
+                "std": 0.0,
+                "sem": 0.0,
+                "ci_low": 0.977778,
+                "ci_high": 0.977778,
+                "min": 0.977778,
+                "max": 0.977778,
+                "median": 0.977778,
+                "values": [
+                  0.977778,
+                  0.977778
+                ]
+              }
+            },
+            "mag-nts": {
+              "cumulative_reward": {
+                "metric": "cumulative_reward",
+                "n": 2,
+                "mean": 695.326907,
+                "std": 19.429375,
+                "sem": 13.738643,
+                "ci_low": 520.760896,
+                "ci_high": 869.892918,
+                "min": 681.588264,
+                "max": 709.06555,
+                "median": 695.326907,
+                "values": [
+                  709.06555,
+                  681.588264
+                ]
+              },
+              "sustained_detection_probability": {
+                "metric": "sustained_detection_probability",
+                "n": 2,
+                "mean": 0.654639,
+                "std": 0.003644,
+                "sem": 0.002577,
+                "ci_low": 0.621895,
+                "ci_high": 0.687383,
+                "min": 0.652062,
+                "max": 0.657216,
+                "median": 0.654639,
+                "values": [
+                  0.657216,
+                  0.652062
+                ]
+              },
+              "sustained_detection_delay": {
+                "metric": "sustained_detection_delay",
+                "n": 2,
+                "mean": 1.911555,
+                "std": 0.65749,
+                "sem": 0.464915,
+                "ci_low": -3.995756,
+                "ci_high": 7.818867,
+                "min": 1.44664,
+                "max": 2.376471,
+                "median": 1.911555,
+                "values": [
+                  2.376471,
+                  1.44664
+                ]
+              },
+              "false_alarm_rate": {
+                "metric": "false_alarm_rate",
+                "n": 2,
+                "mean": 0.133156,
+                "std": 0.003681,
+                "sem": 0.002603,
+                "ci_low": 0.100082,
+                "ci_high": 0.16623,
+                "min": 0.130553,
+                "max": 0.135759,
+                "median": 0.133156,
+                "values": [
+                  0.130553,
+                  0.135759
+                ]
+              },
+              "detections_per_cost": {
+                "metric": "detections_per_cost",
+                "n": 2,
+                "mean": 1.912674,
+                "std": 0.03729,
+                "sem": 0.026368,
+                "ci_low": 1.577637,
+                "ci_high": 2.247711,
+                "min": 1.886306,
+                "max": 1.939042,
+                "median": 1.912674,
+                "values": [
+                  1.939042,
+                  1.886306
+                ]
+              },
+              "band_coverage": {
+                "metric": "band_coverage",
+                "n": 2,
+                "mean": 0.866667,
+                "std": 0.0,
+                "sem": 0.0,
+                "ci_low": 0.866667,
+                "ci_high": 0.866667,
+                "min": 0.866667,
+                "max": 0.866667,
+                "median": 0.866667,
+                "values": [
+                  0.866667,
+                  0.866667
+                ]
+              }
+            }
+          }
+        },
+        {
+          "value": 0.5,
+          "winner": "thompson",
+          "ranking": [
+            [
+              "thompson",
+              631.518239
+            ],
+            [
+              "mag-nts",
+              573.654219
+            ],
+            [
+              "nts",
+              535.598353
+            ]
+          ],
+          "aggregates": {
+            "thompson": {
+              "cumulative_reward": {
+                "metric": "cumulative_reward",
+                "n": 2,
+                "mean": 631.518239,
+                "std": 28.00631,
+                "sem": 19.803452,
+                "ci_low": 379.891523,
+                "ci_high": 883.144955,
+                "min": 611.714787,
+                "max": 651.321691,
+                "median": 631.518239,
+                "values": [
+                  651.321691,
+                  611.714787
+                ]
+              },
+              "sustained_detection_probability": {
+                "metric": "sustained_detection_probability",
+                "n": 2,
+                "mean": 0.596942,
+                "std": 0.024684,
+                "sem": 0.017455,
+                "ci_low": 0.375161,
+                "ci_high": 0.818722,
+                "min": 0.579487,
+                "max": 0.614396,
+                "median": 0.596942,
+                "values": [
+                  0.579487,
+                  0.614396
+                ]
+              },
+              "sustained_detection_delay": {
+                "metric": "sustained_detection_delay",
+                "n": 2,
+                "mean": 0.952892,
+                "std": 0.010303,
+                "sem": 0.007285,
+                "ci_low": 0.860327,
+                "ci_high": 1.045457,
+                "min": 0.945607,
+                "max": 0.960177,
+                "median": 0.952892,
+                "values": [
+                  0.960177,
+                  0.945607
+                ]
+              },
+              "false_alarm_rate": {
+                "metric": "false_alarm_rate",
+                "n": 2,
+                "mean": 0.139091,
+                "std": 0.003285,
+                "sem": 0.002323,
+                "ci_low": 0.109574,
+                "ci_high": 0.168608,
+                "min": 0.136768,
+                "max": 0.141414,
+                "median": 0.139091,
+                "values": [
+                  0.136768,
+                  0.141414
+                ]
+              },
+              "detections_per_cost": {
+                "metric": "detections_per_cost",
+                "n": 2,
+                "mean": 1.989536,
+                "std": 0.029493,
+                "sem": 0.020854,
+                "ci_low": 1.724555,
+                "ci_high": 2.254518,
+                "min": 1.968682,
+                "max": 2.010391,
+                "median": 1.989536,
+                "values": [
+                  2.010391,
+                  1.968682
+                ]
+              },
+              "band_coverage": {
+                "metric": "band_coverage",
+                "n": 2,
+                "mean": 0.766667,
+                "std": 0.078567,
+                "sem": 0.055555,
+                "ci_low": 0.060767,
+                "ci_high": 1.472566,
+                "min": 0.711111,
+                "max": 0.822222,
+                "median": 0.766667,
+                "values": [
+                  0.822222,
+                  0.711111
+                ]
+              }
+            },
+            "nts": {
+              "cumulative_reward": {
+                "metric": "cumulative_reward",
+                "n": 2,
+                "mean": 535.598353,
+                "std": 1.127251,
+                "sem": 0.797086,
+                "ci_low": 525.470408,
+                "ci_high": 545.726297,
+                "min": 534.801266,
+                "max": 536.395439,
+                "median": 535.598353,
+                "values": [
+                  534.801266,
+                  536.395439
+                ]
+              },
+              "sustained_detection_probability": {
+                "metric": "sustained_detection_probability",
+                "n": 2,
+                "mean": 0.679419,
+                "std": 0.009329,
+                "sem": 0.006597,
+                "ci_low": 0.595603,
+                "ci_high": 0.763236,
+                "min": 0.672823,
+                "max": 0.686016,
+                "median": 0.679419,
+                "values": [
+                  0.672823,
+                  0.686016
+                ]
+              },
+              "sustained_detection_delay": {
+                "metric": "sustained_detection_delay",
+                "n": 2,
+                "mean": 1.306448,
+                "std": 0.514972,
+                "sem": 0.36414,
+                "ci_low": -3.320389,
+                "ci_high": 5.933285,
+                "min": 0.942308,
+                "max": 1.670588,
+                "median": 1.306448,
+                "values": [
+                  1.670588,
+                  0.942308
+                ]
+              },
+              "false_alarm_rate": {
+                "metric": "false_alarm_rate",
+                "n": 2,
+                "mean": 0.115595,
+                "std": 0.005615,
+                "sem": 0.003971,
+                "ci_low": 0.065145,
+                "ci_high": 0.166044,
+                "min": 0.111624,
+                "max": 0.119565,
+                "median": 0.115595,
+                "values": [
+                  0.119565,
+                  0.111624
+                ]
+              },
+              "detections_per_cost": {
+                "metric": "detections_per_cost",
+                "n": 2,
+                "mean": 1.789235,
+                "std": 0.037957,
+                "sem": 0.02684,
+                "ci_low": 1.448206,
+                "ci_high": 2.130263,
+                "min": 1.762395,
+                "max": 1.816074,
+                "median": 1.789235,
+                "values": [
+                  1.816074,
+                  1.762395
+                ]
+              },
+              "band_coverage": {
+                "metric": "band_coverage",
+                "n": 2,
+                "mean": 0.977778,
+                "std": 0.0,
+                "sem": 0.0,
+                "ci_low": 0.977778,
+                "ci_high": 0.977778,
+                "min": 0.977778,
+                "max": 0.977778,
+                "median": 0.977778,
+                "values": [
+                  0.977778,
+                  0.977778
+                ]
+              }
+            },
+            "mag-nts": {
+              "cumulative_reward": {
+                "metric": "cumulative_reward",
+                "n": 2,
+                "mean": 573.654219,
+                "std": 33.868223,
+                "sem": 23.94845,
+                "ci_low": 269.36031,
+                "ci_high": 877.948128,
+                "min": 549.705769,
+                "max": 597.602669,
+                "median": 573.654219,
+                "values": [
+                  549.705769,
+                  597.602669
+                ]
+              },
+              "sustained_detection_probability": {
+                "metric": "sustained_detection_probability",
+                "n": 2,
+                "mean": 0.635309,
+                "std": 0.016402,
+                "sem": 0.011598,
+                "ci_low": 0.487942,
+                "ci_high": 0.782676,
+                "min": 0.623711,
+                "max": 0.646907,
+                "median": 0.635309,
+                "values": [
+                  0.623711,
+                  0.646907
+                ]
+              },
+              "sustained_detection_delay": {
+                "metric": "sustained_detection_delay",
+                "n": 2,
+                "mean": 2.077771,
+                "std": 1.467855,
+                "sem": 1.037931,
+                "ci_low": -11.110386,
+                "ci_high": 15.265929,
+                "min": 1.039841,
+                "max": 3.115702,
+                "median": 2.077771,
+                "values": [
+                  3.115702,
+                  1.039841
+                ]
+              },
+              "false_alarm_rate": {
+                "metric": "false_alarm_rate",
+                "n": 2,
+                "mean": 0.134145,
+                "std": 0.005333,
+                "sem": 0.003771,
+                "ci_low": 0.08623,
+                "ci_high": 0.18206,
+                "min": 0.130374,
+                "max": 0.137916,
+                "median": 0.134145,
+                "values": [
+                  0.137916,
+                  0.130374
+                ]
+              },
+              "detections_per_cost": {
+                "metric": "detections_per_cost",
+                "n": 2,
+                "mean": 1.917509,
+                "std": 0.092956,
+                "sem": 0.065729,
+                "ci_low": 1.082336,
+                "ci_high": 2.752681,
+                "min": 1.851779,
+                "max": 1.983238,
+                "median": 1.917509,
+                "values": [
+                  1.851779,
+                  1.983238
+                ]
+              },
+              "band_coverage": {
+                "metric": "band_coverage",
+                "n": 2,
+                "mean": 0.855556,
+                "std": 0.047141,
+                "sem": 0.033334,
+                "ci_low": 0.432013,
+                "ci_high": 1.279098,
+                "min": 0.822222,
+                "max": 0.888889,
+                "median": 0.855556,
+                "values": [
+                  0.888889,
+                  0.822222
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "elapsed_sec": 11.8
+}

@@ -1,0 +1,33 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+htmlcov/
+
+# Frontend dependencies and generated builds
+web/node_modules/
+web/dist/
+node_modules/
+dist/
+
+# Temporary and operating-system files
+.tmp/
+tmp/
+.DS_Store
+*.log
+
+# IDE-local settings
+.idea/
+.vscode/
+

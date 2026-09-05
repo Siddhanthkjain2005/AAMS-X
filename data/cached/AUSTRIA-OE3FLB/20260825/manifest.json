@@ -1,0 +1,60 @@
+{
+  "schema_version": 2,
+  "station": "AUSTRIA-OE3FLB",
+  "day": "20260825",
+  "n_times": 169180,
+  "n_channels": 200,
+  "cadence_sec": 0.25,
+  "epoch_utc": "2026-08-25T06:00:00+00:00",
+  "db_per_digit": 0.25,
+  "occupancy_threshold_db": 1.5,
+  "occupancy_k_mad": 5.0,
+  "baseline_percentile": 10.0,
+  "calibration": {
+    "block_size": 2400,
+    "n_blocks": 70,
+    "db_per_digit": 0.25,
+    "percentile": 10.0,
+    "k_mad": 5.0,
+    "min_excess_db": 1.5,
+    "median_noise_db": 0.2621,
+    "median_threshold_db": 1.5
+  },
+  "freq_min_mhz": 112.0,
+  "freq_max_mhz": 747.18798828125,
+  "occupancy": 0.04188816621899605,
+  "live_channels": 57,
+  "dead_channels": 1,
+  "provenance": {
+    "adapter": "e-callisto",
+    "source_id": "AUSTRIA-OE3FLB/55@2026-08-25T06:00Z",
+    "source_url": "http://soleil.i4ds.ch/solarradio/data/2002-20yy_Callisto/2026/08/25/",
+    "retrieved_at": "2026-08-27T08:23:55.164382+00:00",
+    "observed_from": "2026-08-25T06:00:00+00:00",
+    "observed_to": "2026-08-25T17:44:57.250000+00:00",
+    "n_source_files": 47,
+    "n_samples": 33836000,
+    "freq_resolution_khz": 3187.98828125,
+    "time_resolution_sec": 0.25,
+    "preprocessing": [
+      "digits->dB using 0.25 dB/digit (e-CALLISTO nominal scale)",
+      "drift-tracking baseline = P10 inside 2400 sample blocks, interpolated between block centres",
+      "excess power = measured - baseline (receiver-independent units)",
+      "per-sample noise scale = 1.4826 * MAD(diff(power)) / sqrt(2)",
+      "occupancy label = excess > max(1.5 dB, 5.0 * noise) -- reference label, not absolute truth",
+      "focus code 55 pinned (station publishes interleaved sweeps)",
+      "flagged 1 constant (dead) receiver channels"
+    ],
+    "license": "Public scientific data \u2014 free use with attribution (e-callisto.org)",
+    "reference": "Benz, Monstein & Meyer (2005), 'CALLISTO \u2014 A New Concept for Solar Radio Spectrometers', Solar Physics 226, 143; e-CALLISTO network, e-callisto.org",
+    "checksum": "163af5f88553bcbaab2376ec31d88625",
+    "is_synthetic": false,
+    "notes": "Litschau, Austria (Europe) \u2014 VHF+UHF wideband. Hardest recording in the cache: 1% occupancy over a 635 MHz span. Uninformed scanning finds almost nothing here.",
+    "gaps": [
+      [
+        "2026-08-25T10:59:57.250000+00:00",
+        "2026-08-25T11:00:00+00:00"
+      ]
+    ]
+  }
+}
