@@ -1,286 +1,373 @@
 # AAMS-X
 
-## Adaptive Autonomous Mission Spectrum eXplorer
+### Adaptive Autonomous Mission Spectrum eXplorer
 
-An offline-first foundation for public RF recording inspection, reproducible
-synthetic intensity demonstrations, provenance, and recorded playback.
+**An observation-only, uncertainty-aware active-sensing research workbench.**
 
-## Scope of this build
+Built around SIH26055, **Smart Scan Strategy for Electronic Warfare**, a DRDO software problem statement: a receiver with limited instantaneous bandwidth must decide which contiguous frequency window to observe next.
 
-This is a source-code foundation for the data and visualization portions of
-a research platform. It is not the complete adaptive scheduling application.
+AAMS-X provides a working local simulator, receiver digital twin, online MAG-NTS scheduler, fair comparisons, dataset adapters, live WebSockets, explainability, a Three.js spectrum cube, multi-seed benchmarks, and recorded experiment replay.
 
-Implemented in the supplied source:
+![AAMS-X Command Center](docs/screenshots/command-center.png)
 
-- Deterministic, explicitly synthetic intensity demonstration.
-- Validated common-layout e-CALLISTO FITS ingestion.
-- Immutable local NPZ recordings and JSON provenance manifests.
-- Source and artifact checksums.
-- Missing-data preservation and irregular channel coordinates.
-- FastAPI recording catalog, preview, export, and playback WebSocket.
-- React recorded-spectrum dashboard.
-- Time-frequency waterfall.
-- Frequency profile with gaps for missing values.
-- Buffered 3D time-frequency-intensity point cloud.
-- Recorded playback, pause, reset, scrubbing, and display speed controls.
-- Data provenance, architecture trace, and limitations screens.
-- Backend tests and frontend type-check/build commands.
+## Run locally
 
-Not implemented:
+Dependencies and the production frontend have been installed and built in this workspace:
 
-- Adaptive receiver tasking or MAG-NTS.
-- Interception optimization.
-- Receiver or detector benchmarks.
-- Emitter classification, localization, or targeting.
-- Radar PDW ingestion.
-- Live SDR hardware integration.
-- Scheduler truth-isolation tests: no scheduler exists in this build.
+```bash
+./start_demo.sh
+```
 
-The interface reports unavailable capabilities rather than displaying fabricated
-metrics or fake public datasets.
+Open **http://127.0.0.1:8000**. API documentation: **http://127.0.0.1:8000/docs**.
 
-## Research context
+For a fresh checkout, install once:
 
-A bandwidth-limited receiver cannot simultaneously observe every frequency in a
-larger monitored spectrum. That creates a partial-observation sensing problem.
+```bash
+python3 scripts/setup.py
+./start_demo.sh
+```
 
-Before evaluating any sensing model, the data pipeline must preserve frequency
-and time coordinates, measurement units, missing data, source provenance, and
-the distinction between synthetic and measured observations.
+Requirements: Python **3.11+**, Node.js **20.19+** (22 recommended), npm, and a WebGL-capable browser for 3D. `uv` is used if available; a pinned `requirements.lock` provides the pip fallback. JavaScript dependencies are locked in `frontend/package-lock.json`.
 
-This build addresses that foundation. Its playback cursor is not a receiver
-scan action. No policy is observing or learning from the displayed recordings.
+The production launcher serves the API, frontend, and WebSocket from **one process**. Initial dependency installation needs internet; normal operation does not. Fonts, visualizations, public-data artifacts, recorded runs, and benchmark traces are local.
+
+Cross-platform alternative:
+
+```bash
+python scripts/start.py
+```
+
+Set `PORT=8080` to use a different port. See [the three-minute judging guide](docs/JUDGING_GUIDE.md).
+
+## Dataset availability — explicit, not simulated away
+
+| Source | Category | This workspace | Evaluation scope |
+|---|---|---|---|
+| AAMS-X controlled environment | `CONTROLLED_SIMULATION` | Available; ten seeded presets | Complete truth within the abstract simulator |
+| Alan Turing Institute TSRD | `OFFICIAL_SYNTHETIC_RADAR` | **Importer implemented; publisher-authorized data still required** | Retained stare-mode pulse occupancy; scan-mode negatives are censored |
+| e-CALLISTO / FHNW public archive | `REAL_MEASURED_RF` | **Actual recording included**, 705,600 standardized samples | Measured intensity, coverage and detector events; no labelled EW emitter truth |
+
+**TSRD access is the remaining external prerequisite.** The publisher currently requires Hugging Face access approval. An unauthorized download was not substituted with generated pulses. The UI displays **ACCESS REQUIRED**, and the simulator is clearly identified as the fallback. Official-data mode becomes the preferred default when an authorized stare-mode artifact is installed.
+
+The included measured recording is **ALASKA-ANCHORAGE, 2024-05-10 16:00 UTC**, obtained from the public e-CALLISTO archive. It is a solar-radio spectrum recording, **not a recording of hostile radars**. Its original intensity unit is `digits`.
+
+> Real measured RF replay — e-CALLISTO public spectrum observations. Used for ingestion and robustness demonstration, not labelled EW emitter ground truth.
+
+Source URLs, SHA-256 hashes, timestamps, physical axes, transformation lineage, and retained features are visible in **Data Integrity & Provenance**. See [dataset documentation](docs/DATA.md) for formats, attribution and import commands.
+
+## The problem, and our interpretation
+
+The full spectrum contains many potential sources. The receiver can observe only a narrow slice. A fixed sweep spends the same predetermined time on inactive and useful regions; short events can occur between revisits.
+
+The decision is an active-sensing problem under **partial observation**:
+
+1. Choose a legal contiguous bandwidth window.
+2. Receive energy and HIT/MISS observations from **that window only**.
+3. Update a probabilistic model and its uncertainty.
+4. Learn recurring observation contexts and possible periodic opportunities.
+5. React to observed distribution shifts.
+6. Choose the next window while accounting for sensing and retuning costs.
+
+Hidden truth belongs to the simulator and evaluator. A policy never receives an environment reference, source labels, complete energy matrix, or future timeline.
 
 ## Architecture
 
-The following is Mermaid diagram source, presented as an indented code block
-to avoid nested file-listing fences:
+```mermaid
+flowchart TD
+    SIM[Seeded controlled scenarios] --> WORLD
+    TSRD[Authorized TSRD HDF5] --> INGEST
+    RF[e-CALLISTO FITS] --> INGEST
+    INGEST[Validate / normalize / provenance] --> ART[Parquet + NPZ + SHA-256]
+    ART --> WORLD[Immutable SpectrumEnvironment world]
+    WORLD --> RX[Bandwidth-limited receiver digital twin]
+    RX --> OBS[Frozen selected-window Observation]
+    subgraph POLICY[Observation-only policy boundary]
+        OBS --> B[Discounted Bayesian belief]
+        OBS --> M[Associative memory]
+        OBS --> C[Observation-time CUSUM]
+        OBS --> P[Periodicity estimator]
+        B --> I[Expected information gain]
+        B --> MAG[MAG-NTS]
+        M --> MAG
+        C --> MAG
+        P --> MAG
+        I --> MAG
+        MAG --> A[Contiguous-window Action]
+    end
+    A --> RX
+    WORLD --> E[Independent evaluator]
+    RX --> E
+    E --> REG[SQLite registry + checksummed traces]
+    REG --> UI[React / WebSocket / replay / exports]
+    E -. explicit Judge View .-> UI
+```
+
+### Programmatic truth isolation
+
+[`backend/contracts.py`](backend/contracts.py) is the complete policy-facing contract:
+
+```python
+policy = Policy(algorithm, PublicReceiver.from_config(receiver), policy_seed)
+decision = policy.select_action(DecisionContext(step, previous_start))
+observation = environment.step(decision.action)
+policy.update(observation)
+```
+
+`Observation` and its per-band values are frozen dataclasses. An observation validates that its bands match exactly the selected window. The receiver receives only sliced energy and detector random fields. `Receiver.observe()` never branches on truth labels.
+
+**`test_POLICY_TRUTH_LEAK_TEST`** checks policy imports, privileged attributes, file-reading/introspection capabilities, observation fields, and counterfactual noninterference: modifying every unobserved truth/energy value leaves the policy's decisions and updates unchanged until its observations change.
+
+This is an enforced architectural contract and regression guard, **not an adversarial Python sandbox**.
+
+## MAG-NTS
+
+**Memory-Augmented, Information-Guided, Non-Stationary Thompson Sampling** is an experimental composition of interpretable online methods.
+
+### Belief and uncertainty
+
+Each band starts with weak Beta(1, 1) evidence. With discount factor `λ = 0.989`:
+
+```text
+α ← 1 + (α − 1) λ^Δt
+β ← 1 + (β − 1) λ^Δt
+w = 0.5 + 0.5 × observation confidence
+α ← α + w × HIT
+β ← β + w × MISS
+p = α / (α + β)
+uncertainty = sqrt(12 αβ / ((α + β)² (α + β + 1)))
+```
+
+Missing observations do not update evidence. Unobserved bands are never treated as misses. Discounting returns stale evidence toward the prior. Confidence weighting and discounting make this a **generalized/pseudo-Bayesian activity model**, not a calibrated posterior for a complete RF propagation model.
+
+One-observation information gain is calculated from the Beta-Bernoulli mutual information using `scipy.special.digamma`. “Likely active” and “uncertain — worth exploring” are separately visualized.
+
+### Window score
+
+Legal candidates include every contiguous start position. Per-band terms are averaged within each window:
 
-    flowchart TD
-        A[Seeded intensity demonstration] --> C[Validated ingestion]
-        B[Local public e-CALLISTO FITS] --> C
-        C --> D[NPZ recording]
-        C --> E[JSON provenance and checksums]
-        D --> F[Read-only FastAPI]
-        E --> F
-        F --> G[Bounded preview]
-        F --> H[Original artifact export]
-        F --> I[Recorded WebSocket playback]
-        G --> J[React inspection dashboard]
-        J --> K[Waterfall]
-        J --> L[Frequency profile]
-        J --> M[3D intensity cube]
-        J --> N[Provenance and limitations]
+```text
+0.8 × learned probability + 0.4 × Thompson sample
++ 0.65 × normalized information gain
++ 0.16 × normalized uncertainty
++ 0.28 × memory evidence
++ 0.75 × periodic opportunity
++ 0.22 × revisit age
++ 0.30 × recent-change priority
++ directed exploration bonus (12% probabilistic branch)
+− 0.24 × retune cost
+− 0.14 × repeated-empty-observation penalty
+```
+
+All terms come from observations or public receiver geometry/costs. Every selected action stores its component contributions, pre-observation probabilities, uncertainty, and five candidate alternatives.
+
+- **Memory:** bounded four-observation contexts and subsequent observed outcomes, matched by sequence similarity, frequency proximity and age. Retrieval contributes soft evidence.
+- **Change:** two-sided observation-time CUSUM, minimum evidence and cooldown. A supported change softens stale evidence and adds temporary exploration priority. An unseen change cannot be known instantly.
+- **Periodicity:** at least four separated observed episodes spanning three candidate cycles; integer-multiple interval fitting tolerates missed episodes. Phase consistency and observed misses reduce confidence. Adjacent hits within one burst are merged. Confidence is an explicitly heuristic evidence score; aliasing is possible.
+- **Baselines:** fixed sweep, uniform random, vanilla Thompson sampling, and UCB. Fixed sweep covers the tail even when bandwidth does not divide the spectrum.
+- **Ablations:** no memory, no information gain, and no change detection. Each removes that component from the same implementation.
 
-## Requirements
+These weights are explicit research hyperparameters. The composite scheduler has **no optimality or universal-improvement guarantee**. No neural network or offline truth-trained predictor is hidden behind it.
 
-- macOS or another Unix-like environment.
-- Python 3.11 or newer.
-- Node.js 20.19 or newer and npm.
-- Internet for initial dependency installation only.
-- A browser with WebGL for the optional 3D view.
+## Receiver model
 
-The application uses system fonts. It has no remote font, analytics, map,
-authentication, or dataset API dependency.
+For each fixed wall-clock slot:
 
-## Setup
+```text
+usable dwell = slot duration − scan latency − retune delay if moved
+retune cost = retune delay / slot duration
+            + switching weight × normalized frequency distance
+```
 
-From the repository root:
+Configuration validation requires enough remaining time for minimum dwell. Longer retuning therefore changes both detection exposure and accounting cost.
 
-    bash scripts/setup.sh
+The energy detector uses a logistic threshold response, usable-dwell fraction, an additional miss probability and an independent spurious-alarm draw. All detector fields are drawn **once per world**, indexed by time and band, and reused by every receiver. The configured spurious-alarm parameter is not the complete measured Pfa: noise crossing the energy response can also cause alarms.
 
-This:
+This is a tractable **digital-twin approximation**, not a waveform-level or calibrated hardware model. Simulation uses dominant per-band signal strength rather than full coherent signal superposition. Measured replay uses calibration-standardized intensity; original instrument units remain in the dataset explorer and Parquet.
 
-1. Creates `.venv`.
-2. Installs backend and test dependencies.
-3. Creates a seed-42 synthetic intensity recording.
-4. Installs frontend dependencies.
-5. Type-checks and builds the frontend.
+## Fair experiments and metrics
 
-After reviewing a successful installation, commit the generated
-`frontend/package-lock.json` to lock the JavaScript dependency graph.
+**RUN FAIR DUEL** creates one immutable world and independent policy/receiver states with identical seed, energy, detector noise, receiver limits, horizon and timing budget. The UI displays a world fingerprint and experiment ID.
 
-Python dependencies currently use bounded version ranges. For archival
-reproducibility, record the tested environment:
+![Fair Duel](docs/screenshots/fair-duel.png)
 
-    .venv/bin/python -m pip freeze > environment-tested.txt
+Metrics are computed from stored pre-decision values, observations and evaluation labels:
 
-A lock file is not supplied here because dependencies have not been resolved
-or tested in an execution environment.
+| Metric | Definition used here |
+|---|---|
+| Probability of detection | `TP / (TP + FN_observed)` |
+| Probability of false alarm | `FP / (FP + TN)` on observed inactive cells |
+| Sensitivity / global recall | `TP / all active band-time cells`, including unobserved activity |
+| Average interception rate | Mean of per-slot `TP_t / active_t` over nonempty slots |
+| Average reward | Mean `TP − FP − 0.1 × retune_cost` |
+| Reward / cost | Total evaluation reward / total `(1 + retune_cost)` |
+| Correct prediction percentage | Pre-observation `p ≥ 0.5` classification accuracy on observed cells |
+| Average intercept time | First-detection delay among intercepted band-activity episodes |
+| Average intercept time error | Prospective next-onset prediction MAE, scored after the actual event |
+| Interception ratio | Intercepted band-activity episodes / episodes begun |
 
-## Start
+Supporting metrics include miss rate, active-cell scan efficiency, active-scan percentage, retuning counts/costs, source-overlap first-detection delay, Jain coverage fairness, explicit exploration percentage, missing-channel fraction, and observed energy-event count.
 
-    bash start_demo.sh
+**Important scope details:**
 
-Open:
+- Detector Pd is conditional on being observed; it is not full-spectrum recall.
+- A band-activity episode is not an identified emitter.
+- Average delay is conditional on interception. Read the episode censoring fraction alongside it.
+- Source-overlap detection does not claim emitter classification or identity resolution.
+- “Intercept time error” is operationalized as recurrence forecast error, not hardware timestamp precision. Only the first supported forecast per band/next-onset is scored, and only after that actual onset occurs.
+- Truth-derived reward never enters `policy.update()`.
+- Undefined denominators yield `null` / **N/A**. Measured RF has no truth-dependent Pd, Pfa, recall, reward, accuracy or interception-time results.
 
-- Dashboard: http://127.0.0.1:5173
-- API docs: http://127.0.0.1:8000/docs
+All definitions are available in the **Methodology** page and `GET /api/methodology`.
 
-For executable script commands:
+## Reproducible evidence included
 
-    chmod +x start_demo.sh run_tests.sh scripts/setup.sh
-    ./start_demo.sh
+The bundle contains **30 paired worlds / 180 policy evaluations**: all ten presets, consecutive seeds **42–44**, a **240-slot** horizon, and six policies. Benchmark ID: **`BENCH-723C785465`**. These values are computed results, not frontend constants.
 
-The start script performs no dependency downloads.
+Selected means from that exact bundled experiment:
 
-Both services bind to localhost. This is not an internet-facing deployment.
+| Scenario | Fixed global recall | MAG-NTS global recall | Vanilla Thompson global recall |
+|---|---:|---:|---:|
+| Sparse | 7.27% | 49.24% | 63.63% |
+| Periodic | 1.27% | 25.82% | 21.52% |
+| Changing | 7.70% | 37.16% | 27.36% |
+| Randomized | 6.47% | 7.46% | 6.86% |
 
-## Demonstration
+MAG-NTS improves over fixed scanning in the bundled suite, but vanilla Thompson often outperforms the composite policy in stable conditions. Small seed counts and wide confidence intervals do not establish universal superiority or field performance. The Benchmark Lab exposes all scenarios, ablations, means, medians, sample variance, 95% Student-t mean intervals and paired deltas.
 
-1. Open Spectrum replay.
-2. Select the seed-42 intensity demonstration.
-3. Read the CONTROLLED SIMULATION provenance notice.
-4. Press Start replay.
-5. Inspect the time-frequency waterfall and missing-data patch.
-6. Pause and scrub to a recorded time.
-7. Inspect the corresponding frequency profile.
-8. Orbit the Spectrum Intelligence Cube.
-9. Open Data provenance and inspect preprocessing lineage and checksums.
-10. Export the original NPZ recording.
-11. Use Architecture to trace the recording through ingestion and visualization.
+```bash
+# Inspect the recorded evidence
+.venv/bin/python scripts/research_report.py
 
-Every playback mode is explicitly labelled recorded replay.
+# Regenerate demo runs plus all scenarios/seeds/ablations
+.venv/bin/python scripts/prepare_demo.py --benchmark
+```
 
-No detection, accuracy, interception, or improvement percentages are invented.
+The periodic challenge uses 32 bands, width 4, seed 42, and 420 slots. Its recorded run learns an **18-slot period** from observations; it also retains wrong/tentative candidates and scores forecast error rather than hiding it.
 
-## Optional measured data
+![Periodic challenge](docs/screenshots/periodic-challenge.png)
 
-See [docs/data.md](docs/data.md) for supported e-CALLISTO FITS structure.
+## Product workflow
 
-Example:
+- **Command Center:** problem briefing, receiver geometry, source selector, six demo controls and advanced research settings.
+- **Live Duel:** two observation waterfalls, real receiver paths, cumulative detections/misses, delay, reward/cost and measured deltas.
+- **Trace one decision:** freeze acquisition and inspect ten stages, including pre-decision beliefs and post-observation updates.
+- **AI Observability:** probability, uncertainty, information gain, unvisited bands, memory evidence, CUSUM events and policy input payload.
+- **Periodic Challenge:** observed episodes, inferred period/phase, evidence confidence, next opportunity and prospective forecast audit.
+- **Spectrum Intelligence Cube:** real Three.js time × frequency × energy/belief geometry; orbit, top, side, reset, follow, path/detection/layer controls.
+- **Benchmark Lab:** run ablations and multi-seed comparisons, export CSV/JSON and replay every paired world.
+- **Dataset Explorer / Provenance:** inspect measured spectrograms or PDW features, original axes, sample Parquet, lineage and checksums.
+- **Architecture / Methodology:** animated observation flow, component roles, formulas, limitations and judge questions.
 
-    .venv/bin/python -m backend.ingest callisto data/raw/recording.fit
+**LIVE** means the scheduler is computing now. With a recording selected, the RF source itself is still a recorded replay. **REPLAY** means playback of a previously computed experiment trace and is visibly labelled that way. Ground Truth is off by default.
 
-Then press Refresh catalog.
+![Spectrum Intelligence Cube](docs/screenshots/spectrum-cube.png)
 
-The simulator demonstration remains usable when no public dataset is installed.
+## Dataset ingestion
 
-No measured data ships in this repository.
+Restore the included measured artifact entirely offline:
 
-## API
+```bash
+.venv/bin/python -m backend.datasets.bootstrap
+```
 
-| Method | Route | Purpose |
-| --- | --- | --- |
-| GET | /api/health | Service status and scope |
-| GET | /api/datasets | Recordings and integration availability |
-| GET | /api/recordings/{id} | Provenance manifest |
-| GET | /api/recordings/{id}/preview | Bounded intensity preview |
-| GET | /api/recordings/{id}/export | Original validated NPZ artifact |
-| WS | /ws/recordings/{id} | Explicitly labelled recorded frames |
+Re-download and reproduce the public measured import:
 
-Preview parameters:
+```bash
+.venv/bin/python -m backend.datasets.fetch callisto
+```
 
-- `max_times`: 2–240, default 160.
-- `max_channels`: 2–128, default 96.
+After accepting the TSRD publisher's access conditions, either import an authorized local file:
 
-WebSocket playback sends one sampled row at a time, rather than a full recording
-matrix per frame.
+```bash
+.venv/bin/python -m backend.datasets.ingest turing data/raw/config_0.h5 \
+  --receiver-mode stare --max-pulses 1000000 --slots 512 --bands 64
+```
 
-The browser uses a cached bounded preview for immediate scrubbing. This is
-recorded playback, not a disguised live stream.
+or set `HF_TOKEN` locally in your terminal environment and run:
 
-## Internal format
+```bash
+.venv/bin/python -m backend.datasets.fetch turing
+```
 
-    time_s: float64[T]
-    frequency_mhz: float64[F]
-    intensity: float32[T, F]
+Tokens are never written into provenance. Do not paste credentials into application source files. The downloader pins the publisher revision and uses one bounded validation file. Importing a missing or incompatible schema fails with an actionable error.
 
-Intensity has no universal calibrated unit. The original BUNIT is retained when
-available; otherwise it is labelled uncalibrated.
+Details: [docs/DATA.md](docs/DATA.md).
 
-Missing values remain NaN on disk and become null in JSON.
+## API and event model
 
-Arrays are loaded with `allow_pickle=False`.
+| Route | Purpose |
+|---|---|
+| `GET /api/status`, `/api/scenarios`, `/api/datasets` | Readiness, presets and provenance catalog |
+| `GET /api/datasets/{id}/preview` | Bounded original-unit preview and samples |
+| `GET /api/datasets/{id}/export?format=npz\|parquet` | Verified processed artifact |
+| `POST /api/experiment/start` | Start a fair experiment with explicit configuration |
+| `POST /api/experiment/pause`, `/resume`, `/reset`, `/stop`, `/speed` | Live controls |
+| `POST /api/experiment/{id}/step` | One observation while paused |
+| `GET /api/experiments`, `/api/experiment/{id}` | Registry and configuration |
+| `GET /api/experiment/{id}/metrics`, `/trace`, `/decisions` | Results and explainability |
+| `GET /api/experiment/{id}/evaluation?judge=true` | Explicit evaluation-only source tracks |
+| `GET /api/experiment/{id}/export?format=json\|csv` | Trace/metric export |
+| `POST /api/benchmark/start`, `GET /api/benchmarks` | Background benchmark jobs |
+| `GET /api/benchmark/{id}`, `/export` | Progress, statistical summary and export |
+| `WS /ws/experiment/{id}` | Incremental, reconnectable observation/decision stream |
 
-## Reproducibility
+Every step stores timestamp, action, previous window, retune cost, selected-band observations, detector hits, pre-decision beliefs, uncertainty, candidate scores, memory/periodicity evidence, change events, post-update beliefs and cumulative metrics. Evaluation fields are omitted from normal HTTP/WebSocket frames unless Judge View is explicitly requested.
 
-The seed controls the demonstration's array generation.
+Experiment JSON export is an **evaluation bundle** and includes truth for auditing. It is never a policy input. See [engineering and mathematical notes](docs/METHODOLOGY.md).
 
-Artifact replay reproduces the saved values exactly. Unique recording IDs and
-ingestion timestamps are metadata, not scientific result variation.
+## Offline replay and performance
 
-Artifact checksums are verified before preview and export.
+- SQLite indexes immutable compressed JSON traces with artifact and canonical-trace SHA-256 checksums.
+- Bundled benchmark traces are included, so their **Replay Run** buttons work on an empty local registry.
+- Deterministic replay means identical recorded scientific events; UUIDs and ingestion dates are metadata.
+- The frontend caps waterfalls to 128 recent slots and the cube to 180 slots with approximately 9,000 energy points maximum, plus bounded detection points and belief geometry.
+- Original recordings are not streamed every animation frame. The API sends incremental observations and summaries, with at most eight frames per WebSocket batch.
+- Simulation/benchmark work runs off the asyncio delivery loop using worker threads. It remains a local, single-process research application.
+- The 3D scene has a 2D fallback. A WebGL 2 scene, camera controls, mobile layout and all navigation have been exercised in Chromium.
 
-Tests compare array values, not generated identifiers or compressed-container
-timestamps.
+## Tests and validation
 
-## Testing
+```bash
+./run_tests.sh
 
-    bash run_tests.sh
+# Browser checks, including genuine WebGL and downloads
+npm exec --prefix frontend -- playwright install chromium
+npm --prefix frontend run test:e2e
+```
 
-Tests cover:
+Backend coverage includes truth isolation, counterfactual noninterference, receiver limits/dwell, seeded worlds, confidence-weighted beliefs, recurrence evidence, CUSUM, episodic memory, baselines/ablations, hand-calculated metrics, prospective forecast error, replay corruption, API/WebSockets, FITS, HDF5, missing channels and causal measured-data calibration.
 
-- Seed determinism.
-- Channel sorting and missing values.
-- Invalid axis rejection.
-- Recording serialization and exact array replay.
-- Strict JSON serialization.
-- Checksum mismatch detection.
-- Recording-ID path traversal rejection.
-- Explicit synthetic FITS fixture ingestion.
-- API health and export.
-- Bounded previews.
-- Explicitly labelled WebSocket playback.
+Browser tests exercise starting and pausing a live duel, ten-step explanations, measured exports, replay selection/scrubbing, all navigation, periodic candidates, WebGL 2 and camera controls, genuine measured-data inspection, truth-metric N/A behavior, benchmark execution and mobile/missing-data fallback. Screenshots above are captured from the running application.
 
-Frontend validation consists of TypeScript checking and Vite production build.
-No browser automation or screenshot tests are included.
+The current resolved FastAPI/Starlette test client emits upstream deprecation notices, and Vite reports the size of the Three.js vendor chunk. Neither is an application runtime error. See [docs/VALIDATION.md](docs/VALIDATION.md) for the checked state and remaining external prerequisite.
 
-## Performance
+## Repository layout
 
-- Recording import is capped at 2,000,000 cells.
-- Default preview is capped at 160 × 96 samples.
-- WebSocket playback sends at most 96 intensity values per frame.
-- The 3D view uses a single buffered point cloud with approximately 7,000 or
-  fewer displayed points.
-- Browser pixel ratio is capped for 3D rendering.
-- Original arrays remain available through export.
-- No raw dataset is repeatedly transmitted during playback.
+```text
+backend/
+  contracts.py           # complete, immutable policy input surface
+  environment/           # seeded worlds and common environment API
+  receiver.py            # energy-only bandwidth/dwell digital twin
+  scheduler/             # beliefs, memory, CUSUM, periodicity, policies
+  metrics.py             # evaluator-only metrics and definitions
+  experiments/           # fair runner, SQLite/trace registry, benchmarks
+  datasets/              # FITS/HDF5 adapters, provenance and calibration
+  api.py                 # HTTP, WebSocket and production static serving
+  tests/
+frontend/src/
+  components/ pages/     # command center, duel, research and explanation
+  stores/ hooks/         # live transport and replay state
+  visualizations/        # bounded observed/real-data canvases
+  charts/ three/         # statistical comparisons and intelligence cube
+data/
+  raw/ processed/        # runtime cache; source hashes and provenance
+  demo/                  # portable measured data, runs and benchmarks
+  experiments/           # local registry and new experiment artifacts
+scripts/ docs/
+```
 
-Uniform index sampling is intended for inspection and may omit narrow or brief
-features. It is not a substitute for analysis of the full original recording.
+## Limitations and future work
 
-## Limitations
+Performance depends on modeled source structure, detector assumptions, bandwidth, dwell and discretization. Public measured solar RF does not provide operational EW truth. Synthetic/public results are not field validation. Unpredictable sources impose fundamental interception limits. Component benefits are scenario-dependent, and recurrence confidence is not calibrated.
 
-- This is a research recording viewer, not a full receiver digital twin.
-- The synthetic demonstration is not a validated physical RF model.
-- e-CALLISTO observations do not provide labelled EW emitter ground truth.
-- The FITS adapter supports one explicit common layout, not every station
-  convention or arbitrary FITS schema.
-- Absolute time interpretation must be checked against source documentation.
-- Public synthetic radar integration is not implemented.
-- Checksums do not authenticate the origin of a downloaded source.
-- Backend storage has no user authentication or multi-user access controls.
-- No browser performance or accessibility audit has been executed.
-- Results must not be described as operational field validation.
-
-## Safe future extensions
-
-- Additional verified public recording formats.
-- Schema-specific dataset inspection.
-- Calibration metadata validation.
-- Large-recording chunking and multiresolution display artifacts.
-- Browser automation and accessibility testing.
-- Portable dependency locks after a tested installation.
-- Dataset licensing and citation manifests.
-- Better missing-channel visualization and uncertainty in measurement
-  calibration.
-
-## Validation status
-
-The source includes tests and build commands. Their execution is not claimed.
-
-Before demonstrating:
-
-1. Run setup.
-2. Run backend tests.
-3. Run frontend type checking and build.
-4. Start both services.
-5. Verify replay, pause, reset, scrub, and speed controls.
-6. Verify waterfall, profile, and 3D fallback.
-7. Export and reopen an NPZ artifact.
-8. Import an actual public FITS file if available.
-9. Confirm measured versus synthetic badges.
-10. Check browser console and backend logs.
-
-Screenshots are intentionally not included until the application has been run.
+The next research steps are calibrated SDR integration, hardware-in-the-loop experiments, multi-receiver cooperation, richer partially observable policies, broader measured datasets, decentralized sensing and long-duration edge evaluation. These are future extensions; the current application is a software research prototype.

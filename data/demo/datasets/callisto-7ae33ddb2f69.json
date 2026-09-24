@@ -1,0 +1,67 @@
+{
+  "id": "callisto-7ae33ddb2f69",
+  "name": "e-CALLISTO \u00b7 ALASKA-ANCHORAGE",
+  "organization": "e-CALLISTO / FHNW public archive",
+  "category": "REAL_MEASURED_RF",
+  "station": "ALASKA-ANCHORAGE",
+  "original_format": "FITS",
+  "source_file": "ALASKA-ANCHORAGE_20240510_160000_01.fit.gz",
+  "source_url": "https://soleil.i4ds.ch/solarradio/data/2002-20yy_Callisto/2024/05/10/ALASKA-ANCHORAGE_20240510_160000_01.fit.gz",
+  "source_sha256": "7ae33ddb2f697f7ef1623ef8f5d5e3610660f4facd3600cc8c823de5337b1a3a",
+  "time_start_utc": "2024-05-10T16:00:00.815000+00:00",
+  "raw_time_origin_s": 0.0,
+  "energy_unit": "digits",
+  "note": "Real measured RF replay \u2014 e-CALLISTO public spectrum observations. Used for ingestion and robustness demonstration, not labelled EW emitter ground truth.",
+  "license": "Public archive; retain station and e-CALLISTO attribution. See publisher terms.",
+  "lineage": [
+    "Original FITS + SHA-256",
+    "Primary image + FREQUENCY / TIME tables",
+    "Sort physical axes; merge duplicate channels",
+    "Retain NaN and irregular coordinates",
+    "Standardized sample Parquet",
+    "NPZ recording + provenance manifest"
+  ],
+  "preprocessing": {
+    "missing_values": "Preserved as NaN; never filled with zero",
+    "frequency_unit": "MHz (CALLISTO archive convention)",
+    "time_unit": "seconds in FITS \u2192 relative milliseconds",
+    "aggregation": "Duplicate frequencies averaged; no interpolation",
+    "raw_shape": [
+      200,
+      3600
+    ]
+  },
+  "status": "available",
+  "ingested_at": "2026-09-17T17:03:15.736963+00:00",
+  "artifact": "data/processed/callisto-7ae33ddb2f69.npz",
+  "artifact_sha256": "5c7cc5b7afb4ea7b800f46188f35986a7a9527670f26bf4ddaa05f94717839a0",
+  "artifact_bytes": 484680,
+  "shape": [
+    3600,
+    196
+  ],
+  "sample_count": 705600,
+  "valid_sample_count": 705600,
+  "missing_sample_count": 0,
+  "frequency_range_mhz": [
+    5.0,
+    65.875
+  ],
+  "time_range_ms": [
+    0.0,
+    899750.0
+  ],
+  "ground_truth": false,
+  "preprocessing_version": "aams-x/0.1.0",
+  "parquet": "data/processed/callisto-7ae33ddb2f69.parquet",
+  "parquet_sha256": "f3a37f198418ffe5411e1791ccd21701003c7001c1146e823b4aeb5716a5b183",
+  "source_sample_count": 705600,
+  "sample_columns": [
+    "timestamp_ms",
+    "frequency_mhz",
+    "intensity",
+    "station",
+    "source_file",
+    "timestamp_utc"
+  ]
+}
