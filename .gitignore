@@ -1,16 +1,36 @@
 .aider*
-.DS_Store
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
 .venv/
+venv/
 __pycache__/
 .pytest_cache/
+.mypy_cache/
 .ruff_cache/
+.hypothesis/
+*.py[cod]
 *.pyc
-.env
+.coverage
+htmlcov/
+*.egg-info/
+
+# Frontend dependencies and generated builds
 frontend/node_modules/
 frontend/dist/
 frontend/test-results/
 frontend/playwright-report/
 frontend/*.tsbuildinfo
+web/node_modules/
+web/dist/
+node_modules/
+dist/
+
+# Generated/local data
 data/experiments-e2e/
 data/raw/*
 !data/raw/.gitkeep
@@ -18,10 +38,20 @@ data/experiments/*
 !data/experiments/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+
+# Temporary and operating-system files
+.tmp/
+tmp/
+.DS_Store
 *.log
-*.egg-info/
-presentations/.venv/
-presentations/rendered/
+output/.DS_Store
 .alphax-build/
 .chart-data-*/
-output/.DS_Store
+
+# Presentation workspaces
+presentations/.venv/
+presentations/rendered/
+
+# IDE-local settings
+.idea/
+.vscode/

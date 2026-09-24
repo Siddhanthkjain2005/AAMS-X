@@ -4,25 +4,53 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aams-x"
-version = "0.1.0"
-description = "Reproducible, observation-only spectrum scheduling research workbench"
+version = "1.0.0"
+description = "AAMS-X adaptive spectrum scheduling research workbench"
+readme = "README.md"
 requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "AAMS-X" }]
 dependencies = [
-  "fastapi>=0.115,<1", "uvicorn[standard]>=0.34,<1",
-  "pydantic>=2.10,<3", "numpy>=2.1,<3", "scipy>=1.14,<2",
-  "pandas>=2.2,<3", "pyarrow>=19,<24", "h5py>=3.12,<4",
-  "astropy>=7,<8", "httpx>=0.28,<1",
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic>=2.10,<3",
+  "pydantic-settings>=2.4",
+  "numpy>=2.1,<3",
+  "scipy>=1.14,<2",
+  "pandas>=2.2,<3",
+  "pyarrow>=19,<24",
+  "h5py>=3.12,<4",
+  "astropy>=7,<8",
+  "duckdb>=1.0",
+  "scikit-learn>=1.5",
+  "jinja2>=3.1",
+  "httpx>=0.28,<1",
+  "websockets>=12.0",
+  "python-multipart>=0.0.9",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.3,<10", "ruff>=0.11,<1"]
+neural = ["torch>=2.3"]
+dev = [
+  "pytest>=8.3,<10",
+  "pytest-asyncio>=0.23",
+  "hypothesis>=6.100",
+  "ruff>=0.11,<1",
+  "mypy>=1.10",
+]
+
+[project.scripts]
+aamsx = "aamsx.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["backend*"]
+include = ["backend*", "aamsx*"]
 
 [tool.pytest.ini_options]
-testpaths = ["backend/tests"]
+testpaths = ["backend/tests", "tests"]
 pythonpath = ["."]
+asyncio_mode = "auto"
+filterwarnings = ["ignore::DeprecationWarning"]
+markers = ["network: requires internet access", "slow: long running"]
 
 [tool.ruff]
 line-length = 110
@@ -30,3 +58,12 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "I"]
+ignore = ["B008", "RUF012"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/verify_docs.py" = ["RUF001"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_ignores = true
+ignore_missing_imports = true

@@ -1,0 +1,14 @@
+{
+  "station": "SWISS-Landschlacht",
+  "freq_min": 45.0,
+  "freq_max": 174.56300354003906,
+  "cadence": 0.25,
+  "time_bin": 4,
+  "occupancy": 0.09886536747217178,
+  "live_channels": 82,
+  "n_source_files": 49,
+  "source_url": "http://soleil.i4ds.ch/solarradio/data/2002-20yy_Callisto/2026/08/25/",
+  "retrieved_at": "2026-08-27T08:22:26.790655+00:00",
+  "checksum": "0ec3b607e9f36106580cf7a7c163105b",
+  "notes": "Landschlacht, Switzerland (Europe) \u2014 VHF incl. FM broadcast. Dense European VHF: strong persistent broadcast carriers with intermittent activity between them \u2014 the clearest 'some regions are always worth watching, most are not' example."
+}

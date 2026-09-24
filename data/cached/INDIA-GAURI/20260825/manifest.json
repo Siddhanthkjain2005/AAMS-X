@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "station": "INDIA-GAURI",
+  "day": "20260825",
+  "n_times": 172771,
+  "n_channels": 200,
+  "cadence_sec": 0.25,
+  "epoch_utc": "2026-08-25T06:00:00+00:00",
+  "db_per_digit": 0.25,
+  "occupancy_threshold_db": 1.5,
+  "occupancy_k_mad": 5.0,
+  "baseline_percentile": 10.0,
+  "calibration": {
+    "block_size": 2400,
+    "n_blocks": 71,
+    "db_per_digit": 0.25,
+    "percentile": 10.0,
+    "k_mad": 5.0,
+    "min_excess_db": 1.5,
+    "median_noise_db": 0.2621,
+    "median_threshold_db": 1.5
+  },
+  "freq_min_mhz": 30.0,
+  "freq_max_mhz": 89.93800354003906,
+  "occupancy": 0.06186848506331444,
+  "live_channels": 134,
+  "dead_channels": 1,
+  "provenance": {
+    "adapter": "e-callisto",
+    "source_id": "INDIA-GAURI/02@2026-08-25T06:00Z",
+    "source_url": "http://soleil.i4ds.ch/solarradio/data/2002-20yy_Callisto/2026/08/25/",
+    "retrieved_at": "2026-08-27T08:21:57.501497+00:00",
+    "observed_from": "2026-08-25T06:00:00+00:00",
+    "observed_to": "2026-08-25T17:59:59.750000+00:00",
+    "n_source_files": 48,
+    "n_samples": 34554200,
+    "freq_resolution_khz": 312.0002746582031,
+    "time_resolution_sec": 0.25,
+    "preprocessing": [
+      "digits->dB using 0.25 dB/digit (e-CALLISTO nominal scale)",
+      "drift-tracking baseline = P10 inside 2400 sample blocks, interpolated between block centres",
+      "excess power = measured - baseline (receiver-independent units)",
+      "per-sample noise scale = 1.4826 * MAD(diff(power)) / sqrt(2)",
+      "occupancy label = excess > max(1.5 dB, 5.0 * noise) -- reference label, not absolute truth",
+      "focus code 02 pinned (station publishes interleaved sweeps)",
+      "flagged 1 constant (dead) receiver channels"
+    ],
+    "license": "Public scientific data \u2014 free use with attribution (e-callisto.org)",
+    "reference": "Benz, Monstein & Meyer (2005), 'CALLISTO \u2014 A New Concept for Solar Radio Spectrometers', Solar Physics 226, 143; e-CALLISTO network, e-callisto.org",
+    "checksum": "44fd56f400927040be966965c0157da7",
+    "is_synthetic": false,
+    "notes": "Gauribidanur, India (Asia) \u2014 low VHF. Densest live-channel count in the cache and the only station publishing a full 24 h. Persistent carriers, intermittent utility traffic and quiet guard bands coexist in one recording.",
+    "gaps": [
+      [
+        "2026-08-25T08:14:57.250000+00:00",
+        "2026-08-25T08:15:00+00:00"
+      ],
+      [
+        "2026-08-25T12:14:57.250000+00:00",
+        "2026-08-25T12:15:00+00:00"
+      ],
+      [
+        "2026-08-25T16:14:57.250000+00:00",
+        "2026-08-25T16:15:00+00:00"
+      ]
+    ]
+  }
+}

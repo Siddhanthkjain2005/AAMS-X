@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{ title }}</title>
+<style>
+  :root {
+    --bg: #0b0f14; --panel: #111820; --line: #1e2a36; --ink: #e6edf3;
+    --muted: #8b9bab; --accent: #4fd1c5; --warn: #f0b429; --bad: #f2686b; --good: #63c98b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.55
+    ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 40px 28px 80px; }
+  h1 { font-size: 26px; letter-spacing: -0.01em; margin: 0 0 6px; }
+  h2 { font-size: 18px; margin: 40px 0 12px; padding-bottom: 8px;
+       border-bottom: 1px solid var(--line); }
+  h3 { font-size: 14px; margin: 24px 0 8px; color: var(--muted);
+       text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+  .sub { color: var(--muted); margin: 0 0 4px; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+           padding: 18px 20px; margin: 14px 0; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+  .spark { width: 100%; height: 90px; }
+  .spark polyline { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px;
+         border: 1px solid var(--line); color: var(--muted); margin-right: 6px; }
+  .ev { display: grid; grid-template-columns: 68px 1fr; gap: 10px; padding: 5px 0;
+        border-bottom: 1px dashed var(--line); }
+  .ev .step { color: var(--muted); }
+  .critical { color: var(--bad); } .insight { color: var(--accent); }
+  .warning { color: var(--warn); } .success { color: var(--good); }
+  .note { color: var(--muted); font-size: 12px; }
+  .frontier { color: var(--good); font-weight: 600; }
+  ul { margin: 6px 0 0 18px; padding: 0; }
+  .kv { display: grid; grid-template-columns: 200px 1fr; gap: 4px 14px; }
+  .kv dt { color: var(--muted); } .kv dd { margin: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>{{ title }}</h1>
+  <p class="sub">Generated {{ generated_at }} · AAMS-X {{ code_version }} · scheduler
+    {{ scheduler_version }}</p>
+  <p class="note">
+    Every figure in this report was produced by an executed experiment and read back from
+    its stored trace. Environments are replays of real public e-CALLISTO spectrum
+    measurements; occupancy labels are derived from measured power by a documented
+    threshold and are reference labels, not absolute ground truth. Metrics that were not
+    measured are printed as “not measured” rather than estimated.
+  </p>
+  {% if notes %}<div class="panel"><h3>Notes</h3><p>{{ notes }}</p></div>{% endif %}
+
+  {% for section in sections %}
+  <h2>{{ loop.index }}. {{ section.title }}</h2>
+  {% if section.kind == 'missing' %}
+    <div class="panel"><p class="warning">{{ section.payload.reason }}</p></div>
+  {% elif section.kind == 'episode' %}
+    {% set p = section.payload %}
+    <div class="panel">
+      <h3>Configuration</h3>
+      <dl class="kv">
+        <dt>Scenario</dt><dd>{{ p.scenario.name }} <span class="tag">{{ p.scenario.family }}</span>
+          <span class="tag">split: {{ p.scenario.split }}</span></dd>
+        <dt>Description</dt><dd>{{ p.scenario.description }}</dd>
+        <dt>Real recordings</dt><dd class="mono">
+          {% for s in p.scenario.segments %}{{ s.recording_id }} @ +{{ s.start_step }}
+          ({{ s.n_steps }} steps{% if s.phase %}, phase {{ s.phase }}{% endif %})<br />{% endfor %}
+        </dd>
+        <dt>Geometry</dt><dd>{{ p.scenario.n_regions }} regions · window
+          {{ p.scenario.receiver.window_size }} · time bin {{ p.scenario.time_bin }} ·
+          horizon {{ p.scenario.horizon }}</dd>
+        <dt>Receiver</dt><dd>{{ p.scenario.receiver.noise_db }} dB dwell noise ·
+          switch cost {{ p.scenario.receiver.switch_cost }}</dd>
+        <dt>Reward weights</dt><dd class="mono">{{ p.scenario.reward }}</dd>
+        <dt>Budget</dt><dd>{{ p.scenario.effective_budget }}</dd>
+        <dt>Seed / ablation</dt><dd class="mono">{{ p.record.seed }} / {{ p.flags }}</dd>
+        <dt>Config hash</dt><dd class="mono">{{ p.record.config_hash }}</dd>
+        <dt>Experiment id</dt><dd class="mono">{{ p.record.experiment_id }}</dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <h3>Measured metrics</h3>
+      <table>
+        <thead><tr><th>Metric</th><th>Value</th><th>Direction</th></tr></thead>
+        <tbody>
+        {% for row in p.metrics %}
+          <tr><td>{{ row.label }}</td><td class="mono">{{ row.value }}</td>
+              <td class="note">{{ row.direction }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <p class="note">Decision latency p50 {{ p.decision_ms.p50 }} ms · p99
+        {{ p.decision_ms.p99 }} ms</p>
+    </div>
+    <div class="panel">
+      <h3>Cumulative reward</h3>{{ p.reward_curve | sparkline }}
+      <h3>Cumulative regret</h3>{{ p.regret_curve | sparkline }}
+    </div>
+    {% if p.segments %}
+    <div class="panel">
+      <h3>Per-phase detection</h3>
+      <table>
+        <thead><tr><th>Phase</th><th>Station</th><th>Archetype</th><th>True occupancy</th>
+          <th>Mean hits/step</th></tr></thead>
+        <tbody>
+        {% for s in p.segments %}
+          <tr><td>{{ s.phase }}</td><td>{{ s.station }}</td><td>{{ s.archetype }}</td>
+            <td class="mono">{{ s.true_occupancy }}</td><td class="mono">{{ s.mean_hits }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+    {% if p.recovery.change_points %}
+    <div class="panel">
+      <h3>Recovery after ground-truth phase boundaries</h3>
+      <ul>
+      {% for cp in p.recovery.change_points %}
+        <li>step {{ cp.change_step }}:
+          {% if cp.recovered %}recovered after {{ cp.recovered_after }} steps
+          {% else %}<span class="warning">had not recovered by the end of the episode</span>
+          {% endif %}</li>
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if p.timeline %}
+    <div class="panel">
+      <h3>Timeline (critical, insight and warning events)</h3>
+      {% for e in p.timeline %}
+        <div class="ev"><span class="step mono">{{ e.step }}</span>
+          <span class="{{ e.severity }}">{{ e.message }}</span></div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% else %}
+    {% set p = section.payload %}
+    <div class="panel">
+      <h3>Configuration</h3>
+      <dl class="kv">
+        <dt>Scenario</dt><dd>{{ p.scenario.name }} — {{ p.scenario.description }}</dd>
+        <dt>Runs per variant</dt><dd class="mono">{{ p.n_runs }}</dd>
+        <dt>Real recordings</dt><dd class="mono">
+          {% for s in p.scenario.segments %}{{ s.recording_id }} @ +{{ s.start_step }}<br />
+          {% endfor %}</dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <h3>Multi-seed means (± half of the 95% CI)</h3>
+      <table>
+        <thead><tr><th>Variant</th>{% for h in p.headers %}<th>{{ h }}</th>{% endfor %}</tr></thead>
+        <tbody>
+        {% for row in p.table %}
+          <tr><td>{{ row.variant }}</td>
+          {% for c in row.cells %}<td class="mono">{{ c.mean }} <span class="note">{{ c.ci }}</span></td>{% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if p.comparisons %}
+    <div class="panel">
+      <h3>Significance tests</h3>
+      <table>
+        <thead><tr><th>Metric</th><th>Treatment</th><th>vs</th><th>Δ</th><th>rel.</th>
+          <th>Welch p</th><th>Mann-Whitney p</th><th>Cohen d</th><th>verdict</th></tr></thead>
+        <tbody>
+        {% for c in p.comparisons %}
+          <tr><td>{{ c.metric }}</td><td>{{ c.treatment }}</td><td>{{ c.control }}</td>
+            <td class="mono">{{ '%+.3f' % c.difference }}</td>
+            <td class="mono">{{ '%+.1f%%' % (100 * c.relative) if c.relative == c.relative else 'n/a' }}</td>
+            <td class="mono">{{ '%.4f' % c.welch_p }}</td>
+            <td class="mono">{{ '%.4f' % c.mannwhitney_p if c.mannwhitney_p == c.mannwhitney_p else 'n/a' }}</td>
+            <td class="mono">{{ '%+.2f' % c.cohens_d if c.cohens_d == c.cohens_d else 'n/a' }}</td>
+            <td class="{{ 'good' if c.significant else 'note' }}">
+              {{ 'significant' if c.significant else 'not significant' }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <p class="note">Two tests are reported because they answer different questions: Welch
+        compares means without assuming equal variance, Mann-Whitney compares distributions
+        without assuming normality. The verdict requires <em>both</em> below &alpha; = 0.05,
+        so a difference Welch alone would call significant is reported here as not
+        significant — where they disagree, the metric is skewed.</p>
+    </div>
+    {% endif %}
+    {% if p.pareto.points %}
+    <div class="panel">
+      <h3>Pareto frontier</h3>
+      <p class="note">Objectives:
+        {% for o in p.pareto.objectives %}{{ o.label }} ({{ o.direction }}){% if not loop.last %} · {% endif %}{% endfor %}
+      </p>
+      <table>
+        <thead><tr><th>Variant</th><th>On frontier</th><th>Dominated by</th></tr></thead>
+        <tbody>
+        {% for pt in p.pareto.points %}
+          <tr><td>{{ pt.label }}</td>
+            <td class="{{ 'frontier' if pt.on_frontier else 'note' }}">
+              {{ 'yes' if pt.on_frontier else 'no' }}</td>
+            <td class="note">{{ pt.dominated_by | join(', ') or '—' }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  {% endif %}
+  {% endfor %}
+
+  <h2>Limitations</h2>
+  <div class="panel">
+    <ul>
+      <li>Occupancy labels are thresholded measurements, not verified ground truth. A cell
+        near its decision threshold may be mislabelled either way.</li>
+      <li>Regions are abstract equal-channel-count slices of whichever band the current
+        receiver covers, so region <em>i</em> means different frequencies in different
+        segments. That is what makes cross-station splicing meaningful, and it is also why
+        no frequency-specific claim should be read out of these results.</li>
+      <li>Results are conditional on the reward weights printed above. The ranking of
+        policies changes with them; the Pareto section exists so the trade-off is visible
+        instead of hidden inside one scalar.</li>
+      <li>AAMS-X measures scheduling on replayed public science data. It makes no claim
+        about operational interception performance.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
