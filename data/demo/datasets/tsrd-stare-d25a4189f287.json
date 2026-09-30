@@ -1,0 +1,91 @@
+{
+  "id": "tsrd-stare-d25a4189f287",
+  "name": "TSRD \u00b7 stare \u00b7 tsrd_val_stare_config_0",
+  "organization": "The Alan Turing Institute",
+  "category": "OFFICIAL_SYNTHETIC_RADAR",
+  "original_format": "HDF5 Pulse Descriptor Words",
+  "source_url": "https://huggingface.co/datasets/alan-turing-institute/turing-synthetic-radar-dataset",
+  "source_file": "tsrd_val_stare_config_0.h5",
+  "source_sha256": "d25a4189f287ca044f46718baea7471eb1f9ab766b7715c738bb8edf8ac1e474",
+  "receiver_mode": "stare",
+  "source_metadata": {
+    "collection_time_s": 30.0,
+    "date_created": "2026-02-25T22:00:13.510312",
+    "description": "Synthetic PDWs generated from emitter library",
+    "num_pulses": 648034,
+    "type": "synthetic"
+  },
+  "energy_unit": "PDW amplitude (dB)",
+  "emitter_labels_available": true,
+  "pulse_count": 648034,
+  "original_pulse_count": 648034,
+  "truncated": false,
+  "license": "Apache-2.0 (publisher dataset card)",
+  "note": "Official synthetic radar benchmark. Evaluation truth is occupancy of retained stare-mode pulses, not a claim of uncensored physical transmissions.",
+  "lineage": [
+    "Authorized publisher HDF5 + SHA-256",
+    "Validate feature order / documented units",
+    "Chunked PDW reads (100k rows)",
+    "Sort ToA; bounded prefix with explicit time range",
+    "Time-slot \u00d7 frequency-band occupancy",
+    "Retain PDW features / emitter labels in Parquet",
+    "NPZ + provenance manifest"
+  ],
+  "preprocessing": {
+    "slots": 512,
+    "bands": 64,
+    "max_pulses": 1000000,
+    "column_order": [
+      "ToA",
+      "Frequency",
+      "PulseWidth",
+      "AoA",
+      "Amplitude"
+    ],
+    "time_origin_us": 1168384.625,
+    "time_duration_us": 25580114.375,
+    "frequency_bounds_mhz": [
+      0,
+      18000
+    ],
+    "occupancy": "At least one retained pulse in a time-frequency cell",
+    "amplitude": "Maximum pulse amplitude per cell",
+    "labels": "Emitter IDs are local to this pulse train only",
+    "energy_for_receiver": "Synthetic energy/noise model over PDW occupancy; original amplitude retained for inspection"
+  },
+  "status": "available",
+  "ingested_at": "2026-09-28T11:25:42.761989+00:00",
+  "artifact": "data/processed/tsrd-stare-d25a4189f287.npz",
+  "artifact_sha256": "d285c4ce86ae01eef2af4c90f3d97b6654c21843e4d0ce4919be41474ae3ea24",
+  "artifact_bytes": 21326,
+  "shape": [
+    512,
+    64
+  ],
+  "sample_count": 32768,
+  "valid_sample_count": 3929,
+  "missing_sample_count": 28839,
+  "frequency_range_mhz": [
+    140.625,
+    17859.375
+  ],
+  "time_range_ms": [
+    0.0,
+    25530.153214111328
+  ],
+  "ground_truth": true,
+  "preprocessing_version": "aams-x/0.1.0",
+  "parquet": "data/processed/tsrd-stare-d25a4189f287.parquet",
+  "parquet_sha256": "4325fa1b4d37f095400dc5500d785069a3dc02ea4e9229f29b97a4b8dbf9a8ec",
+  "source_sample_count": 648034,
+  "sample_columns": [
+    "toa_us",
+    "frequency_mhz",
+    "pulse_width_us",
+    "aoa_deg",
+    "amplitude_db",
+    "emitter_id",
+    "time_slot",
+    "frequency_band"
+  ]
+}

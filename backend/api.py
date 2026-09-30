@@ -286,7 +286,7 @@ def create_app(registry_directory: Path | None = None) -> FastAPI:
         runtime = app.state.runtime
         if any(job.state == "running" for job in runtime.benchmarks.values()):
             raise HTTPException(409, "A benchmark is already running on this local instance")
-        if any(s not in {p["id"] for p in SCENARIOS} for s in config.scenarios):
+        if config.dataset_id == "simulation" and any(s not in {p["id"] for p in SCENARIOS} for s in config.scenarios):
             raise ValueError("Unknown benchmark scenario")
         job = Benchmark(config, runtime.registry)
         runtime.benchmarks[job.id] = job

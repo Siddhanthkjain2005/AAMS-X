@@ -1,0 +1,5234 @@
+{
+  "id": "BENCH-656B8275C4",
+  "created_at": "2026-09-30T01:17:31.833007+00:00",
+  "state": "completed",
+  "error": null,
+  "completed": 6,
+  "total": 6,
+  "config": {
+    "scenarios": [
+      "recording"
+    ],
+    "seed": 42,
+    "runs": 6,
+    "horizon": 240,
+    "receiver": {
+      "bands": 64,
+      "window_width": 16,
+      "frequency_min_mhz": 2000.0,
+      "frequency_max_mhz": 6000.0,
+      "slot_ms": 100.0,
+      "min_dwell_ms": 10.0,
+      "retune_ms": 8.0,
+      "scan_latency_ms": 1.0,
+      "noise_floor_db": -96.0,
+      "noise_std_db": 1.4,
+      "threshold_db": 5.0,
+      "snr_db": 12.0,
+      "false_alarm_probability": 0.003,
+      "miss_probability": 0.03,
+      "switching_cost": 0.3
+    },
+    "algorithms": [
+      "magnts",
+      "no_memory",
+      "no_information",
+      "no_change",
+      "thompson",
+      "fixed",
+      "random",
+      "ucb"
+    ],
+    "dataset_id": "tsrd-stare-d25a4189f287"
+  },
+  "results": [
+    {
+      "experiment_id": "AX-510665029156",
+      "scenario": "recording",
+      "seed": 42,
+      "environment_hash": "ee3f612b4509ce985ccd7f13b8855151e167665dcc7b0a592d7092bb1edf36e6",
+      "effective_receiver": {
+        "bands": 64,
+        "window_width": 16,
+        "frequency_min_mhz": 0.0,
+        "frequency_max_mhz": 18000.0,
+        "slot_ms": 106.58380989583333,
+        "min_dwell_ms": 10.0,
+        "retune_ms": 8.0,
+        "scan_latency_ms": 1.0,
+        "noise_floor_db": -96.0,
+        "noise_std_db": 1.4,
+        "threshold_db": 5.0,
+        "snr_db": 12.0,
+        "false_alarm_probability": 0.003,
+        "miss_probability": 0.03,
+        "switching_cost": 0.3
+      },
+      "dataset": {
+        "id": "tsrd-stare-d25a4189f287",
+        "name": "TSRD \u00b7 stare \u00b7 tsrd_val_stare_config_0",
+        "organization": "The Alan Turing Institute",
+        "category": "OFFICIAL_SYNTHETIC_RADAR",
+        "original_format": "HDF5 Pulse Descriptor Words",
+        "source_url": "https://huggingface.co/datasets/alan-turing-institute/turing-synthetic-radar-dataset",
+        "source_file": "tsrd_val_stare_config_0.h5",
+        "source_sha256": "d25a4189f287ca044f46718baea7471eb1f9ab766b7715c738bb8edf8ac1e474",
+        "receiver_mode": "stare",
+        "source_metadata": {
+          "collection_time_s": 30.0,
+          "date_created": "2026-02-25T22:00:13.510312",
+          "description": "Synthetic PDWs generated from emitter library",
+          "num_pulses": 648034,
+          "type": "synthetic"
+        },
+        "energy_unit": "simulated receiver dB over PDW-derived occupancy",
+        "emitter_labels_available": true,
+        "pulse_count": 648034,
+        "original_pulse_count": 648034,
+        "truncated": false,
+        "license": "Apache-2.0 (publisher dataset card)",
+        "note": "Official synthetic radar benchmark. Evaluation truth is occupancy of retained stare-mode pulses, not a claim of uncensored physical transmissions.",
+        "lineage": [
+          "Authorized publisher HDF5 + SHA-256",
+          "Validate feature order / documented units",
+          "Chunked PDW reads (100k rows)",
+          "Sort ToA; bounded prefix with explicit time range",
+          "Time-slot \u00d7 frequency-band occupancy",
+          "Retain PDW features / emitter labels in Parquet",
+          "NPZ + provenance manifest"
+        ],
+        "preprocessing": {
+          "slots": 512,
+          "bands": 64,
+          "max_pulses": 1000000,
+          "column_order": [
+            "ToA",
+            "Frequency",
+            "PulseWidth",
+            "AoA",
+            "Amplitude"
+          ],
+          "time_origin_us": 1168384.625,
+          "time_duration_us": 25580114.375,
+          "frequency_bounds_mhz": [
+            0,
+            18000
+          ],
+          "occupancy": "At least one retained pulse in a time-frequency cell",
+          "amplitude": "Maximum pulse amplitude per cell",
+          "labels": "Emitter IDs are local to this pulse train only",
+          "energy_for_receiver": "Synthetic energy/noise model over PDW occupancy; original amplitude retained for inspection"
+        },
+        "status": "available",
+        "ingested_at": "2026-09-28T11:25:42.761989+00:00",
+        "artifact": "data/processed/tsrd-stare-d25a4189f287.npz",
+        "artifact_sha256": "d285c4ce86ae01eef2af4c90f3d97b6654c21843e4d0ce4919be41474ae3ea24",
+        "artifact_bytes": 21326,
+        "shape": [
+          512,
+          64
+        ],
+        "sample_count": 32768,
+        "valid_sample_count": 3929,
+        "missing_sample_count": 28839,
+        "frequency_range_mhz": [
+          140.625,
+          17859.375
+        ],
+        "time_range_ms": [
+          0.0,
+          25530.153214111328
+        ],
+        "ground_truth": true,
+        "preprocessing_version": "aams-x/0.1.0",
+        "parquet": "data/processed/tsrd-stare-d25a4189f287.parquet",
+        "parquet_sha256": "4325fa1b4d37f095400dc5500d785069a3dc02ea4e9229f29b97a4b8dbf9a8ec",
+        "source_sample_count": 648034,
+        "sample_columns": [
+          "toa_us",
+          "frequency_mhz",
+          "pulse_width_us",
+          "aoa_deg",
+          "amplitude_db",
+          "emitter_id",
+          "time_slot",
+          "frequency_band"
+        ],
+        "time_resolution_ms": 106.58380989583333,
+        "calibration_slots": 0,
+        "calibration_excluded_from_evaluation": false,
+        "evaluation_time_offset_ms": 0.0,
+        "raw_energy_unit": "PDW amplitude (dB)",
+        "regridding": "Mean measured intensity; OR aggregation of labelled pulse occupancy. Empty measured bins stay NaN."
+      },
+      "metrics": {
+        "magnts": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1119,
+          "true_positives": 1029,
+          "false_positives": 90,
+          "false_negatives_observed": 76,
+          "true_negatives": 2645,
+          "total_active_cells": 2001,
+          "missed_active_cells": 972,
+          "pd": 0.931222,
+          "pfa": 0.032907,
+          "recall": 0.514243,
+          "avg_interception_rate": 0.5081049737299738,
+          "average_reward": 3.905779,
+          "reward_cost": 3.659811,
+          "prediction_accuracy": 0.919271,
+          "avg_intercept_time_ms": 110.84716229166666,
+          "avg_intercept_time_error_ms": 627.017327358631,
+          "interception_ratio": 0.588235,
+          "intercepted_episodes": 100,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.411765,
+          "scan_efficiency": 0.28776,
+          "active_scan_fraction": 0.9125,
+          "retune_count": 84,
+          "retune_cost": 16.129898,
+          "total_cost": 256.129898,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.629625,
+          "coverage": 1.0,
+          "exploration_fraction": 0.1125,
+          "mean_observation_confidence": 0.937223,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 7,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.485757
+        },
+        "no_memory": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1096,
+          "true_positives": 1020,
+          "false_positives": 76,
+          "false_negatives_observed": 72,
+          "true_negatives": 2672,
+          "total_active_cells": 2001,
+          "missed_active_cells": 981,
+          "pd": 0.934066,
+          "pfa": 0.027656,
+          "recall": 0.509745,
+          "avg_interception_rate": 0.4946745384245384,
+          "average_reward": 3.926589,
+          "reward_cost": 3.6785,
+          "prediction_accuracy": 0.914844,
+          "avg_intercept_time_ms": 140.1913175206456,
+          "avg_intercept_time_error_ms": 399.74257901432287,
+          "interception_ratio": 0.652941,
+          "intercepted_episodes": 111,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.347059,
+          "scan_efficiency": 0.284375,
+          "active_scan_fraction": 0.9,
+          "retune_count": 87,
+          "retune_cost": 16.186322,
+          "total_cost": 256.186322,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.62074,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0875,
+          "mean_observation_confidence": 0.941287,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 20,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.490255
+        },
+        "no_information": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1164,
+          "true_positives": 1076,
+          "false_positives": 88,
+          "false_negatives_observed": 75,
+          "true_negatives": 2601,
+          "total_active_cells": 2001,
+          "missed_active_cells": 925,
+          "pd": 0.934839,
+          "pfa": 0.032726,
+          "recall": 0.537731,
+          "avg_interception_rate": 0.5250336353461353,
+          "average_reward": 4.111556,
+          "reward_cost": 3.911633,
+          "prediction_accuracy": 0.902083,
+          "avg_intercept_time_ms": 99.58195377128955,
+          "avg_intercept_time_error_ms": 165.2049053385429,
+          "interception_ratio": 0.805882,
+          "intercepted_episodes": 137,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.194118,
+          "scan_efficiency": 0.29974,
+          "active_scan_fraction": 0.933333,
+          "retune_count": 66,
+          "retune_cost": 12.266348,
+          "total_cost": 252.266348,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.56375,
+          "coverage": 1.0,
+          "exploration_fraction": 0.116667,
+          "mean_observation_confidence": 0.937002,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 2,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.46226900000000004
+        },
+        "no_change": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1101,
+          "true_positives": 1013,
+          "false_positives": 88,
+          "false_negatives_observed": 72,
+          "true_negatives": 2667,
+          "total_active_cells": 2001,
+          "missed_active_cells": 988,
+          "pd": 0.933641,
+          "pfa": 0.031942,
+          "recall": 0.506247,
+          "avg_interception_rate": 0.49379035316535325,
+          "average_reward": 3.846815,
+          "reward_cost": 3.583394,
+          "prediction_accuracy": 0.908594,
+          "avg_intercept_time_ms": 102.48443259214743,
+          "avg_intercept_time_error_ms": 946.4642318749997,
+          "interception_ratio": 0.611765,
+          "intercepted_episodes": 104,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.388235,
+          "scan_efficiency": 0.282552,
+          "active_scan_fraction": 0.904167,
+          "retune_count": 91,
+          "retune_cost": 17.642806,
+          "total_cost": 257.642806,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.640772,
+          "coverage": 1.0,
+          "exploration_fraction": 0.108333,
+          "mean_observation_confidence": 0.937663,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 3,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.493753
+        },
+        "thompson": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1190,
+          "true_positives": 1117,
+          "false_positives": 73,
+          "false_negatives_observed": 74,
+          "true_negatives": 2576,
+          "total_active_cells": 2001,
+          "missed_active_cells": 884,
+          "pd": 0.937867,
+          "pfa": 0.027558,
+          "recall": 0.558221,
+          "avg_interception_rate": 0.5442420889295889,
+          "average_reward": 4.345975,
+          "reward_cost": 4.177807,
+          "prediction_accuracy": 0.900521,
+          "avg_intercept_time_ms": 10.263626138117282,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.794118,
+          "intercepted_episodes": 135,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.205882,
+          "scan_efficiency": 0.310156,
+          "active_scan_fraction": 0.941667,
+          "retune_count": 75,
+          "retune_cost": 9.660623,
+          "total_cost": 249.660623,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.305115,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.942416,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.44177900000000003
+        },
+        "fixed": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 542,
+          "true_positives": 433,
+          "false_positives": 109,
+          "false_negatives_observed": 67,
+          "true_negatives": 3231,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1568,
+          "pd": 0.866,
+          "pfa": 0.032635,
+          "recall": 0.216392,
+          "avg_interception_rate": 0.21591373903873906,
+          "average_reward": 1.32765,
+          "reward_cost": 1.085129,
+          "prediction_accuracy": 0.926823,
+          "avg_intercept_time_ms": 143.01118796149788,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.464706,
+          "intercepted_episodes": 79,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.535294,
+          "scan_efficiency": 0.130208,
+          "active_scan_fraction": 0.708333,
+          "retune_count": 239,
+          "retune_cost": 53.638935,
+          "total_cost": 293.638935,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 1.0,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.930387,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.783608
+        },
+        "random": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 595,
+          "true_positives": 492,
+          "false_positives": 103,
+          "false_negatives_observed": 62,
+          "true_negatives": 3183,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1509,
+          "pd": 0.888087,
+          "pfa": 0.031345,
+          "recall": 0.245877,
+          "avg_interception_rate": 0.2468116143116143,
+          "average_reward": 1.603226,
+          "reward_cost": 1.363203,
+          "prediction_accuracy": 0.927865,
+          "avg_intercept_time_ms": 177.17828138528137,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.452941,
+          "intercepted_episodes": 77,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.547059,
+          "scan_efficiency": 0.144271,
+          "active_scan_fraction": 0.645833,
+          "retune_count": 235,
+          "retune_cost": 42.257451,
+          "total_cost": 282.257451,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.838458,
+          "coverage": 1.0,
+          "exploration_fraction": 1.0,
+          "mean_observation_confidence": 0.933716,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.754123
+        },
+        "ucb": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 890,
+          "true_positives": 799,
+          "false_positives": 91,
+          "false_negatives_observed": 100,
+          "true_negatives": 2850,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1202,
+          "pd": 0.888765,
+          "pfa": 0.030942,
+          "recall": 0.3993,
+          "avg_interception_rate": 0.39669819763569764,
+          "average_reward": 2.930187,
+          "reward_cost": 2.445634,
+          "prediction_accuracy": 0.907813,
+          "avg_intercept_time_ms": 100.43474394030449,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.611765,
+          "intercepted_episodes": 104,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.388235,
+          "scan_efficiency": 0.234115,
+          "active_scan_fraction": 0.825,
+          "retune_count": 234,
+          "retune_cost": 47.551143,
+          "total_cost": 287.551143,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.819835,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.928522,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.6007
+        }
+      }
+    },
+    {
+      "experiment_id": "AX-B070C86691B1",
+      "scenario": "recording",
+      "seed": 43,
+      "environment_hash": "ecb22092f05d34229452fb9158c2904692763ac50a8b3ff8f56c40f7ea31a720",
+      "effective_receiver": {
+        "bands": 64,
+        "window_width": 16,
+        "frequency_min_mhz": 0.0,
+        "frequency_max_mhz": 18000.0,
+        "slot_ms": 106.58380989583333,
+        "min_dwell_ms": 10.0,
+        "retune_ms": 8.0,
+        "scan_latency_ms": 1.0,
+        "noise_floor_db": -96.0,
+        "noise_std_db": 1.4,
+        "threshold_db": 5.0,
+        "snr_db": 12.0,
+        "false_alarm_probability": 0.003,
+        "miss_probability": 0.03,
+        "switching_cost": 0.3
+      },
+      "dataset": {
+        "id": "tsrd-stare-d25a4189f287",
+        "name": "TSRD \u00b7 stare \u00b7 tsrd_val_stare_config_0",
+        "organization": "The Alan Turing Institute",
+        "category": "OFFICIAL_SYNTHETIC_RADAR",
+        "original_format": "HDF5 Pulse Descriptor Words",
+        "source_url": "https://huggingface.co/datasets/alan-turing-institute/turing-synthetic-radar-dataset",
+        "source_file": "tsrd_val_stare_config_0.h5",
+        "source_sha256": "d25a4189f287ca044f46718baea7471eb1f9ab766b7715c738bb8edf8ac1e474",
+        "receiver_mode": "stare",
+        "source_metadata": {
+          "collection_time_s": 30.0,
+          "date_created": "2026-02-25T22:00:13.510312",
+          "description": "Synthetic PDWs generated from emitter library",
+          "num_pulses": 648034,
+          "type": "synthetic"
+        },
+        "energy_unit": "simulated receiver dB over PDW-derived occupancy",
+        "emitter_labels_available": true,
+        "pulse_count": 648034,
+        "original_pulse_count": 648034,
+        "truncated": false,
+        "license": "Apache-2.0 (publisher dataset card)",
+        "note": "Official synthetic radar benchmark. Evaluation truth is occupancy of retained stare-mode pulses, not a claim of uncensored physical transmissions.",
+        "lineage": [
+          "Authorized publisher HDF5 + SHA-256",
+          "Validate feature order / documented units",
+          "Chunked PDW reads (100k rows)",
+          "Sort ToA; bounded prefix with explicit time range",
+          "Time-slot \u00d7 frequency-band occupancy",
+          "Retain PDW features / emitter labels in Parquet",
+          "NPZ + provenance manifest"
+        ],
+        "preprocessing": {
+          "slots": 512,
+          "bands": 64,
+          "max_pulses": 1000000,
+          "column_order": [
+            "ToA",
+            "Frequency",
+            "PulseWidth",
+            "AoA",
+            "Amplitude"
+          ],
+          "time_origin_us": 1168384.625,
+          "time_duration_us": 25580114.375,
+          "frequency_bounds_mhz": [
+            0,
+            18000
+          ],
+          "occupancy": "At least one retained pulse in a time-frequency cell",
+          "amplitude": "Maximum pulse amplitude per cell",
+          "labels": "Emitter IDs are local to this pulse train only",
+          "energy_for_receiver": "Synthetic energy/noise model over PDW occupancy; original amplitude retained for inspection"
+        },
+        "status": "available",
+        "ingested_at": "2026-09-28T11:25:42.761989+00:00",
+        "artifact": "data/processed/tsrd-stare-d25a4189f287.npz",
+        "artifact_sha256": "d285c4ce86ae01eef2af4c90f3d97b6654c21843e4d0ce4919be41474ae3ea24",
+        "artifact_bytes": 21326,
+        "shape": [
+          512,
+          64
+        ],
+        "sample_count": 32768,
+        "valid_sample_count": 3929,
+        "missing_sample_count": 28839,
+        "frequency_range_mhz": [
+          140.625,
+          17859.375
+        ],
+        "time_range_ms": [
+          0.0,
+          25530.153214111328
+        ],
+        "ground_truth": true,
+        "preprocessing_version": "aams-x/0.1.0",
+        "parquet": "data/processed/tsrd-stare-d25a4189f287.parquet",
+        "parquet_sha256": "4325fa1b4d37f095400dc5500d785069a3dc02ea4e9229f29b97a4b8dbf9a8ec",
+        "source_sample_count": 648034,
+        "sample_columns": [
+          "toa_us",
+          "frequency_mhz",
+          "pulse_width_us",
+          "aoa_deg",
+          "amplitude_db",
+          "emitter_id",
+          "time_slot",
+          "frequency_band"
+        ],
+        "time_resolution_ms": 106.58380989583333,
+        "calibration_slots": 0,
+        "calibration_excluded_from_evaluation": false,
+        "evaluation_time_offset_ms": 0.0,
+        "raw_energy_unit": "PDW amplitude (dB)",
+        "regridding": "Mean measured intensity; OR aggregation of labelled pulse occupancy. Empty measured bins stay NaN."
+      },
+      "metrics": {
+        "magnts": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1133,
+          "true_positives": 1060,
+          "false_positives": 73,
+          "false_negatives_observed": 61,
+          "true_negatives": 2646,
+          "total_active_cells": 2001,
+          "missed_active_cells": 941,
+          "pd": 0.945584,
+          "pfa": 0.026848,
+          "recall": 0.529735,
+          "avg_interception_rate": 0.5226064907314908,
+          "average_reward": 4.105297,
+          "reward_cost": 3.829474,
+          "prediction_accuracy": 0.909375,
+          "avg_intercept_time_ms": 66.92471784156974,
+          "avg_intercept_time_error_ms": 385.83339182291695,
+          "interception_ratio": 0.758824,
+          "intercepted_episodes": 129,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.241176,
+          "scan_efficiency": 0.291927,
+          "active_scan_fraction": 0.916667,
+          "retune_count": 87,
+          "retune_cost": 17.286322,
+          "total_cost": 257.286322,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.652299,
+          "coverage": 1.0,
+          "exploration_fraction": 0.129167,
+          "mean_observation_confidence": 0.944299,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 22,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.47026500000000004
+        },
+        "no_memory": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1129,
+          "true_positives": 1036,
+          "false_positives": 93,
+          "false_negatives_observed": 60,
+          "true_negatives": 2651,
+          "total_active_cells": 2001,
+          "missed_active_cells": 965,
+          "pd": 0.945255,
+          "pfa": 0.033892,
+          "recall": 0.517741,
+          "avg_interception_rate": 0.5098496873496874,
+          "average_reward": 3.922378,
+          "reward_cost": 3.673036,
+          "prediction_accuracy": 0.907031,
+          "avg_intercept_time_ms": 73.92102944388441,
+          "avg_intercept_time_error_ms": 264.090995630787,
+          "interception_ratio": 0.729412,
+          "intercepted_episodes": 124,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.270588,
+          "scan_efficiency": 0.285417,
+          "active_scan_fraction": 0.9125,
+          "retune_count": 82,
+          "retune_cost": 16.292281,
+          "total_cost": 256.292281,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.650792,
+          "coverage": 1.0,
+          "exploration_fraction": 0.125,
+          "mean_observation_confidence": 0.939782,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 18,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.482259
+        },
+        "no_information": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1122,
+          "true_positives": 1039,
+          "false_positives": 83,
+          "false_negatives_observed": 58,
+          "true_negatives": 2660,
+          "total_active_cells": 2001,
+          "missed_active_cells": 962,
+          "pd": 0.947129,
+          "pfa": 0.030259,
+          "recall": 0.51924,
+          "avg_interception_rate": 0.5148861786361787,
+          "average_reward": 3.978897,
+          "reward_cost": 3.809877,
+          "prediction_accuracy": 0.91276,
+          "avg_intercept_time_ms": 215.70532955109127,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.741176,
+          "intercepted_episodes": 126,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.258824,
+          "scan_efficiency": 0.285677,
+          "active_scan_fraction": 0.933333,
+          "retune_count": 60,
+          "retune_cost": 10.647248,
+          "total_cost": 250.647248,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.561352,
+          "coverage": 1.0,
+          "exploration_fraction": 0.1,
+          "mean_observation_confidence": 0.943165,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.48075999999999997
+        },
+        "no_change": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1123,
+          "true_positives": 1041,
+          "false_positives": 82,
+          "false_negatives_observed": 57,
+          "true_negatives": 2660,
+          "total_active_cells": 2001,
+          "missed_active_cells": 960,
+          "pd": 0.948087,
+          "pfa": 0.029905,
+          "recall": 0.52024,
+          "avg_interception_rate": 0.5149069449069449,
+          "average_reward": 3.988977,
+          "reward_cost": 3.733031,
+          "prediction_accuracy": 0.90026,
+          "avg_intercept_time_ms": 111.82563661202187,
+          "avg_intercept_time_error_ms": 314.5745017782739,
+          "interception_ratio": 0.717647,
+          "intercepted_episodes": 122,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.282353,
+          "scan_efficiency": 0.285938,
+          "active_scan_fraction": 0.916667,
+          "retune_count": 86,
+          "retune_cost": 16.455014,
+          "total_cost": 256.455014,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.632692,
+          "coverage": 1.0,
+          "exploration_fraction": 0.1,
+          "mean_observation_confidence": 0.944124,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 21,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.47975999999999996
+        },
+        "thompson": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1169,
+          "true_positives": 1100,
+          "false_positives": 69,
+          "false_negatives_observed": 63,
+          "true_negatives": 2608,
+          "total_active_cells": 2001,
+          "missed_active_cells": 901,
+          "pd": 0.94583,
+          "pfa": 0.025775,
+          "recall": 0.549725,
+          "avg_interception_rate": 0.54286763005513,
+          "average_reward": 4.291717,
+          "reward_cost": 4.122042,
+          "prediction_accuracy": 0.908594,
+          "avg_intercept_time_ms": 15.226258556547618,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.7,
+          "intercepted_episodes": 119,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.3,
+          "scan_efficiency": 0.302865,
+          "active_scan_fraction": 0.941667,
+          "retune_count": 70,
+          "retune_cost": 9.879081,
+          "total_cost": 249.879081,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.318812,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.945039,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.450275
+        },
+        "fixed": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 535,
+          "true_positives": 443,
+          "false_positives": 92,
+          "false_negatives_observed": 57,
+          "true_negatives": 3248,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1558,
+          "pd": 0.886,
+          "pfa": 0.027545,
+          "recall": 0.221389,
+          "avg_interception_rate": 0.22249547905797906,
+          "average_reward": 1.44015,
+          "reward_cost": 1.177079,
+          "prediction_accuracy": 0.930208,
+          "avg_intercept_time_ms": 138.30518188864087,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.494118,
+          "intercepted_episodes": 84,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.505882,
+          "scan_efficiency": 0.130208,
+          "active_scan_fraction": 0.708333,
+          "retune_count": 239,
+          "retune_cost": 53.638935,
+          "total_cost": 293.638935,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 1.0,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.937172,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.7786109999999999
+        },
+        "random": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 625,
+          "true_positives": 531,
+          "false_positives": 94,
+          "false_negatives_observed": 56,
+          "true_negatives": 3159,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1470,
+          "pd": 0.9046,
+          "pfa": 0.028896,
+          "recall": 0.265367,
+          "avg_interception_rate": 0.2851817973692974,
+          "average_reward": 1.803088,
+          "reward_cost": 1.531346,
+          "prediction_accuracy": 0.932031,
+          "avg_intercept_time_ms": 246.55531927710842,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.488235,
+          "intercepted_episodes": 83,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.511765,
+          "scan_efficiency": 0.152865,
+          "active_scan_fraction": 0.670833,
+          "retune_count": 237,
+          "retune_cost": 42.588818,
+          "total_cost": 282.588818,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.860794,
+          "coverage": 1.0,
+          "exploration_fraction": 1.0,
+          "mean_observation_confidence": 0.938465,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.734633
+        },
+        "ucb": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 912,
+          "true_positives": 830,
+          "false_positives": 82,
+          "false_negatives_observed": 94,
+          "true_negatives": 2834,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1171,
+          "pd": 0.898268,
+          "pfa": 0.028121,
+          "recall": 0.414793,
+          "avg_interception_rate": 0.4145244107744108,
+          "average_reward": 3.096911,
+          "reward_cost": 2.586026,
+          "prediction_accuracy": 0.907552,
+          "avg_intercept_time_ms": 87.58867545895212,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.594118,
+          "intercepted_episodes": 101,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.405882,
+          "scan_efficiency": 0.240625,
+          "active_scan_fraction": 0.8375,
+          "retune_count": 230,
+          "retune_cost": 47.41341,
+          "total_cost": 287.41341,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.808449,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.933269,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.585207
+        }
+      }
+    },
+    {
+      "experiment_id": "AX-0CCC5702FCA8",
+      "scenario": "recording",
+      "seed": 44,
+      "environment_hash": "cbe163260a6006d248fc8595b35f20f3cf1967963b234f06023e8e76bbb08e38",
+      "effective_receiver": {
+        "bands": 64,
+        "window_width": 16,
+        "frequency_min_mhz": 0.0,
+        "frequency_max_mhz": 18000.0,
+        "slot_ms": 106.58380989583333,
+        "min_dwell_ms": 10.0,
+        "retune_ms": 8.0,
+        "scan_latency_ms": 1.0,
+        "noise_floor_db": -96.0,
+        "noise_std_db": 1.4,
+        "threshold_db": 5.0,
+        "snr_db": 12.0,
+        "false_alarm_probability": 0.003,
+        "miss_probability": 0.03,
+        "switching_cost": 0.3
+      },
+      "dataset": {
+        "id": "tsrd-stare-d25a4189f287",
+        "name": "TSRD \u00b7 stare \u00b7 tsrd_val_stare_config_0",
+        "organization": "The Alan Turing Institute",
+        "category": "OFFICIAL_SYNTHETIC_RADAR",
+        "original_format": "HDF5 Pulse Descriptor Words",
+        "source_url": "https://huggingface.co/datasets/alan-turing-institute/turing-synthetic-radar-dataset",
+        "source_file": "tsrd_val_stare_config_0.h5",
+        "source_sha256": "d25a4189f287ca044f46718baea7471eb1f9ab766b7715c738bb8edf8ac1e474",
+        "receiver_mode": "stare",
+        "source_metadata": {
+          "collection_time_s": 30.0,
+          "date_created": "2026-02-25T22:00:13.510312",
+          "description": "Synthetic PDWs generated from emitter library",
+          "num_pulses": 648034,
+          "type": "synthetic"
+        },
+        "energy_unit": "simulated receiver dB over PDW-derived occupancy",
+        "emitter_labels_available": true,
+        "pulse_count": 648034,
+        "original_pulse_count": 648034,
+        "truncated": false,
+        "license": "Apache-2.0 (publisher dataset card)",
+        "note": "Official synthetic radar benchmark. Evaluation truth is occupancy of retained stare-mode pulses, not a claim of uncensored physical transmissions.",
+        "lineage": [
+          "Authorized publisher HDF5 + SHA-256",
+          "Validate feature order / documented units",
+          "Chunked PDW reads (100k rows)",
+          "Sort ToA; bounded prefix with explicit time range",
+          "Time-slot \u00d7 frequency-band occupancy",
+          "Retain PDW features / emitter labels in Parquet",
+          "NPZ + provenance manifest"
+        ],
+        "preprocessing": {
+          "slots": 512,
+          "bands": 64,
+          "max_pulses": 1000000,
+          "column_order": [
+            "ToA",
+            "Frequency",
+            "PulseWidth",
+            "AoA",
+            "Amplitude"
+          ],
+          "time_origin_us": 1168384.625,
+          "time_duration_us": 25580114.375,
+          "frequency_bounds_mhz": [
+            0,
+            18000
+          ],
+          "occupancy": "At least one retained pulse in a time-frequency cell",
+          "amplitude": "Maximum pulse amplitude per cell",
+          "labels": "Emitter IDs are local to this pulse train only",
+          "energy_for_receiver": "Synthetic energy/noise model over PDW occupancy; original amplitude retained for inspection"
+        },
+        "status": "available",
+        "ingested_at": "2026-09-28T11:25:42.761989+00:00",
+        "artifact": "data/processed/tsrd-stare-d25a4189f287.npz",
+        "artifact_sha256": "d285c4ce86ae01eef2af4c90f3d97b6654c21843e4d0ce4919be41474ae3ea24",
+        "artifact_bytes": 21326,
+        "shape": [
+          512,
+          64
+        ],
+        "sample_count": 32768,
+        "valid_sample_count": 3929,
+        "missing_sample_count": 28839,
+        "frequency_range_mhz": [
+          140.625,
+          17859.375
+        ],
+        "time_range_ms": [
+          0.0,
+          25530.153214111328
+        ],
+        "ground_truth": true,
+        "preprocessing_version": "aams-x/0.1.0",
+        "parquet": "data/processed/tsrd-stare-d25a4189f287.parquet",
+        "parquet_sha256": "4325fa1b4d37f095400dc5500d785069a3dc02ea4e9229f29b97a4b8dbf9a8ec",
+        "source_sample_count": 648034,
+        "sample_columns": [
+          "toa_us",
+          "frequency_mhz",
+          "pulse_width_us",
+          "aoa_deg",
+          "amplitude_db",
+          "emitter_id",
+          "time_slot",
+          "frequency_band"
+        ],
+        "time_resolution_ms": 106.58380989583333,
+        "calibration_slots": 0,
+        "calibration_excluded_from_evaluation": false,
+        "evaluation_time_offset_ms": 0.0,
+        "raw_energy_unit": "PDW amplitude (dB)",
+        "regridding": "Mean measured intensity; OR aggregation of labelled pulse occupancy. Empty measured bins stay NaN."
+      },
+      "metrics": {
+        "magnts": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1116,
+          "true_positives": 1045,
+          "false_positives": 71,
+          "false_negatives_observed": 74,
+          "true_negatives": 2650,
+          "total_active_cells": 2001,
+          "missed_active_cells": 956,
+          "pd": 0.93387,
+          "pfa": 0.026093,
+          "recall": 0.522239,
+          "avg_interception_rate": 0.4972396238021239,
+          "average_reward": 4.050657,
+          "reward_cost": 3.761865,
+          "prediction_accuracy": 0.910937,
+          "avg_intercept_time_ms": 76.13129278273809,
+          "avg_intercept_time_error_ms": 235.1402821394231,
+          "interception_ratio": 0.7,
+          "intercepted_episodes": 119,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.3,
+          "scan_efficiency": 0.291406,
+          "active_scan_fraction": 0.908333,
+          "retune_count": 96,
+          "retune_cost": 18.424347,
+          "total_cost": 258.424347,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.624766,
+          "coverage": 1.0,
+          "exploration_fraction": 0.1375,
+          "mean_observation_confidence": 0.941021,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 13,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.477761
+        },
+        "no_memory": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1109,
+          "true_positives": 1028,
+          "false_positives": 81,
+          "false_negatives_observed": 65,
+          "true_negatives": 2666,
+          "total_active_cells": 2001,
+          "missed_active_cells": 973,
+          "pd": 0.940531,
+          "pfa": 0.029487,
+          "recall": 0.513743,
+          "avg_interception_rate": 0.49386886261886265,
+          "average_reward": 3.939243,
+          "reward_cost": 3.695675,
+          "prediction_accuracy": 0.909635,
+          "avg_intercept_time_ms": 98.90977558333334,
+          "avg_intercept_time_error_ms": 355.2375687469362,
+          "interception_ratio": 0.735294,
+          "intercepted_episodes": 125,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.264706,
+          "scan_efficiency": 0.284635,
+          "active_scan_fraction": 0.908333,
+          "retune_count": 85,
+          "retune_cost": 15.817456,
+          "total_cost": 255.817456,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.609934,
+          "coverage": 1.0,
+          "exploration_fraction": 0.133333,
+          "mean_observation_confidence": 0.940874,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 17,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.48625700000000005
+        },
+        "no_information": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1187,
+          "true_positives": 1093,
+          "false_positives": 94,
+          "false_negatives_observed": 73,
+          "true_negatives": 2580,
+          "total_active_cells": 2001,
+          "missed_active_cells": 908,
+          "pd": 0.937393,
+          "pfa": 0.035153,
+          "recall": 0.546227,
+          "avg_interception_rate": 0.5247934357309358,
+          "average_reward": 4.158046,
+          "reward_cost": 3.980726,
+          "prediction_accuracy": 0.898438,
+          "avg_intercept_time_ms": 71.30607000073356,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.835294,
+          "intercepted_episodes": 142,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.164706,
+          "scan_efficiency": 0.303646,
+          "active_scan_fraction": 0.929167,
+          "retune_count": 55,
+          "retune_cost": 10.690707,
+          "total_cost": 250.690707,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.499123,
+          "coverage": 1.0,
+          "exploration_fraction": 0.133333,
+          "mean_observation_confidence": 0.936703,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.453773
+        },
+        "no_change": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1124,
+          "true_positives": 1036,
+          "false_positives": 88,
+          "false_negatives_observed": 72,
+          "true_negatives": 2644,
+          "total_active_cells": 2001,
+          "missed_active_cells": 965,
+          "pd": 0.935018,
+          "pfa": 0.032211,
+          "recall": 0.517741,
+          "avg_interception_rate": 0.4958902324527325,
+          "average_reward": 3.942792,
+          "reward_cost": 3.677704,
+          "prediction_accuracy": 0.902344,
+          "avg_intercept_time_ms": 56.6526557103979,
+          "avg_intercept_time_error_ms": 401.18146044791683,
+          "interception_ratio": 0.652941,
+          "intercepted_episodes": 111,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.347059,
+          "scan_efficiency": 0.288542,
+          "active_scan_fraction": 0.908333,
+          "retune_count": 92,
+          "retune_cost": 17.299114,
+          "total_cost": 257.299114,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.619325,
+          "coverage": 1.0,
+          "exploration_fraction": 0.133333,
+          "mean_observation_confidence": 0.937487,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 15,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.482259
+        },
+        "thompson": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1209,
+          "true_positives": 1114,
+          "false_positives": 95,
+          "false_negatives_observed": 67,
+          "true_negatives": 2564,
+          "total_active_cells": 2001,
+          "missed_active_cells": 887,
+          "pd": 0.943268,
+          "pfa": 0.035728,
+          "recall": 0.556722,
+          "avg_interception_rate": 0.5437908503533504,
+          "average_reward": 4.241373,
+          "reward_cost": 4.060279,
+          "prediction_accuracy": 0.898698,
+          "avg_intercept_time_ms": 21.801233842329545,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.776471,
+          "intercepted_episodes": 132,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.223529,
+          "scan_efficiency": 0.307552,
+          "active_scan_fraction": 0.95,
+          "retune_count": 74,
+          "retune_cost": 10.704314,
+          "total_cost": 250.704314,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.31186,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.938068,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.44327799999999995
+        },
+        "fixed": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 552,
+          "true_positives": 449,
+          "false_positives": 103,
+          "false_negatives_observed": 51,
+          "true_negatives": 3237,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1552,
+          "pd": 0.898,
+          "pfa": 0.030838,
+          "recall": 0.224388,
+          "avg_interception_rate": 0.2198677133052133,
+          "average_reward": 1.419317,
+          "reward_cost": 1.160051,
+          "prediction_accuracy": 0.926302,
+          "avg_intercept_time_ms": 123.19427377570345,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.452941,
+          "intercepted_episodes": 77,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.547059,
+          "scan_efficiency": 0.130208,
+          "active_scan_fraction": 0.708333,
+          "retune_count": 239,
+          "retune_cost": 53.638935,
+          "total_cost": 293.638935,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 1.0,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.935346,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.775612
+        },
+        "random": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 619,
+          "true_positives": 532,
+          "false_positives": 87,
+          "false_negatives_observed": 59,
+          "true_negatives": 3162,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1469,
+          "pd": 0.900169,
+          "pfa": 0.026777,
+          "recall": 0.265867,
+          "avg_interception_rate": 0.2646380471380471,
+          "average_reward": 1.836239,
+          "reward_cost": 1.557091,
+          "prediction_accuracy": 0.923177,
+          "avg_intercept_time_ms": 103.47942708333335,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.605882,
+          "intercepted_episodes": 103,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.394118,
+          "scan_efficiency": 0.153906,
+          "active_scan_fraction": 0.691667,
+          "retune_count": 233,
+          "retune_cost": 43.026085,
+          "total_cost": 283.026085,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.844711,
+          "coverage": 1.0,
+          "exploration_fraction": 1.0,
+          "mean_observation_confidence": 0.93727,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.7341329999999999
+        },
+        "ucb": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 902,
+          "true_positives": 816,
+          "false_positives": 86,
+          "false_negatives_observed": 90,
+          "true_negatives": 2848,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1185,
+          "pd": 0.900662,
+          "pfa": 0.029312,
+          "recall": 0.407796,
+          "avg_interception_rate": 0.40917787074037076,
+          "average_reward": 3.022197,
+          "reward_cost": 2.529687,
+          "prediction_accuracy": 0.910937,
+          "avg_intercept_time_ms": 97.0032427141854,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.523529,
+          "intercepted_episodes": 89,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.476471,
+          "scan_efficiency": 0.235937,
+          "active_scan_fraction": 0.833333,
+          "retune_count": 233,
+          "retune_cost": 46.726085,
+          "total_cost": 286.726085,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.805623,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.932278,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.592204
+        }
+      }
+    },
+    {
+      "experiment_id": "AX-4D96D355FD8C",
+      "scenario": "recording",
+      "seed": 45,
+      "environment_hash": "9c8d17041e78ed0ce64e1376d795107074df3919f7358c552a3b85150b277ee0",
+      "effective_receiver": {
+        "bands": 64,
+        "window_width": 16,
+        "frequency_min_mhz": 0.0,
+        "frequency_max_mhz": 18000.0,
+        "slot_ms": 106.58380989583333,
+        "min_dwell_ms": 10.0,
+        "retune_ms": 8.0,
+        "scan_latency_ms": 1.0,
+        "noise_floor_db": -96.0,
+        "noise_std_db": 1.4,
+        "threshold_db": 5.0,
+        "snr_db": 12.0,
+        "false_alarm_probability": 0.003,
+        "miss_probability": 0.03,
+        "switching_cost": 0.3
+      },
+      "dataset": {
+        "id": "tsrd-stare-d25a4189f287",
+        "name": "TSRD \u00b7 stare \u00b7 tsrd_val_stare_config_0",
+        "organization": "The Alan Turing Institute",
+        "category": "OFFICIAL_SYNTHETIC_RADAR",
+        "original_format": "HDF5 Pulse Descriptor Words",
+        "source_url": "https://huggingface.co/datasets/alan-turing-institute/turing-synthetic-radar-dataset",
+        "source_file": "tsrd_val_stare_config_0.h5",
+        "source_sha256": "d25a4189f287ca044f46718baea7471eb1f9ab766b7715c738bb8edf8ac1e474",
+        "receiver_mode": "stare",
+        "source_metadata": {
+          "collection_time_s": 30.0,
+          "date_created": "2026-02-25T22:00:13.510312",
+          "description": "Synthetic PDWs generated from emitter library",
+          "num_pulses": 648034,
+          "type": "synthetic"
+        },
+        "energy_unit": "simulated receiver dB over PDW-derived occupancy",
+        "emitter_labels_available": true,
+        "pulse_count": 648034,
+        "original_pulse_count": 648034,
+        "truncated": false,
+        "license": "Apache-2.0 (publisher dataset card)",
+        "note": "Official synthetic radar benchmark. Evaluation truth is occupancy of retained stare-mode pulses, not a claim of uncensored physical transmissions.",
+        "lineage": [
+          "Authorized publisher HDF5 + SHA-256",
+          "Validate feature order / documented units",
+          "Chunked PDW reads (100k rows)",
+          "Sort ToA; bounded prefix with explicit time range",
+          "Time-slot \u00d7 frequency-band occupancy",
+          "Retain PDW features / emitter labels in Parquet",
+          "NPZ + provenance manifest"
+        ],
+        "preprocessing": {
+          "slots": 512,
+          "bands": 64,
+          "max_pulses": 1000000,
+          "column_order": [
+            "ToA",
+            "Frequency",
+            "PulseWidth",
+            "AoA",
+            "Amplitude"
+          ],
+          "time_origin_us": 1168384.625,
+          "time_duration_us": 25580114.375,
+          "frequency_bounds_mhz": [
+            0,
+            18000
+          ],
+          "occupancy": "At least one retained pulse in a time-frequency cell",
+          "amplitude": "Maximum pulse amplitude per cell",
+          "labels": "Emitter IDs are local to this pulse train only",
+          "energy_for_receiver": "Synthetic energy/noise model over PDW occupancy; original amplitude retained for inspection"
+        },
+        "status": "available",
+        "ingested_at": "2026-09-28T11:25:42.761989+00:00",
+        "artifact": "data/processed/tsrd-stare-d25a4189f287.npz",
+        "artifact_sha256": "d285c4ce86ae01eef2af4c90f3d97b6654c21843e4d0ce4919be41474ae3ea24",
+        "artifact_bytes": 21326,
+        "shape": [
+          512,
+          64
+        ],
+        "sample_count": 32768,
+        "valid_sample_count": 3929,
+        "missing_sample_count": 28839,
+        "frequency_range_mhz": [
+          140.625,
+          17859.375
+        ],
+        "time_range_ms": [
+          0.0,
+          25530.153214111328
+        ],
+        "ground_truth": true,
+        "preprocessing_version": "aams-x/0.1.0",
+        "parquet": "data/processed/tsrd-stare-d25a4189f287.parquet",
+        "parquet_sha256": "4325fa1b4d37f095400dc5500d785069a3dc02ea4e9229f29b97a4b8dbf9a8ec",
+        "source_sample_count": 648034,
+        "sample_columns": [
+          "toa_us",
+          "frequency_mhz",
+          "pulse_width_us",
+          "aoa_deg",
+          "amplitude_db",
+          "emitter_id",
+          "time_slot",
+          "frequency_band"
+        ],
+        "time_resolution_ms": 106.58380989583333,
+        "calibration_slots": 0,
+        "calibration_excluded_from_evaluation": false,
+        "evaluation_time_offset_ms": 0.0,
+        "raw_energy_unit": "PDW amplitude (dB)",
+        "regridding": "Mean measured intensity; OR aggregation of labelled pulse occupancy. Empty measured bins stay NaN."
+      },
+      "metrics": {
+        "magnts": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1120,
+          "true_positives": 1042,
+          "false_positives": 78,
+          "false_negatives_observed": 74,
+          "true_negatives": 2646,
+          "total_active_cells": 2001,
+          "missed_active_cells": 959,
+          "pd": 0.933692,
+          "pfa": 0.028634,
+          "recall": 0.52074,
+          "avg_interception_rate": 0.501143543956044,
+          "average_reward": 4.010407,
+          "reward_cost": 3.774157,
+          "prediction_accuracy": 0.905729,
+          "avg_intercept_time_ms": 72.96891600560897,
+          "avg_intercept_time_error_ms": 1128.7225467968753,
+          "interception_ratio": 0.764706,
+          "intercepted_episodes": 130,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.235294,
+          "scan_efficiency": 0.290625,
+          "active_scan_fraction": 0.9125,
+          "retune_count": 77,
+          "retune_cost": 15.023239,
+          "total_cost": 255.023239,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.631877,
+          "coverage": 1.0,
+          "exploration_fraction": 0.120833,
+          "mean_observation_confidence": 0.939894,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 2,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.47926
+        },
+        "no_memory": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1090,
+          "true_positives": 1010,
+          "false_positives": 80,
+          "false_negatives_observed": 83,
+          "true_negatives": 2667,
+          "total_active_cells": 2001,
+          "missed_active_cells": 991,
+          "pd": 0.924062,
+          "pfa": 0.029123,
+          "recall": 0.504748,
+          "avg_interception_rate": 0.4884625444000444,
+          "average_reward": 3.868326,
+          "reward_cost": 3.626311,
+          "prediction_accuracy": 0.907813,
+          "avg_intercept_time_ms": 70.48284202788979,
+          "avg_intercept_time_error_ms": 352.25949170572926,
+          "interception_ratio": 0.729412,
+          "intercepted_episodes": 124,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.270588,
+          "scan_efficiency": 0.284635,
+          "active_scan_fraction": 0.904167,
+          "retune_count": 82,
+          "retune_cost": 16.017281,
+          "total_cost": 256.017281,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.660596,
+          "coverage": 1.0,
+          "exploration_fraction": 0.1,
+          "mean_observation_confidence": 0.936526,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 26,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.495252
+        },
+        "no_information": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1158,
+          "true_positives": 1084,
+          "false_positives": 74,
+          "false_negatives_observed": 79,
+          "true_negatives": 2603,
+          "total_active_cells": 2001,
+          "missed_active_cells": 917,
+          "pd": 0.932072,
+          "pfa": 0.027643,
+          "recall": 0.541729,
+          "avg_interception_rate": 0.5192166860916861,
+          "average_reward": 4.203514,
+          "reward_cost": 4.010253,
+          "prediction_accuracy": 0.908333,
+          "avg_intercept_time_ms": 104.08575185139975,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.752941,
+          "intercepted_episodes": 128,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.247059,
+          "scan_efficiency": 0.302865,
+          "active_scan_fraction": 0.925,
+          "retune_count": 60,
+          "retune_cost": 11.565998,
+          "total_cost": 251.565998,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.528029,
+          "coverage": 1.0,
+          "exploration_fraction": 0.116667,
+          "mean_observation_confidence": 0.939903,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.458271
+        },
+        "no_change": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1091,
+          "true_positives": 1006,
+          "false_positives": 85,
+          "false_negatives_observed": 88,
+          "true_negatives": 2661,
+          "total_active_cells": 2001,
+          "missed_active_cells": 995,
+          "pd": 0.919561,
+          "pfa": 0.030954,
+          "recall": 0.502749,
+          "avg_interception_rate": 0.48604704323454323,
+          "average_reward": 3.829523,
+          "reward_cost": 3.546626,
+          "prediction_accuracy": 0.901563,
+          "avg_intercept_time_ms": 63.77555838029371,
+          "avg_intercept_time_error_ms": 353.4456663642474,
+          "interception_ratio": 0.717647,
+          "intercepted_episodes": 122,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.282353,
+          "scan_efficiency": 0.284896,
+          "active_scan_fraction": 0.908333,
+          "retune_count": 106,
+          "retune_cost": 19.14368,
+          "total_cost": 259.14368,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.610706,
+          "coverage": 1.0,
+          "exploration_fraction": 0.091667,
+          "mean_observation_confidence": 0.934614,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 31,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.497251
+        },
+        "thompson": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1186,
+          "true_positives": 1106,
+          "false_positives": 80,
+          "false_negatives_observed": 72,
+          "true_negatives": 2582,
+          "total_active_cells": 2001,
+          "missed_active_cells": 895,
+          "pd": 0.938879,
+          "pfa": 0.030053,
+          "recall": 0.552724,
+          "avg_interception_rate": 0.5321471352721353,
+          "average_reward": 4.271538,
+          "reward_cost": 4.128593,
+          "prediction_accuracy": 0.90599,
+          "avg_intercept_time_ms": 9.231668573654854,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.747059,
+          "intercepted_episodes": 127,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.252941,
+          "scan_efficiency": 0.306771,
+          "active_scan_fraction": 0.933333,
+          "retune_count": 57,
+          "retune_cost": 8.309573,
+          "total_cost": 248.309573,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.306737,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.939975,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.447276
+        },
+        "fixed": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 523,
+          "true_positives": 429,
+          "false_positives": 94,
+          "false_negatives_observed": 71,
+          "true_negatives": 3246,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1572,
+          "pd": 0.858,
+          "pfa": 0.028144,
+          "recall": 0.214393,
+          "avg_interception_rate": 0.21101425195175197,
+          "average_reward": 1.373484,
+          "reward_cost": 1.12259,
+          "prediction_accuracy": 0.928125,
+          "avg_intercept_time_ms": 124.56180192645581,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.488235,
+          "intercepted_episodes": 83,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.511765,
+          "scan_efficiency": 0.130208,
+          "active_scan_fraction": 0.708333,
+          "retune_count": 239,
+          "retune_cost": 53.638935,
+          "total_cost": 293.638935,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 1.0,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.93411,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.7856069999999999
+        },
+        "random": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 628,
+          "true_positives": 542,
+          "false_positives": 86,
+          "false_negatives_observed": 80,
+          "true_negatives": 3132,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1459,
+          "pd": 0.871383,
+          "pfa": 0.026725,
+          "recall": 0.270865,
+          "avg_interception_rate": 0.2627414368039368,
+          "average_reward": 1.882981,
+          "reward_cost": 1.60913,
+          "prediction_accuracy": 0.922656,
+          "avg_intercept_time_ms": 110.80495088180692,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.594118,
+          "intercepted_episodes": 101,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.405882,
+          "scan_efficiency": 0.161979,
+          "active_scan_fraction": 0.691667,
+          "retune_count": 230,
+          "retune_cost": 40.84466,
+          "total_cost": 280.84466,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.837599,
+          "coverage": 0.984375,
+          "exploration_fraction": 1.0,
+          "mean_observation_confidence": 0.932792,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.729135
+        },
+        "ucb": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 886,
+          "true_positives": 809,
+          "false_positives": 77,
+          "false_negatives_observed": 99,
+          "true_negatives": 2855,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1192,
+          "pd": 0.890969,
+          "pfa": 0.026262,
+          "recall": 0.404298,
+          "avg_interception_rate": 0.3929969683094683,
+          "average_reward": 3.030442,
+          "reward_cost": 2.534712,
+          "prediction_accuracy": 0.904948,
+          "avg_intercept_time_ms": 119.32752629642209,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.541176,
+          "intercepted_episodes": 92,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.458824,
+          "scan_efficiency": 0.236458,
+          "active_scan_fraction": 0.825,
+          "retune_count": 229,
+          "retune_cost": 46.938352,
+          "total_cost": 286.938352,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.81997,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.932673,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.595702
+        }
+      }
+    },
+    {
+      "experiment_id": "AX-AD3430BE507C",
+      "scenario": "recording",
+      "seed": 46,
+      "environment_hash": "1cbe657a0cc2f74e36c8867d2d3f0234e4186ec527f4bcbfcaf7e238e609929e",
+      "effective_receiver": {
+        "bands": 64,
+        "window_width": 16,
+        "frequency_min_mhz": 0.0,
+        "frequency_max_mhz": 18000.0,
+        "slot_ms": 106.58380989583333,
+        "min_dwell_ms": 10.0,
+        "retune_ms": 8.0,
+        "scan_latency_ms": 1.0,
+        "noise_floor_db": -96.0,
+        "noise_std_db": 1.4,
+        "threshold_db": 5.0,
+        "snr_db": 12.0,
+        "false_alarm_probability": 0.003,
+        "miss_probability": 0.03,
+        "switching_cost": 0.3
+      },
+      "dataset": {
+        "id": "tsrd-stare-d25a4189f287",
+        "name": "TSRD \u00b7 stare \u00b7 tsrd_val_stare_config_0",
+        "organization": "The Alan Turing Institute",
+        "category": "OFFICIAL_SYNTHETIC_RADAR",
+        "original_format": "HDF5 Pulse Descriptor Words",
+        "source_url": "https://huggingface.co/datasets/alan-turing-institute/turing-synthetic-radar-dataset",
+        "source_file": "tsrd_val_stare_config_0.h5",
+        "source_sha256": "d25a4189f287ca044f46718baea7471eb1f9ab766b7715c738bb8edf8ac1e474",
+        "receiver_mode": "stare",
+        "source_metadata": {
+          "collection_time_s": 30.0,
+          "date_created": "2026-02-25T22:00:13.510312",
+          "description": "Synthetic PDWs generated from emitter library",
+          "num_pulses": 648034,
+          "type": "synthetic"
+        },
+        "energy_unit": "simulated receiver dB over PDW-derived occupancy",
+        "emitter_labels_available": true,
+        "pulse_count": 648034,
+        "original_pulse_count": 648034,
+        "truncated": false,
+        "license": "Apache-2.0 (publisher dataset card)",
+        "note": "Official synthetic radar benchmark. Evaluation truth is occupancy of retained stare-mode pulses, not a claim of uncensored physical transmissions.",
+        "lineage": [
+          "Authorized publisher HDF5 + SHA-256",
+          "Validate feature order / documented units",
+          "Chunked PDW reads (100k rows)",
+          "Sort ToA; bounded prefix with explicit time range",
+          "Time-slot \u00d7 frequency-band occupancy",
+          "Retain PDW features / emitter labels in Parquet",
+          "NPZ + provenance manifest"
+        ],
+        "preprocessing": {
+          "slots": 512,
+          "bands": 64,
+          "max_pulses": 1000000,
+          "column_order": [
+            "ToA",
+            "Frequency",
+            "PulseWidth",
+            "AoA",
+            "Amplitude"
+          ],
+          "time_origin_us": 1168384.625,
+          "time_duration_us": 25580114.375,
+          "frequency_bounds_mhz": [
+            0,
+            18000
+          ],
+          "occupancy": "At least one retained pulse in a time-frequency cell",
+          "amplitude": "Maximum pulse amplitude per cell",
+          "labels": "Emitter IDs are local to this pulse train only",
+          "energy_for_receiver": "Synthetic energy/noise model over PDW occupancy; original amplitude retained for inspection"
+        },
+        "status": "available",
+        "ingested_at": "2026-09-28T11:25:42.761989+00:00",
+        "artifact": "data/processed/tsrd-stare-d25a4189f287.npz",
+        "artifact_sha256": "d285c4ce86ae01eef2af4c90f3d97b6654c21843e4d0ce4919be41474ae3ea24",
+        "artifact_bytes": 21326,
+        "shape": [
+          512,
+          64
+        ],
+        "sample_count": 32768,
+        "valid_sample_count": 3929,
+        "missing_sample_count": 28839,
+        "frequency_range_mhz": [
+          140.625,
+          17859.375
+        ],
+        "time_range_ms": [
+          0.0,
+          25530.153214111328
+        ],
+        "ground_truth": true,
+        "preprocessing_version": "aams-x/0.1.0",
+        "parquet": "data/processed/tsrd-stare-d25a4189f287.parquet",
+        "parquet_sha256": "4325fa1b4d37f095400dc5500d785069a3dc02ea4e9229f29b97a4b8dbf9a8ec",
+        "source_sample_count": 648034,
+        "sample_columns": [
+          "toa_us",
+          "frequency_mhz",
+          "pulse_width_us",
+          "aoa_deg",
+          "amplitude_db",
+          "emitter_id",
+          "time_slot",
+          "frequency_band"
+        ],
+        "time_resolution_ms": 106.58380989583333,
+        "calibration_slots": 0,
+        "calibration_excluded_from_evaluation": false,
+        "evaluation_time_offset_ms": 0.0,
+        "raw_energy_unit": "PDW amplitude (dB)",
+        "regridding": "Mean measured intensity; OR aggregation of labelled pulse occupancy. Empty measured bins stay NaN."
+      },
+      "metrics": {
+        "magnts": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1139,
+          "true_positives": 1053,
+          "false_positives": 86,
+          "false_negatives_observed": 74,
+          "true_negatives": 2627,
+          "total_active_cells": 2001,
+          "missed_active_cells": 948,
+          "pd": 0.934339,
+          "pfa": 0.031699,
+          "recall": 0.526237,
+          "avg_interception_rate": 0.5065428784178784,
+          "average_reward": 4.02155,
+          "reward_cost": 3.736914,
+          "prediction_accuracy": 0.910677,
+          "avg_intercept_time_ms": 90.25241966985887,
+          "avg_intercept_time_error_ms": 669.5316892934784,
+          "interception_ratio": 0.729412,
+          "intercepted_episodes": 124,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.270588,
+          "scan_efficiency": 0.29349,
+          "active_scan_fraction": 0.920833,
+          "retune_count": 94,
+          "retune_cost": 18.280481,
+          "total_cost": 258.280481,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.631472,
+          "coverage": 1.0,
+          "exploration_fraction": 0.120833,
+          "mean_observation_confidence": 0.93814,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 23,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.47376300000000005
+        },
+        "no_memory": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1124,
+          "true_positives": 1040,
+          "false_positives": 84,
+          "false_negatives_observed": 68,
+          "true_negatives": 2648,
+          "total_active_cells": 2001,
+          "missed_active_cells": 961,
+          "pd": 0.938628,
+          "pfa": 0.030747,
+          "recall": 0.51974,
+          "avg_interception_rate": 0.5067904086654086,
+          "average_reward": 3.97718,
+          "reward_cost": 3.746653,
+          "prediction_accuracy": 0.909896,
+          "avg_intercept_time_ms": 158.55442794421486,
+          "avg_intercept_time_error_ms": 1101.010756223958,
+          "interception_ratio": 0.711765,
+          "intercepted_episodes": 121,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.288235,
+          "scan_efficiency": 0.288542,
+          "active_scan_fraction": 0.916667,
+          "retune_count": 76,
+          "retune_cost": 14.766931,
+          "total_cost": 254.766931,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.617754,
+          "coverage": 1.0,
+          "exploration_fraction": 0.129167,
+          "mean_observation_confidence": 0.939887,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 4,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.48026
+        },
+        "no_information": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1153,
+          "true_positives": 1072,
+          "false_positives": 81,
+          "false_negatives_observed": 62,
+          "true_negatives": 2625,
+          "total_active_cells": 2001,
+          "missed_active_cells": 929,
+          "pd": 0.945326,
+          "pfa": 0.029933,
+          "recall": 0.535732,
+          "avg_interception_rate": 0.5239271376771376,
+          "average_reward": 4.124551,
+          "reward_cost": 3.94256,
+          "prediction_accuracy": 0.907292,
+          "avg_intercept_time_ms": 103.03101623263889,
+          "avg_intercept_time_error_ms": 213.16761979166665,
+          "interception_ratio": 0.705882,
+          "intercepted_episodes": 120,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.294118,
+          "scan_efficiency": 0.295312,
+          "active_scan_fraction": 0.933333,
+          "retune_count": 60,
+          "retune_cost": 11.078498,
+          "total_cost": 251.078498,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.565771,
+          "coverage": 1.0,
+          "exploration_fraction": 0.095833,
+          "mean_observation_confidence": 0.942346,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 2,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.464268
+        },
+        "no_change": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1142,
+          "true_positives": 1069,
+          "false_positives": 73,
+          "false_negatives_observed": 66,
+          "true_negatives": 2632,
+          "total_active_cells": 2001,
+          "missed_active_cells": 932,
+          "pd": 0.94185,
+          "pfa": 0.026987,
+          "recall": 0.534233,
+          "avg_interception_rate": 0.5173051138676139,
+          "average_reward": 4.14292,
+          "reward_cost": 3.868985,
+          "prediction_accuracy": 0.896875,
+          "avg_intercept_time_ms": 64.1235929454607,
+          "avg_intercept_time_error_ms": 680.0047071354165,
+          "interception_ratio": 0.723529,
+          "intercepted_episodes": 123,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.276471,
+          "scan_efficiency": 0.295573,
+          "active_scan_fraction": 0.916667,
+          "retune_count": 88,
+          "retune_cost": 16.992631,
+          "total_cost": 256.992631,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.635225,
+          "coverage": 1.0,
+          "exploration_fraction": 0.116667,
+          "mean_observation_confidence": 0.943674,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 8,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.46576700000000004
+        },
+        "thompson": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1194,
+          "true_positives": 1111,
+          "false_positives": 83,
+          "false_negatives_observed": 65,
+          "true_negatives": 2581,
+          "total_active_cells": 2001,
+          "missed_active_cells": 890,
+          "pd": 0.944728,
+          "pfa": 0.031156,
+          "recall": 0.555222,
+          "avg_interception_rate": 0.5433322002072002,
+          "average_reward": 4.279929,
+          "reward_cost": 4.139004,
+          "prediction_accuracy": 0.907031,
+          "avg_intercept_time_ms": 16.65372029622396,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.752941,
+          "intercepted_episodes": 128,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.247059,
+          "scan_efficiency": 0.30625,
+          "active_scan_fraction": 0.941667,
+          "retune_count": 47,
+          "retune_cost": 8.17149,
+          "total_cost": 248.17149,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.309774,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.941079,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.444778
+        },
+        "fixed": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 543,
+          "true_positives": 441,
+          "false_positives": 102,
+          "false_negatives_observed": 59,
+          "true_negatives": 3238,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1560,
+          "pd": 0.882,
+          "pfa": 0.030539,
+          "recall": 0.22039,
+          "avg_interception_rate": 0.21929542679542682,
+          "average_reward": 1.39015,
+          "reward_cost": 1.136212,
+          "prediction_accuracy": 0.927344,
+          "avg_intercept_time_ms": 115.06206750118372,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.517647,
+          "intercepted_episodes": 88,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.482353,
+          "scan_efficiency": 0.130208,
+          "active_scan_fraction": 0.708333,
+          "retune_count": 239,
+          "retune_cost": 53.638935,
+          "total_cost": 293.638935,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 1.0,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.934295,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.77961
+        },
+        "random": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 604,
+          "true_positives": 516,
+          "false_positives": 88,
+          "false_negatives_observed": 61,
+          "true_negatives": 3175,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1485,
+          "pd": 0.894281,
+          "pfa": 0.026969,
+          "recall": 0.257871,
+          "avg_interception_rate": 0.24822871572871577,
+          "average_reward": 1.765908,
+          "reward_cost": 1.503862,
+          "prediction_accuracy": 0.923438,
+          "avg_intercept_time_ms": 78.09110824051155,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.594118,
+          "intercepted_episodes": 101,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.405882,
+          "scan_efficiency": 0.15026,
+          "active_scan_fraction": 0.625,
+          "retune_count": 233,
+          "retune_cost": 41.819835,
+          "total_cost": 281.819835,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.822176,
+          "coverage": 1.0,
+          "exploration_fraction": 1.0,
+          "mean_observation_confidence": 0.93736,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.742129
+        },
+        "ucb": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 892,
+          "true_positives": 798,
+          "false_positives": 94,
+          "false_negatives_observed": 105,
+          "true_negatives": 2843,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1203,
+          "pd": 0.883721,
+          "pfa": 0.032005,
+          "recall": 0.398801,
+          "avg_interception_rate": 0.38718140655640654,
+          "average_reward": 2.913276,
+          "reward_cost": 2.426562,
+          "prediction_accuracy": 0.904687,
+          "avg_intercept_time_ms": 60.243022984601446,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.541176,
+          "intercepted_episodes": 92,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.458824,
+          "scan_efficiency": 0.235156,
+          "active_scan_fraction": 0.825,
+          "retune_count": 233,
+          "retune_cost": 48.138585,
+          "total_cost": 288.138585,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.818688,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.926459,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.601199
+        }
+      }
+    },
+    {
+      "experiment_id": "AX-817D8640EB81",
+      "scenario": "recording",
+      "seed": 47,
+      "environment_hash": "ef17eb0849b254c6d8bf91c4e0b69122be122761e5aff349559af22a86b52364",
+      "effective_receiver": {
+        "bands": 64,
+        "window_width": 16,
+        "frequency_min_mhz": 0.0,
+        "frequency_max_mhz": 18000.0,
+        "slot_ms": 106.58380989583333,
+        "min_dwell_ms": 10.0,
+        "retune_ms": 8.0,
+        "scan_latency_ms": 1.0,
+        "noise_floor_db": -96.0,
+        "noise_std_db": 1.4,
+        "threshold_db": 5.0,
+        "snr_db": 12.0,
+        "false_alarm_probability": 0.003,
+        "miss_probability": 0.03,
+        "switching_cost": 0.3
+      },
+      "dataset": {
+        "id": "tsrd-stare-d25a4189f287",
+        "name": "TSRD \u00b7 stare \u00b7 tsrd_val_stare_config_0",
+        "organization": "The Alan Turing Institute",
+        "category": "OFFICIAL_SYNTHETIC_RADAR",
+        "original_format": "HDF5 Pulse Descriptor Words",
+        "source_url": "https://huggingface.co/datasets/alan-turing-institute/turing-synthetic-radar-dataset",
+        "source_file": "tsrd_val_stare_config_0.h5",
+        "source_sha256": "d25a4189f287ca044f46718baea7471eb1f9ab766b7715c738bb8edf8ac1e474",
+        "receiver_mode": "stare",
+        "source_metadata": {
+          "collection_time_s": 30.0,
+          "date_created": "2026-02-25T22:00:13.510312",
+          "description": "Synthetic PDWs generated from emitter library",
+          "num_pulses": 648034,
+          "type": "synthetic"
+        },
+        "energy_unit": "simulated receiver dB over PDW-derived occupancy",
+        "emitter_labels_available": true,
+        "pulse_count": 648034,
+        "original_pulse_count": 648034,
+        "truncated": false,
+        "license": "Apache-2.0 (publisher dataset card)",
+        "note": "Official synthetic radar benchmark. Evaluation truth is occupancy of retained stare-mode pulses, not a claim of uncensored physical transmissions.",
+        "lineage": [
+          "Authorized publisher HDF5 + SHA-256",
+          "Validate feature order / documented units",
+          "Chunked PDW reads (100k rows)",
+          "Sort ToA; bounded prefix with explicit time range",
+          "Time-slot \u00d7 frequency-band occupancy",
+          "Retain PDW features / emitter labels in Parquet",
+          "NPZ + provenance manifest"
+        ],
+        "preprocessing": {
+          "slots": 512,
+          "bands": 64,
+          "max_pulses": 1000000,
+          "column_order": [
+            "ToA",
+            "Frequency",
+            "PulseWidth",
+            "AoA",
+            "Amplitude"
+          ],
+          "time_origin_us": 1168384.625,
+          "time_duration_us": 25580114.375,
+          "frequency_bounds_mhz": [
+            0,
+            18000
+          ],
+          "occupancy": "At least one retained pulse in a time-frequency cell",
+          "amplitude": "Maximum pulse amplitude per cell",
+          "labels": "Emitter IDs are local to this pulse train only",
+          "energy_for_receiver": "Synthetic energy/noise model over PDW occupancy; original amplitude retained for inspection"
+        },
+        "status": "available",
+        "ingested_at": "2026-09-28T11:25:42.761989+00:00",
+        "artifact": "data/processed/tsrd-stare-d25a4189f287.npz",
+        "artifact_sha256": "d285c4ce86ae01eef2af4c90f3d97b6654c21843e4d0ce4919be41474ae3ea24",
+        "artifact_bytes": 21326,
+        "shape": [
+          512,
+          64
+        ],
+        "sample_count": 32768,
+        "valid_sample_count": 3929,
+        "missing_sample_count": 28839,
+        "frequency_range_mhz": [
+          140.625,
+          17859.375
+        ],
+        "time_range_ms": [
+          0.0,
+          25530.153214111328
+        ],
+        "ground_truth": true,
+        "preprocessing_version": "aams-x/0.1.0",
+        "parquet": "data/processed/tsrd-stare-d25a4189f287.parquet",
+        "parquet_sha256": "4325fa1b4d37f095400dc5500d785069a3dc02ea4e9229f29b97a4b8dbf9a8ec",
+        "source_sample_count": 648034,
+        "sample_columns": [
+          "toa_us",
+          "frequency_mhz",
+          "pulse_width_us",
+          "aoa_deg",
+          "amplitude_db",
+          "emitter_id",
+          "time_slot",
+          "frequency_band"
+        ],
+        "time_resolution_ms": 106.58380989583333,
+        "calibration_slots": 0,
+        "calibration_excluded_from_evaluation": false,
+        "evaluation_time_offset_ms": 0.0,
+        "raw_energy_unit": "PDW amplitude (dB)",
+        "regridding": "Mean measured intensity; OR aggregation of labelled pulse occupancy. Empty measured bins stay NaN."
+      },
+      "metrics": {
+        "magnts": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1151,
+          "true_positives": 1055,
+          "false_positives": 96,
+          "false_negatives_observed": 75,
+          "true_negatives": 2614,
+          "total_active_cells": 2001,
+          "missed_active_cells": 946,
+          "pd": 0.933628,
+          "pfa": 0.035424,
+          "recall": 0.527236,
+          "avg_interception_rate": 0.5100661028786029,
+          "average_reward": 3.989451,
+          "reward_cost": 3.750113,
+          "prediction_accuracy": 0.91276,
+          "avg_intercept_time_ms": 94.14903207465277,
+          "avg_intercept_time_error_ms": 165.2049053385429,
+          "interception_ratio": 0.705882,
+          "intercepted_episodes": 120,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.294118,
+          "scan_efficiency": 0.294271,
+          "active_scan_fraction": 0.908333,
+          "retune_count": 80,
+          "retune_cost": 15.317164,
+          "total_cost": 255.317164,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.650462,
+          "coverage": 1.0,
+          "exploration_fraction": 0.079167,
+          "mean_observation_confidence": 0.936362,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 2,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.47276399999999996
+        },
+        "no_memory": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1089,
+          "true_positives": 1004,
+          "false_positives": 85,
+          "false_negatives_observed": 72,
+          "true_negatives": 2679,
+          "total_active_cells": 2001,
+          "missed_active_cells": 997,
+          "pd": 0.933086,
+          "pfa": 0.030753,
+          "recall": 0.501749,
+          "avg_interception_rate": 0.4869152491027491,
+          "average_reward": 3.821651,
+          "reward_cost": 3.554514,
+          "prediction_accuracy": 0.909635,
+          "avg_intercept_time_ms": 82.70903647916667,
+          "avg_intercept_time_error_ms": 989.5545435900298,
+          "interception_ratio": 0.735294,
+          "intercepted_episodes": 125,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.264706,
+          "scan_efficiency": 0.280208,
+          "active_scan_fraction": 0.904167,
+          "retune_count": 99,
+          "retune_cost": 18.037022,
+          "total_cost": 258.037022,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.652529,
+          "coverage": 1.0,
+          "exploration_fraction": 0.129167,
+          "mean_observation_confidence": 0.938925,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 7,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.498251
+        },
+        "no_information": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1160,
+          "true_positives": 1059,
+          "false_positives": 101,
+          "false_negatives_observed": 61,
+          "true_negatives": 2619,
+          "total_active_cells": 2001,
+          "missed_active_cells": 942,
+          "pd": 0.945536,
+          "pfa": 0.037132,
+          "recall": 0.529235,
+          "avg_interception_rate": 0.5294593022718023,
+          "average_reward": 3.986741,
+          "reward_cost": 3.799572,
+          "prediction_accuracy": 0.897917,
+          "avg_intercept_time_ms": 97.22171848606418,
+          "avg_intercept_time_error_ms": 159.87571484375,
+          "interception_ratio": 0.870588,
+          "intercepted_episodes": 148,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.129412,
+          "scan_efficiency": 0.291667,
+          "active_scan_fraction": 0.9375,
+          "retune_count": 64,
+          "retune_cost": 11.822481,
+          "total_cost": 251.822481,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.595051,
+          "coverage": 1.0,
+          "exploration_fraction": 0.1125,
+          "mean_observation_confidence": 0.937911,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 2,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.470765
+        },
+        "no_change": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1102,
+          "true_positives": 1016,
+          "false_positives": 86,
+          "false_negatives_observed": 69,
+          "true_negatives": 2669,
+          "total_active_cells": 2001,
+          "missed_active_cells": 985,
+          "pd": 0.936406,
+          "pfa": 0.031216,
+          "recall": 0.507746,
+          "avg_interception_rate": 0.4928343762718762,
+          "average_reward": 3.869037,
+          "reward_cost": 3.651314,
+          "prediction_accuracy": 0.9,
+          "avg_intercept_time_ms": 92.919218883547,
+          "avg_intercept_time_error_ms": 496.52829152901825,
+          "interception_ratio": 0.688235,
+          "intercepted_episodes": 117,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.311765,
+          "scan_efficiency": 0.282552,
+          "active_scan_fraction": 0.904167,
+          "retune_count": 79,
+          "retune_cost": 14.310856,
+          "total_cost": 254.310856,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.649365,
+          "coverage": 1.0,
+          "exploration_fraction": 0.1375,
+          "mean_observation_confidence": 0.939812,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 14,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.49225399999999997
+        },
+        "thompson": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 1163,
+          "true_positives": 1091,
+          "false_positives": 72,
+          "false_negatives_observed": 80,
+          "true_negatives": 2597,
+          "total_active_cells": 2001,
+          "missed_active_cells": 910,
+          "pd": 0.931682,
+          "pfa": 0.026976,
+          "recall": 0.545227,
+          "avg_interception_rate": 0.5403256928256928,
+          "average_reward": 4.241211,
+          "reward_cost": 4.053839,
+          "prediction_accuracy": 0.90625,
+          "avg_intercept_time_ms": 19.82954602713178,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.758824,
+          "intercepted_episodes": 129,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.241176,
+          "scan_efficiency": 0.304948,
+          "active_scan_fraction": 0.95,
+          "retune_count": 95,
+          "retune_cost": 11.093039,
+          "total_cost": 251.093039,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.314227,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.940708,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.454773
+        },
+        "fixed": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 554,
+          "true_positives": 441,
+          "false_positives": 113,
+          "false_negatives_observed": 59,
+          "true_negatives": 3227,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1560,
+          "pd": 0.882,
+          "pfa": 0.033832,
+          "recall": 0.22039,
+          "avg_interception_rate": 0.22093929218929223,
+          "average_reward": 1.344317,
+          "reward_cost": 1.098751,
+          "prediction_accuracy": 0.930729,
+          "avg_intercept_time_ms": 128.89204917635658,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.505882,
+          "intercepted_episodes": 86,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.494118,
+          "scan_efficiency": 0.130208,
+          "active_scan_fraction": 0.708333,
+          "retune_count": 239,
+          "retune_cost": 53.638935,
+          "total_cost": 293.638935,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 1.0,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.9338,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.77961
+        },
+        "random": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 648,
+          "true_positives": 547,
+          "false_positives": 101,
+          "false_negatives_observed": 60,
+          "true_negatives": 3132,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1454,
+          "pd": 0.901153,
+          "pfa": 0.03124,
+          "recall": 0.273363,
+          "avg_interception_rate": 0.2805433802308802,
+          "average_reward": 1.840859,
+          "reward_cost": 1.56703,
+          "prediction_accuracy": 0.933073,
+          "avg_intercept_time_ms": 130.86872860627633,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.464706,
+          "intercepted_episodes": 79,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.535294,
+          "scan_efficiency": 0.158073,
+          "active_scan_fraction": 0.679167,
+          "retune_count": 232,
+          "retune_cost": 41.938527,
+          "total_cost": 281.938527,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.842567,
+          "coverage": 1.0,
+          "exploration_fraction": 1.0,
+          "mean_observation_confidence": 0.935044,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.726637
+        },
+        "ucb": {
+          "steps": 240,
+          "observed_cells": 3840,
+          "observed_energy_events": 911,
+          "true_positives": 807,
+          "false_positives": 104,
+          "false_negatives_observed": 120,
+          "true_negatives": 2809,
+          "total_active_cells": 2001,
+          "missed_active_cells": 1194,
+          "pd": 0.87055,
+          "pfa": 0.035702,
+          "recall": 0.403298,
+          "avg_interception_rate": 0.3977857443482443,
+          "average_reward": 2.908781,
+          "reward_cost": 2.416214,
+          "prediction_accuracy": 0.904948,
+          "avg_intercept_time_ms": 75.00342177854938,
+          "avg_intercept_time_error_ms": null,
+          "interception_ratio": 0.635294,
+          "intercepted_episodes": 108,
+          "total_episodes": 170,
+          "episode_censoring_fraction": 0.364706,
+          "scan_efficiency": 0.241406,
+          "active_scan_fraction": 0.833333,
+          "retune_count": 234,
+          "retune_cost": 48.926143,
+          "total_cost": 288.926143,
+          "time_to_first_detection_ms": null,
+          "undetected_sources": null,
+          "coverage_fairness": 0.814146,
+          "coverage": 1.0,
+          "exploration_fraction": 0.0,
+          "mean_observation_confidence": 0.921975,
+          "missing_channel_fraction": 0.0,
+          "resolved_predictions": 0,
+          "pending_predictions": 0,
+          "ground_truth_available": true,
+          "miss_rate": 0.5967020000000001
+        }
+      }
+    }
+  ],
+  "aggregates": [
+    {
+      "scenario": "recording",
+      "algorithm": "magnts",
+      "metrics": {
+        "recall": {
+          "n": 6,
+          "mean": 0.523405,
+          "median": 0.524238,
+          "variance": 3.1033941999999894e-05,
+          "ci95": [
+            0.517558791752765,
+            0.529251208247235
+          ],
+          "values": [
+            0.514243,
+            0.529735,
+            0.522239,
+            0.52074,
+            0.526237,
+            0.527236
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.9353891666666665,
+          "median": 0.933781,
+          "variance": 2.6138540966666614e-05,
+          "ci95": [
+            0.9300238361561975,
+            0.9407544971771354
+          ],
+          "values": [
+            0.931222,
+            0.945584,
+            0.93387,
+            0.933692,
+            0.934339,
+            0.933628
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.030267500000000003,
+          "median": 0.0301665,
+          "variance": 1.3478679499999987e-05,
+          "ci95": [
+            0.02641467323242855,
+            0.03412032676757146
+          ],
+          "values": [
+            0.032907,
+            0.026848,
+            0.026093,
+            0.028634,
+            0.031699,
+            0.035424
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 85.21225677768251,
+          "median": 83.19185622629848,
+          "variance": 265.842991215508,
+          "ci95": [
+            68.10153157351472,
+            102.3229819818503
+          ],
+          "values": [
+            110.84716229166666,
+            66.92471784156974,
+            76.13129278273809,
+            72.96891600560897,
+            90.25241966985887,
+            94.14903207465277
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.9114581666666668,
+          "median": 0.9108069999999999,
+          "variance": 2.015598096666648e-05,
+          "ci95": [
+            0.9067466820334227,
+            0.9161696512999109
+          ],
+          "values": [
+            0.919271,
+            0.909375,
+            0.910937,
+            0.905729,
+            0.910677,
+            0.91276
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 3.7520556666666667,
+          "median": 3.7559889999999996,
+          "variance": 0.0030640825686666646,
+          "ci95": [
+            3.6939650427126898,
+            3.8101462906206436
+          ],
+          "values": [
+            3.659811,
+            3.829474,
+            3.761865,
+            3.774157,
+            3.736914,
+            3.750113
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.7078431666666667,
+          "median": 0.7176469999999999,
+          "variance": 0.00413382334496667,
+          "ci95": [
+            0.6403698954549126,
+            0.7753164378784207
+          ],
+          "values": [
+            0.588235,
+            0.758824,
+            0.7,
+            0.764706,
+            0.729412,
+            0.705882
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 6,
+          "mean": 535.2416904583114,
+          "median": 506.42535959077395,
+          "variance": 125597.40309476815,
+          "ci95": [
+            163.32459704668793,
+            907.1587838699348
+          ],
+          "values": [
+            627.017327358631,
+            385.83339182291695,
+            235.1402821394231,
+            1128.7225467968753,
+            669.5316892934784,
+            165.2049053385429
+          ]
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 0.6367501666666667,
+          "median": 0.6316745,
+          "variance": 0.00013515512776666606,
+          "ci95": [
+            0.6245498227588153,
+            0.6489505105745181
+          ],
+          "values": [
+            0.629625,
+            0.652299,
+            0.624766,
+            0.631877,
+            0.631472,
+            0.650462
+          ]
+        }
+      },
+      "paired_delta_vs_fixed": {
+        "recall": {
+          "n": 6,
+          "mean": 0.30384799999999995,
+          "median": 0.30609699999999995,
+          "variance": 2.2277805600000066e-05,
+          "ci95": [
+            0.2988947298590029,
+            0.308801270140997
+          ],
+          "values": [
+            0.297851,
+            0.30834599999999995,
+            0.297851,
+            0.306347,
+            0.305847,
+            0.30684600000000006
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.05672249999999999,
+          "median": 0.0559615,
+          "variance": 0.00018405347430000015,
+          "ci95": [
+            0.04248519400772676,
+            0.07095980599227322
+          ],
+          "values": [
+            0.065222,
+            0.05958399999999997,
+            0.03586999999999996,
+            0.07569199999999998,
+            0.052339000000000024,
+            0.05162800000000001
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": -0.0003213333333333338,
+          "median": 0.00038100000000000113,
+          "variance": 5.315090266666661e-06,
+          "ci95": [
+            -0.0027407525817455514,
+            0.002098085915078884
+          ],
+          "values": [
+            0.0002720000000000014,
+            -0.0006969999999999997,
+            -0.004744999999999999,
+            0.0004900000000000009,
+            0.0011599999999999978,
+            0.0015919999999999962
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": -43.6255035939572,
+          "median": -40.90299904733459,
+          "variance": 281.98674646718393,
+          "ci95": [
+            -61.24811064987869,
+            -26.002896538035706
+          ],
+          "values": [
+            -32.16402566983122,
+            -71.38046404707113,
+            -47.062980992965365,
+            -51.59288592084684,
+            -24.809647831324853,
+            -34.74301710170381
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": -0.01679699999999999,
+          "median": -0.017318,
+          "variance": 2.730984599999994e-05,
+          "ci95": [
+            -0.02228122715425227,
+            -0.011312772845747707
+          ],
+          "values": [
+            -0.007552000000000003,
+            -0.02083299999999999,
+            -0.015364999999999962,
+            -0.02239599999999997,
+            -0.016666999999999987,
+            -0.017969000000000013
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 2.622087,
+          "median": 2.626588,
+          "variance": 0.0011520435335999916,
+          "ci95": [
+            2.586467300237582,
+            2.657706699762418
+          ],
+          "values": [
+            2.574682,
+            2.652395,
+            2.601814,
+            2.651567,
+            2.600702,
+            2.6513619999999998
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.22058833333333336,
+          "median": 0.22941199999999998,
+          "variance": 0.003138436401466671,
+          "ci95": [
+            0.16179711294458018,
+            0.27937955372208656
+          ],
+          "values": [
+            0.12352899999999994,
+            0.26470600000000005,
+            0.24705899999999997,
+            0.276471,
+            0.21176499999999998,
+            0.19999999999999996
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": -0.3632498333333333,
+          "median": -0.3683255,
+          "variance": 0.00013515512776666604,
+          "ci95": [
+            -0.3754501772411847,
+            -0.351049489425482
+          ],
+          "values": [
+            -0.370375,
+            -0.34770100000000004,
+            -0.37523399999999996,
+            -0.368123,
+            -0.36852799999999997,
+            -0.349538
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "recording",
+      "algorithm": "no_memory",
+      "metrics": {
+        "recall": {
+          "n": 6,
+          "mean": 0.5112443333333333,
+          "median": 0.511744,
+          "variance": 5.1047613466666634e-05,
+          "ci95": [
+            0.5037463662282275,
+            0.518742300438439
+          ],
+          "values": [
+            0.509745,
+            0.517741,
+            0.513743,
+            0.504748,
+            0.51974,
+            0.501749
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.935938,
+          "median": 0.936347,
+          "variance": 5.3563180399999696e-05,
+          "ci95": [
+            0.9282575089535456,
+            0.9436184910464545
+          ],
+          "values": [
+            0.934066,
+            0.945255,
+            0.940531,
+            0.924062,
+            0.938628,
+            0.933086
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.030276333333333336,
+          "median": 0.030116999999999998,
+          "variance": 4.468231066666665e-06,
+          "ci95": [
+            0.028058016263501358,
+            0.032494650403165314
+          ],
+          "values": [
+            0.027656,
+            0.033892,
+            0.029487,
+            0.029123,
+            0.030747,
+            0.030753
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 104.12807149985578,
+          "median": 90.80940603125,
+          "variance": 1358.6517037693632,
+          "ci95": [
+            65.4459862196638,
+            142.81015678004775
+          ],
+          "values": [
+            140.1913175206456,
+            73.92102944388441,
+            98.90977558333334,
+            70.48284202788979,
+            158.55442794421486,
+            82.70903647916667
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.909809,
+          "median": 0.909635,
+          "variance": 7.424129199999966e-06,
+          "ci95": [
+            0.9069495759225475,
+            0.9126684240774524
+          ],
+          "values": [
+            0.914844,
+            0.907031,
+            0.909635,
+            0.907813,
+            0.909896,
+            0.909635
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 3.662448166666667,
+          "median": 3.675768,
+          "variance": 0.004303983825366656,
+          "ci95": [
+            3.593600199048872,
+            3.731296134284462
+          ],
+          "values": [
+            3.6785,
+            3.673036,
+            3.695675,
+            3.626311,
+            3.746653,
+            3.554514
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.7156863333333332,
+          "median": 0.729412,
+          "variance": 0.0010196125490666667,
+          "ci95": [
+            0.6821764130120007,
+            0.7491962536546657
+          ],
+          "values": [
+            0.652941,
+            0.729412,
+            0.735294,
+            0.729412,
+            0.711765,
+            0.735294
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 6,
+          "mean": 576.9826558186272,
+          "median": 377.49007388062955,
+          "variance": 134761.5265127442,
+          "ci95": [
+            191.73609523565693,
+            962.2292164015976
+          ],
+          "values": [
+            399.74257901432287,
+            264.090995630787,
+            355.2375687469362,
+            352.25949170572926,
+            1101.010756223958,
+            989.5545435900298
+          ]
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 0.6353908333333333,
+          "median": 0.635766,
+          "variance": 0.0004679936577666671,
+          "ci95": [
+            0.6126882231056275,
+            0.6580934435610392
+          ],
+          "values": [
+            0.62074,
+            0.650792,
+            0.609934,
+            0.660596,
+            0.617754,
+            0.652529
+          ]
+        }
+      },
+      "paired_delta_vs_fixed": {
+        "recall": {
+          "n": 6,
+          "mean": 0.29168733333333335,
+          "median": 0.29185399999999995,
+          "variance": 3.9427876266666656e-05,
+          "ci95": [
+            0.2850977568712887,
+            0.298276909795378
+          ],
+          "values": [
+            0.293353,
+            0.296352,
+            0.2893549999999999,
+            0.290355,
+            0.29935,
+            0.281359
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.05727133333333332,
+          "median": 0.05794149999999998,
+          "variance": 9.073704706666686e-05,
+          "ci95": [
+            0.04727482965877852,
+            0.06726783700788812
+          ],
+          "values": [
+            0.06806599999999996,
+            0.05925499999999995,
+            0.042530999999999985,
+            0.06606200000000007,
+            0.05662800000000001,
+            0.051085999999999965
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": -0.0003125000000000003,
+          "median": -0.0005715000000000008,
+          "variance": 1.5359211899999995e-05,
+          "ci95": [
+            -0.004425325421313335,
+            0.0038003254213133343
+          ],
+          "values": [
+            -0.004978999999999997,
+            0.0063469999999999985,
+            -0.0013510000000000015,
+            0.0009790000000000007,
+            0.00020799999999999985,
+            -0.003079000000000002
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": -24.709688871783936,
+          "median": -35.23375544478001,
+          "variance": 1605.7170490703877,
+          "ci95": [
+            -66.76204353212334,
+            17.34266578855547
+          ],
+          "values": [
+            -2.81987044085227,
+            -64.38415244475647,
+            -24.28449819237011,
+            -54.078959898566026,
+            43.492360443031146,
+            -46.18301269718991
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": -0.018446166666666652,
+          "median": -0.018879999999999952,
+          "variance": 1.5771830966666877e-05,
+          "ci95": [
+            -0.02261387066054252,
+            -0.014278462672790784
+          ],
+          "values": [
+            -0.011978999999999962,
+            -0.023177000000000003,
+            -0.016666999999999987,
+            -0.020311999999999997,
+            -0.017447999999999908,
+            -0.021094000000000057
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 2.5324794999999996,
+          "median": 2.5196725,
+          "variance": 0.003568404767099998,
+          "ci95": [
+            2.469790280231579,
+            2.59516871976842
+          ],
+          "values": [
+            2.5933710000000003,
+            2.495957,
+            2.5356240000000003,
+            2.5037209999999996,
+            2.610441,
+            2.455763
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.22843149999999998,
+          "median": 0.23235299999999995,
+          "variance": 0.0011822412227,
+          "ci95": [
+            0.19234798320858176,
+            0.2645150167914182
+          ],
+          "values": [
+            0.18823499999999999,
+            0.23529399999999995,
+            0.282353,
+            0.24117699999999997,
+            0.194118,
+            0.22941199999999995
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": -0.36460916666666665,
+          "median": -0.364234,
+          "variance": 0.0004679936577666671,
+          "ci95": [
+            -0.3873117768943724,
+            -0.3419065564389609
+          ],
+          "values": [
+            -0.37926000000000004,
+            -0.34920799999999996,
+            -0.390066,
+            -0.33940400000000004,
+            -0.382246,
+            -0.347471
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "recording",
+      "algorithm": "no_information",
+      "metrics": {
+        "recall": {
+          "n": 6,
+          "mean": 0.5349823333333333,
+          "median": 0.5367314999999999,
+          "variance": 9.218602146666649e-05,
+          "ci95": [
+            0.5249063290066238,
+            0.5450583376600429
+          ],
+          "values": [
+            0.537731,
+            0.51924,
+            0.546227,
+            0.541729,
+            0.535732,
+            0.529235
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.9403825,
+          "median": 0.9413595,
+          "variance": 4.1048785900000064e-05,
+          "ci95": [
+            0.9336588365413626,
+            0.9471061634586374
+          ],
+          "values": [
+            0.934839,
+            0.947129,
+            0.937393,
+            0.932072,
+            0.945326,
+            0.945536
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.032141,
+          "median": 0.0314925,
+          "variance": 1.2594728399999988e-05,
+          "ci95": [
+            0.028416652358899945,
+            0.03586534764110006
+          ],
+          "values": [
+            0.032726,
+            0.030259,
+            0.035153,
+            0.027643,
+            0.029933,
+            0.037132
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 115.15530664886954,
+          "median": 101.30648500196422,
+          "variance": 2573.3478052031155,
+          "ci95": [
+            61.9193511704509,
+            168.39126212728817
+          ],
+          "values": [
+            99.58195377128955,
+            215.70532955109127,
+            71.30607000073356,
+            104.08575185139975,
+            103.03101623263889,
+            97.22171848606418
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.9044704999999998,
+          "median": 0.9046875,
+          "variance": 3.5327030700000175e-05,
+          "ci95": [
+            0.8982330169700927,
+            0.910707983029907
+          ],
+          "values": [
+            0.902083,
+            0.91276,
+            0.898438,
+            0.908333,
+            0.907292,
+            0.897917
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 3.9091035000000005,
+          "median": 3.9270965,
+          "variance": 0.0076659574826999834,
+          "ci95": [
+            3.817219686359506,
+            4.000987313640495
+          ],
+          "values": [
+            3.911633,
+            3.809877,
+            3.980726,
+            4.010253,
+            3.94256,
+            3.799572
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.7852938333333332,
+          "median": 0.7794114999999999,
+          "variance": 0.0038996624913666678,
+          "ci95": [
+            0.7197594345069772,
+            0.8508282321596893
+          ],
+          "values": [
+            0.805882,
+            0.741176,
+            0.835294,
+            0.752941,
+            0.705882,
+            0.870588
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 3,
+          "mean": 179.41607999131983,
+          "median": 165.2049053385429,
+          "variance": 861.4748970032438,
+          "ci95": [
+            106.5044207853063,
+            252.32773919733336
+          ],
+          "values": [
+            165.2049053385429,
+            213.16761979166665,
+            159.87571484375
+          ]
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 0.5521793333333332,
+          "median": 0.562551,
+          "variance": 0.0011277888906666672,
+          "ci95": [
+            0.5169365893262822,
+            0.5874220773403843
+          ],
+          "values": [
+            0.56375,
+            0.561352,
+            0.499123,
+            0.528029,
+            0.565771,
+            0.595051
+          ]
+        }
+      },
+      "paired_delta_vs_fixed": {
+        "recall": {
+          "n": 6,
+          "mean": 0.31542533333333334,
+          "median": 0.31834049999999997,
+          "variance": 0.0001140270954666662,
+          "ci95": [
+            0.3042190953763456,
+            0.32663157129032105
+          ],
+          "values": [
+            0.32133899999999993,
+            0.29785100000000003,
+            0.321839,
+            0.327336,
+            0.315342,
+            0.30884500000000004
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.06171583333333334,
+          "median": 0.06343100000000002,
+          "variance": 0.00014159465256666665,
+          "ci95": [
+            0.04922822596562714,
+            0.07420344070103954
+          ],
+          "values": [
+            0.06883899999999998,
+            0.06112899999999999,
+            0.03939300000000001,
+            0.07407200000000003,
+            0.063326,
+            0.06353600000000004
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.0015521666666666663,
+          "median": 0.001402500000000001,
+          "variance": 4.609242166666658e-06,
+          "ci95": [
+            -0.0007008819978739508,
+            0.0038052153312072836
+          ],
+          "values": [
+            9.10000000000008e-05,
+            0.002714000000000001,
+            0.004314999999999996,
+            -0.000500999999999998,
+            -0.0006059999999999989,
+            0.0032999999999999974
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": -13.68245372277019,
+          "median": -26.073190382674234,
+          "variance": 2202.606871918086,
+          "ci95": [
+            -62.93450286383729,
+            35.569595418296906
+          ],
+          "values": [
+            -43.429234190208334,
+            77.4001476624504,
+            -51.888203774969895,
+            -20.476050075056065,
+            -12.031051268544829,
+            -31.670330690292403
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": -0.023784666666666676,
+          "median": -0.02239599999999997,
+          "variance": 3.381478026666685e-05,
+          "ci95": [
+            -0.02988718501706747,
+            -0.017682148316265883
+          ],
+          "values": [
+            -0.024739999999999984,
+            -0.01744800000000002,
+            -0.027864,
+            -0.019792000000000032,
+            -0.02005199999999996,
+            -0.03281200000000006
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 2.7791348333333334,
+          "median": 2.8135115,
+          "variance": 0.008807173615766658,
+          "ci95": [
+            2.6806489265247424,
+            2.8776207401419245
+          ],
+          "values": [
+            2.826504,
+            2.632798,
+            2.8206750000000005,
+            2.887663,
+            2.806348,
+            2.700821
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.298039,
+          "median": 0.302941,
+          "variance": 0.0058362419839999985,
+          "ci95": [
+            0.21786704862212075,
+            0.37821095137787925
+          ],
+          "values": [
+            0.341176,
+            0.24705799999999994,
+            0.382353,
+            0.264706,
+            0.18823500000000004,
+            0.364706
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": -0.4478206666666667,
+          "median": -0.43744900000000003,
+          "variance": 0.0011277888906666672,
+          "ci95": [
+            -0.4830634106737178,
+            -0.4125779226596156
+          ],
+          "values": [
+            -0.43625,
+            -0.43864800000000004,
+            -0.500877,
+            -0.47197100000000003,
+            -0.434229,
+            -0.404949
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "recording",
+      "algorithm": "no_change",
+      "metrics": {
+        "recall": {
+          "n": 6,
+          "mean": 0.514826,
+          "median": 0.5127435,
+          "variance": 0.00013680396799999967,
+          "ci95": [
+            0.5025514619549655,
+            0.5271005380450345
+          ],
+          "values": [
+            0.506247,
+            0.52024,
+            0.517741,
+            0.502749,
+            0.534233,
+            0.507746
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.9357604999999999,
+          "median": 0.935712,
+          "variance": 9.138173390000016e-05,
+          "ci95": [
+            0.9257285465960081,
+            0.9457924534039917
+          ],
+          "values": [
+            0.933641,
+            0.948087,
+            0.935018,
+            0.919561,
+            0.94185,
+            0.936406
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.030535833333333335,
+          "median": 0.031085,
+          "variance": 3.6826293666666625e-06,
+          "ci95": [
+            0.02852194764676075,
+            0.03254971901990592
+          ],
+          "values": [
+            0.031942,
+            0.029905,
+            0.032211,
+            0.030954,
+            0.026987,
+            0.031216
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 81.9635158539781,
+          "median": 78.52140591450384,
+          "variance": 544.5171992938488,
+          "ci95": [
+            57.475048206804324,
+            106.45198350115186
+          ],
+          "values": [
+            102.48443259214743,
+            111.82563661202187,
+            56.6526557103979,
+            63.77555838029371,
+            64.1235929454607,
+            92.919218883547
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.901606,
+          "median": 0.9009115,
+          "variance": 1.5230390000000102e-05,
+          "ci95": [
+            0.8975104585907969,
+            0.9057015414092031
+          ],
+          "values": [
+            0.908594,
+            0.90026,
+            0.902344,
+            0.901563,
+            0.896875,
+            0.9
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 3.676842333333333,
+          "median": 3.664509,
+          "variance": 0.013283458671466658,
+          "ci95": [
+            3.555890795755435,
+            3.797793870911231
+          ],
+          "values": [
+            3.583394,
+            3.733031,
+            3.677704,
+            3.546626,
+            3.868985,
+            3.651314
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.685294,
+          "median": 0.702941,
+          "variance": 0.0020034456748,
+          "ci95": [
+            0.6383214005566082,
+            0.7322665994433917
+          ],
+          "values": [
+            0.611765,
+            0.717647,
+            0.652941,
+            0.717647,
+            0.723529,
+            0.688235
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 6,
+          "mean": 532.033143188312,
+          "median": 448.85487598846754,
+          "variance": 58242.6431953224,
+          "ci95": [
+            278.7674604705395,
+            785.2988259060845
+          ],
+          "values": [
+            946.4642318749997,
+            314.5745017782739,
+            401.18146044791683,
+            353.4456663642474,
+            680.0047071354165,
+            496.52829152901825
+          ]
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 0.6313475000000001,
+          "median": 0.6339585000000001,
+          "variance": 0.00020018124430000008,
+          "ci95": [
+            0.6164995156400794,
+            0.6461954843599207
+          ],
+          "values": [
+            0.640772,
+            0.632692,
+            0.619325,
+            0.610706,
+            0.635225,
+            0.649365
+          ]
+        }
+      },
+      "paired_delta_vs_fixed": {
+        "recall": {
+          "n": 6,
+          "mean": 0.295269,
+          "median": 0.291604,
+          "variance": 0.00010024235799999982,
+          "ci95": [
+            0.2847619343407167,
+            0.3057760656592833
+          ],
+          "values": [
+            0.289855,
+            0.29885100000000003,
+            0.293353,
+            0.288356,
+            0.313843,
+            0.28735600000000006
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.05709383333333332,
+          "median": 0.06070549999999997,
+          "variance": 0.00011479800056666695,
+          "ci95": [
+            0.04584977807626769,
+            0.06833788859039897
+          ],
+          "values": [
+            0.06764100000000006,
+            0.062087,
+            0.037017999999999995,
+            0.06156099999999998,
+            0.05984999999999996,
+            0.054405999999999954
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": -5.300000000000039e-05,
+          "median": 0.0003399999999999983,
+          "variance": 7.054876799999998e-06,
+          "ci95": [
+            -0.0028404078976505894,
+            0.0027344078976505883
+          ],
+          "values": [
+            -0.0006929999999999992,
+            0.002360000000000001,
+            0.0013729999999999958,
+            0.00281,
+            -0.0035519999999999996,
+            -0.0026160000000000003
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": -46.87424451766162,
+          "median": -45.732614962536736,
+          "variance": 234.3884945512324,
+          "ci95": [
+            -62.94084350170825,
+            -30.807645533614995
+          ],
+          "values": [
+            -40.526755369350454,
+            -26.479545276619007,
+            -66.54161806530556,
+            -60.786243546162105,
+            -50.93847455572302,
+            -35.972830292809576
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": -0.02664916666666665,
+          "median": -0.02825500000000003,
+          "variance": 2.4053530166667025e-05,
+          "ci95": [
+            -0.031796060630894345,
+            -0.02150227270243896
+          ],
+          "values": [
+            -0.01822899999999994,
+            -0.029948000000000086,
+            -0.023957999999999924,
+            -0.026561999999999975,
+            -0.03046899999999997,
+            -0.030729000000000006
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 2.5468736666666665,
+          "median": 2.535108,
+          "variance": 0.010595817794266656,
+          "ci95": [
+            2.4388489713714545,
+            2.6548983619618785
+          ],
+          "values": [
+            2.498265,
+            2.555952,
+            2.517653,
+            2.424036,
+            2.732773,
+            2.552563
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.19803916666666668,
+          "median": 0.202941,
+          "variance": 0.000908874878966668,
+          "ci95": [
+            0.16640125136200523,
+            0.22967708197132813
+          ],
+          "values": [
+            0.147059,
+            0.22352900000000003,
+            0.2,
+            0.22941200000000006,
+            0.205882,
+            0.182353
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": -0.3686525,
+          "median": -0.36604149999999996,
+          "variance": 0.00020018124430000008,
+          "ci95": [
+            -0.38350048435992057,
+            -0.3538045156400794
+          ],
+          "values": [
+            -0.359228,
+            -0.36730799999999997,
+            -0.380675,
+            -0.38929400000000003,
+            -0.36477499999999996,
+            -0.35063500000000003
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "recording",
+      "algorithm": "thompson",
+      "metrics": {
+        "recall": {
+          "n": 6,
+          "mean": 0.5529735000000001,
+          "median": 0.553973,
+          "variance": 2.3453305099999925e-05,
+          "ci95": [
+            0.5478912288037434,
+            0.5580557711962568
+          ],
+          "values": [
+            0.558221,
+            0.549725,
+            0.556722,
+            0.552724,
+            0.555222,
+            0.545227
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.9403756666666667,
+          "median": 0.9410735,
+          "variance": 2.8234281866666517e-05,
+          "ci95": [
+            0.9347993916809835,
+            0.94595194165235
+          ],
+          "values": [
+            0.937867,
+            0.94583,
+            0.943268,
+            0.938879,
+            0.944728,
+            0.931682
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.029540999999999998,
+          "median": 0.028805499999999998,
+          "variance": 1.3168721600000007e-05,
+          "ci95": [
+            0.025732731001363553,
+            0.033349268998636446
+          ],
+          "values": [
+            0.027558,
+            0.025775,
+            0.035728,
+            0.030053,
+            0.031156,
+            0.026976
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 15.50100890566751,
+          "median": 15.93998942638579,
+          "variance": 25.313621124225012,
+          "ci95": [
+            10.221020765868436,
+            20.780997045466584
+          ],
+          "values": [
+            10.263626138117282,
+            15.226258556547618,
+            21.801233842329545,
+            9.231668573654854,
+            16.65372029622396,
+            19.82954602713178
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.9045139999999999,
+          "median": 0.90612,
+          "variance": 1.5588773200000015e-05,
+          "ci95": [
+            0.9003705530911371,
+            0.9086574469088627
+          ],
+          "values": [
+            0.900521,
+            0.908594,
+            0.898698,
+            0.90599,
+            0.907031,
+            0.90625
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 4.113594,
+          "median": 4.1253175,
+          "variance": 0.002295693084799985,
+          "ci95": [
+            4.063311979334155,
+            4.163876020665845
+          ],
+          "values": [
+            4.177807,
+            4.122042,
+            4.060279,
+            4.128593,
+            4.139004,
+            4.053839
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.7549021666666667,
+          "median": 0.7558825,
+          "variance": 0.0010196172549666676,
+          "ci95": [
+            0.721392169014905,
+            0.7884121643184283
+          ],
+          "values": [
+            0.794118,
+            0.7,
+            0.776471,
+            0.747059,
+            0.752941,
+            0.758824
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 0.3110875,
+          "median": 0.310817,
+          "variance": 2.5288801099999907e-05,
+          "ci95": [
+            0.3058101010111598,
+            0.31636489898884024
+          ],
+          "values": [
+            0.305115,
+            0.318812,
+            0.31186,
+            0.306737,
+            0.309774,
+            0.314227
+          ]
+        }
+      },
+      "paired_delta_vs_fixed": {
+        "recall": {
+          "n": 6,
+          "mean": 0.33341649999999995,
+          "median": 0.333583,
+          "variance": 3.950344269999961e-05,
+          "ci95": [
+            0.3268206118560179,
+            0.340012388143982
+          ],
+          "values": [
+            0.34182899999999994,
+            0.328336,
+            0.332334,
+            0.338331,
+            0.334832,
+            0.32483700000000004
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.06170899999999999,
+          "median": 0.06127899999999997,
+          "variance": 0.00017803961520000051,
+          "ci95": [
+            0.04770622428562998,
+            0.07571177571437
+          ],
+          "values": [
+            0.07186700000000001,
+            0.05982999999999994,
+            0.045267999999999975,
+            0.08087900000000003,
+            0.062728,
+            0.049682000000000004
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": -0.001047833333333333,
+          "median": -0.0005765000000000006,
+          "variance": 1.9452581366666674e-05,
+          "ci95": [
+            -0.005676377683846911,
+            0.0035807110171802454
+          ],
+          "values": [
+            -0.005076999999999998,
+            -0.0017700000000000007,
+            0.004890000000000002,
+            0.001909000000000001,
+            0.0006169999999999995,
+            -0.006856000000000001
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": -113.3367514659722,
+          "median": -112.19631825101288,
+          "variance": 171.88834807488098,
+          "ci95": [
+            -127.09550300652987,
+            -99.57799992541453
+          ],
+          "values": [
+            -132.7475618233806,
+            -123.07892333209325,
+            -101.3930399333739,
+            -115.33013335280096,
+            -98.40834720495977,
+            -109.0625031492248
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": -0.023741166666666647,
+          "median": -0.023307000000000022,
+          "variance": 8.17613656666664e-06,
+          "ci95": [
+            -0.02674191710110363,
+            -0.020740416232229664
+          ],
+          "values": [
+            -0.026301999999999937,
+            -0.021614000000000022,
+            -0.027603999999999962,
+            -0.022135000000000016,
+            -0.020312999999999914,
+            -0.02447900000000003
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 2.983625333333333,
+          "median": 2.9789399999999997,
+          "variance": 0.0044049751606666295,
+          "ci95": [
+            2.9139743036645185,
+            3.0532763630021473
+          ],
+          "values": [
+            3.0926779999999994,
+            2.9449630000000004,
+            2.9002280000000003,
+            3.0060030000000006,
+            3.002792,
+            2.955088
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.26764733333333335,
+          "median": 0.255883,
+          "variance": 0.0024187078202666684,
+          "ci95": [
+            0.2160357106539958,
+            0.3192589560126709
+          ],
+          "values": [
+            0.329412,
+            0.20588199999999995,
+            0.32353000000000004,
+            0.25882400000000005,
+            0.235294,
+            0.252942
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": -0.6889124999999999,
+          "median": -0.689183,
+          "variance": 2.528880109999988e-05,
+          "ci95": [
+            -0.6941898989888401,
+            -0.6836351010111598
+          ],
+          "values": [
+            -0.694885,
+            -0.681188,
+            -0.68814,
+            -0.693263,
+            -0.690226,
+            -0.685773
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "recording",
+      "algorithm": "fixed",
+      "metrics": {
+        "recall": {
+          "n": 6,
+          "mean": 0.21955700000000003,
+          "median": 0.22039,
+          "variance": 1.2953336800000013e-05,
+          "ci95": [
+            0.21578000301562078,
+            0.22333399698437928
+          ],
+          "values": [
+            0.216392,
+            0.221389,
+            0.224388,
+            0.214393,
+            0.22039,
+            0.22039
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.8786666666666666,
+          "median": 0.882,
+          "variance": 0.00020746666666666708,
+          "ci95": [
+            0.8635509071532151,
+            0.893782426180118
+          ],
+          "values": [
+            0.866,
+            0.886,
+            0.898,
+            0.858,
+            0.882,
+            0.882
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.030588833333333332,
+          "median": 0.0306885,
+          "variance": 6.002325366666667e-06,
+          "ci95": [
+            0.028017753417175294,
+            0.03315991324949137
+          ],
+          "values": [
+            0.032635,
+            0.027545,
+            0.030838,
+            0.028144,
+            0.030539,
+            0.033832
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 128.8377603716397,
+          "median": 126.7269255514062,
+          "variance": 106.08470854888614,
+          "ci95": [
+            118.02884284899405,
+            139.64667789428535
+          ],
+          "values": [
+            143.01118796149788,
+            138.30518188864087,
+            123.19427377570345,
+            124.56180192645581,
+            115.06206750118372,
+            128.89204917635658
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.9282551666666667,
+          "median": 0.9277344999999999,
+          "variance": 3.3293077666668026e-06,
+          "ci95": [
+            0.9263403253877771,
+            0.9301700079455564
+          ],
+          "values": [
+            0.926823,
+            0.930208,
+            0.926302,
+            0.928125,
+            0.927344,
+            0.930729
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 1.1299686666666666,
+          "median": 1.129401,
+          "variance": 0.0012405785274666652,
+          "ci95": [
+            1.093005604803465,
+            1.1669317285298682
+          ],
+          "values": [
+            1.085129,
+            1.177079,
+            1.160051,
+            1.12259,
+            1.136212,
+            1.098751
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.4872548333333333,
+          "median": 0.4911765,
+          "variance": 0.0006009215917666668,
+          "ci95": [
+            0.46152928065984533,
+            0.5129803860068213
+          ],
+          "values": [
+            0.464706,
+            0.494118,
+            0.452941,
+            0.488235,
+            0.517647,
+            0.505882
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 1.0,
+          "median": 1.0,
+          "variance": 0.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      },
+      "paired_delta_vs_fixed": {
+        "recall": {
+          "n": 6,
+          "mean": 0.0,
+          "median": 0.0,
+          "variance": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.0,
+          "median": 0.0,
+          "variance": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.0,
+          "median": 0.0,
+          "variance": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 0.0,
+          "median": 0.0,
+          "variance": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.0,
+          "median": 0.0,
+          "variance": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 0.0,
+          "median": 0.0,
+          "variance": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.0,
+          "median": 0.0,
+          "variance": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 0.0,
+          "median": 0.0,
+          "variance": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "values": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "recording",
+      "algorithm": "random",
+      "metrics": {
+        "recall": {
+          "n": 6,
+          "mean": 0.2632016666666667,
+          "median": 0.265617,
+          "variance": 0.00010046642506666674,
+          "ci95": [
+            0.25268286458532785,
+            0.2737204687480056
+          ],
+          "values": [
+            0.245877,
+            0.265367,
+            0.265867,
+            0.270865,
+            0.257871,
+            0.273363
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.8932788333333334,
+          "median": 0.8972249999999999,
+          "variance": 0.00014900654016666634,
+          "ci95": [
+            0.8804685576936364,
+            0.9060891089730303
+          ],
+          "values": [
+            0.888087,
+            0.9046,
+            0.900169,
+            0.871383,
+            0.894281,
+            0.901153
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.028658666666666666,
+          "median": 0.0279325,
+          "variance": 4.8141410666666665e-06,
+          "ci95": [
+            0.026356084083979662,
+            0.03096124924935367
+          ],
+          "values": [
+            0.031345,
+            0.028896,
+            0.026777,
+            0.026725,
+            0.026969,
+            0.03124
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 141.16296924571967,
+          "median": 120.83683974404163,
+          "variance": 3766.0679647079805,
+          "ci95": [
+            76.76089046153332,
+            205.565048029906
+          ],
+          "values": [
+            177.17828138528137,
+            246.55531927710842,
+            103.47942708333335,
+            110.80495088180692,
+            78.09110824051155,
+            130.86872860627633
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.92704,
+          "median": 0.9256515000000001,
+          "variance": 2.1820884800000155e-05,
+          "ci95": [
+            0.9221377891431835,
+            0.9319422108568165
+          ],
+          "values": [
+            0.927865,
+            0.932031,
+            0.923177,
+            0.922656,
+            0.923438,
+            0.933073
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 1.5219436666666664,
+          "median": 1.5442185,
+          "variance": 0.0072967038018666676,
+          "ci95": [
+            1.4323000917062136,
+            1.611587241627119
+          ],
+          "values": [
+            1.363203,
+            1.531346,
+            1.557091,
+            1.60913,
+            1.503862,
+            1.56703
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.5333333333333333,
+          "median": 0.5411765,
+          "variance": 0.0051718716494666694,
+          "ci95": [
+            0.4578624073754265,
+            0.6088042592912402
+          ],
+          "values": [
+            0.452941,
+            0.488235,
+            0.605882,
+            0.594118,
+            0.594118,
+            0.464706
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 0.8410508333333332,
+          "median": 0.8405125,
+          "variance": 0.00015607709656666606,
+          "ci95": [
+            0.8279401478846575,
+            0.8541615187820089
+          ],
+          "values": [
+            0.838458,
+            0.860794,
+            0.844711,
+            0.837599,
+            0.822176,
+            0.842567
+          ]
+        }
+      },
+      "paired_delta_vs_fixed": {
+        "recall": {
+          "n": 6,
+          "mean": 0.043644666666666686,
+          "median": 0.042728500000000016,
+          "variance": 9.896929066666674e-05,
+          "ci95": [
+            0.03320453350603689,
+            0.054084799827296484
+          ],
+          "values": [
+            0.02948500000000001,
+            0.04397800000000002,
+            0.041479000000000016,
+            0.05647200000000002,
+            0.037481000000000014,
+            0.05297300000000002
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.014612166666666648,
+          "median": 0.015991499999999992,
+          "variance": 5.0834540166666565e-05,
+          "ci95": [
+            0.007129864223348848,
+            0.02209446910998445
+          ],
+          "values": [
+            0.022086999999999968,
+            0.01859999999999995,
+            0.0021689999999999765,
+            0.013383000000000034,
+            0.012280999999999986,
+            0.019152999999999976
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": -0.0019301666666666668,
+          "median": -0.0020055000000000003,
+          "variance": 3.82093736666667e-06,
+          "ci95": [
+            -0.003981521403431398,
+            0.00012118807009806401
+          ],
+          "values": [
+            -0.0012899999999999995,
+            0.0013510000000000015,
+            -0.004061000000000002,
+            -0.0014190000000000001,
+            -0.0035700000000000003,
+            -0.0025920000000000006
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 12.325208874079935,
+          "median": -5.890085807364571,
+          "variance": 2784.5406191809443,
+          "ci95": [
+            -43.05219449497807,
+            67.70261224313793
+          ],
+          "values": [
+            34.167093423783484,
+            108.25013738846755,
+            -19.714846692370102,
+            -13.756851044648897,
+            -36.970959260672174,
+            1.9766794299197556
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": -0.001215166666666619,
+          "median": -0.0010414999999999175,
+          "variance": 1.1195214166666615e-05,
+          "ci95": [
+            -0.004726499619658316,
+            0.0022961662863250788
+          ],
+          "values": [
+            0.0010420000000000984,
+            0.001823000000000019,
+            -0.0031249999999999334,
+            -0.005468999999999946,
+            -0.003905999999999965,
+            0.0023440000000000127
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 0.39197499999999996,
+          "median": 0.38234500000000005,
+          "variance": 0.005955506111199997,
+          "ci95": [
+            0.3109880308053268,
+            0.47296196919467315
+          ],
+          "values": [
+            0.27807399999999993,
+            0.3542670000000001,
+            0.39704000000000006,
+            0.48654,
+            0.36765000000000003,
+            0.4682789999999999
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.046078500000000015,
+          "median": 0.03529400000000002,
+          "variance": 0.0059158183855000076,
+          "ci95": [
+            -0.03463816795197249,
+            0.12679516795197251
+          ],
+          "values": [
+            -0.011765000000000025,
+            -0.005883000000000027,
+            0.15294100000000005,
+            0.10588300000000006,
+            0.07647100000000007,
+            -0.041176000000000046
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": -0.15894916666666667,
+          "median": -0.1594875,
+          "variance": 0.00015607709656666608,
+          "ci95": [
+            -0.17205985211534236,
+            -0.14583848121799098
+          ],
+          "values": [
+            -0.16154199999999996,
+            -0.13920600000000005,
+            -0.155289,
+            -0.16240100000000002,
+            -0.17782399999999998,
+            -0.15743300000000005
+          ]
+        }
+      }
+    },
+    {
+      "scenario": "recording",
+      "algorithm": "ucb",
+      "metrics": {
+        "recall": {
+          "n": 6,
+          "mean": 0.40471433333333334,
+          "median": 0.403798,
+          "variance": 3.5507608266666735e-05,
+          "ci95": [
+            0.3984609288717207,
+            0.410967737794946
+          ],
+          "values": [
+            0.3993,
+            0.414793,
+            0.407796,
+            0.404298,
+            0.398801,
+            0.403298
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.8888225,
+          "median": 0.889867,
+          "variance": 0.00011878231149999937,
+          "ci95": [
+            0.8773849845064114,
+            0.9002600154935885
+          ],
+          "values": [
+            0.888765,
+            0.898268,
+            0.900662,
+            0.890969,
+            0.883721,
+            0.87055
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": 0.030390666666666667,
+          "median": 0.030127,
+          "variance": 1.0896219866666659e-05,
+          "ci95": [
+            0.026926540203799153,
+            0.033854793129534176
+          ],
+          "values": [
+            0.030942,
+            0.028121,
+            0.029312,
+            0.026262,
+            0.032005,
+            0.035702
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": 89.93343886216917,
+          "median": 92.29595908656876,
+          "variance": 426.83920629194597,
+          "ci95": [
+            68.2520069503571,
+            111.61487077398124
+          ],
+          "values": [
+            100.43474394030449,
+            87.58867545895212,
+            97.0032427141854,
+            119.32752629642209,
+            60.243022984601446,
+            75.00342177854938
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": 0.9068141666666668,
+          "median": 0.90625,
+          "variance": 6.005962966666684e-06,
+          "ci95": [
+            0.9042423077904247,
+            0.9093860255429089
+          ],
+          "values": [
+            0.907813,
+            0.907552,
+            0.910937,
+            0.904948,
+            0.904687,
+            0.904948
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 2.4898058333333335,
+          "median": 2.4876605,
+          "variance": 0.004846416596166655,
+          "ci95": [
+            2.4167481021880084,
+            2.5628635644786586
+          ],
+          "values": [
+            2.445634,
+            2.586026,
+            2.529687,
+            2.534712,
+            2.426562,
+            2.416214
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.5745096666666667,
+          "median": 0.567647,
+          "variance": 0.0020576953634666674,
+          "ci95": [
+            0.5269053485521604,
+            0.622113984781173
+          ],
+          "values": [
+            0.611765,
+            0.594118,
+            0.523529,
+            0.541176,
+            0.541176,
+            0.635294
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": 0.8144518333333334,
+          "median": 0.816417,
+          "variance": 3.8289918966666664e-05,
+          "ci95": [
+            0.8079580464319475,
+            0.8209456202347193
+          ],
+          "values": [
+            0.819835,
+            0.808449,
+            0.805623,
+            0.81997,
+            0.818688,
+            0.814146
+          ]
+        }
+      },
+      "paired_delta_vs_fixed": {
+        "recall": {
+          "n": 6,
+          "mean": 0.1851573333333333,
+          "median": 0.183158,
+          "variance": 2.9848006266666706e-05,
+          "ci95": [
+            0.17942391708597916,
+            0.19089074958068747
+          ],
+          "values": [
+            0.182908,
+            0.19340400000000002,
+            0.183408,
+            0.189905,
+            0.17841100000000001,
+            0.182908
+          ]
+        },
+        "pd": {
+          "n": 6,
+          "mean": 0.010155833333333327,
+          "median": 0.007464999999999944,
+          "variance": 0.00025560177816666695,
+          "ci95": [
+            -0.006622072191542974,
+            0.026933738858209627
+          ],
+          "values": [
+            0.022765000000000035,
+            0.012267999999999946,
+            0.002661999999999942,
+            0.032969000000000026,
+            0.0017209999999999726,
+            -0.01144999999999996
+          ]
+        },
+        "pfa": {
+          "n": 6,
+          "mean": -0.0001981666666666665,
+          "median": -0.00047499999999999973,
+          "variance": 2.895812166666659e-06,
+          "ci95": [
+            -0.0019840003224913536,
+            0.0015876669891580204
+          ],
+          "values": [
+            -0.0016929999999999966,
+            0.0005760000000000001,
+            -0.0015259999999999996,
+            -0.0018819999999999983,
+            0.0014659999999999986,
+            0.0018699999999999967
+          ]
+        },
+        "avg_intercept_time_ms": {
+          "n": 6,
+          "mean": -38.90432150947056,
+          "median": -46.64647522544107,
+          "variance": 385.22395424324895,
+          "ci95": [
+            -59.50172381371871,
+            -18.30691920522241
+          ],
+          "values": [
+            -42.576444021193396,
+            -50.71650642968875,
+            -26.191031061518046,
+            -5.234275630033721,
+            -54.819044516582274,
+            -53.8886273978072
+          ]
+        },
+        "prediction_accuracy": {
+          "n": 6,
+          "mean": -0.021440999999999988,
+          "median": -0.02265649999999997,
+          "variance": 1.3526342800000184e-05,
+          "ci95": [
+            -0.025300632937973466,
+            -0.01758136706202651
+          ],
+          "values": [
+            -0.01900999999999997,
+            -0.02265600000000001,
+            -0.015364999999999962,
+            -0.023177000000000003,
+            -0.022656999999999927,
+            -0.025781000000000054
+          ]
+        },
+        "reward_cost": {
+          "n": 6,
+          "mean": 1.3598371666666669,
+          "median": 1.3650705,
+          "variance": 0.0023731957989666596,
+          "ci95": [
+            1.308713429357366,
+            1.4109609039759679
+          ],
+          "values": [
+            1.360505,
+            1.408947,
+            1.369636,
+            1.4121219999999999,
+            1.29035,
+            1.317463
+          ]
+        },
+        "interception_ratio": {
+          "n": 6,
+          "mean": 0.08725483333333335,
+          "median": 0.08529400000000004,
+          "variance": 0.0022064817301666656,
+          "ci95": [
+            0.03795948076602789,
+            0.1365501859006388
+          ],
+          "values": [
+            0.147059,
+            0.10000000000000003,
+            0.07058800000000004,
+            0.052941000000000016,
+            0.023529000000000022,
+            0.12941199999999997
+          ]
+        },
+        "avg_intercept_time_error_ms": {
+          "n": 0,
+          "mean": null,
+          "median": null,
+          "variance": null,
+          "ci95": null,
+          "values": []
+        },
+        "coverage_fairness": {
+          "n": 6,
+          "mean": -0.18554816666666665,
+          "median": -0.183583,
+          "variance": 3.8289918966666664e-05,
+          "ci95": [
+            -0.1920419535680526,
+            -0.1790543797652807
+          ],
+          "values": [
+            -0.18016500000000002,
+            -0.19155100000000003,
+            -0.19437700000000002,
+            -0.18003000000000002,
+            -0.18131200000000003,
+            -0.18585399999999996
+          ]
+        }
+      }
+    }
+  ],
+  "methodology": "Paired seeds, immutable shared world/noise per run, independent policy states. 95% Student-t confidence interval for the mean across seeds; n=1 has no interval. No selection of winning seeds. Timing averages are conditional on intercepted episodes."
+}

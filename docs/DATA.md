@@ -11,7 +11,7 @@
 - Reference implementation and schema: https://github.com/alan-turing-institute/turing-deinterleaving-challenge
 - Paper: Gunn, Hosford, Jones, Zeitler, Groves & Nockles (2026), *The Turing Synthetic Radar Dataset: A dataset for pulse deinterleaving*, https://arxiv.org/abs/2602.03856
 - License: Apache-2.0, according to the publisher's dataset card.
-- Download access: publisher-gated. The account holder must accept the publisher's conditions. **No authorized TSRD file was available in this build environment.**
+- Download access: publisher-gated. The account holder must accept the publisher's conditions. **This installation includes the authorized validation recording `tsrd_val_stare_config_0.h5`, with 648,034 retained pulses and no pulse truncation.** Source SHA-256: `d25a4189f287ca044f46718baea7471eb1f9ab766b7715c738bb8edf8ac1e474`. Results and limitations: [TSRD validation](validation/tsrd/README.md).
 
 The importer supports the publisher's HDF5 `/data` N×5 array, optional `/labels`, and `/metadata/feature_names`. It maps verified feature names to:
 

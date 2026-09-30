@@ -32,6 +32,10 @@ class BenchmarkConfig(BaseModel):
 
     @model_validator(mode="after")
     def bounded(self):
+        # Imported recordings are not simulator scenarios. Avoid counting the
+        # same recording repeatedly under misleading scenario names.
+        if self.dataset_id != "simulation":
+            self.scenarios = ["recording"]
         if len(self.scenarios) * self.runs > 30:
             raise ValueError("Local benchmark limit: 30 paired worlds per job")
         if len(set(self.scenarios)) != len(self.scenarios) or len(set(self.algorithms)) != len(self.algorithms):
@@ -65,7 +69,8 @@ class Benchmark:
         effective, world = build_world(requested)
         run = Experiment(effective, world).run()
         self.registry.save(run.record())
-        self.results.append({"experiment_id": run.id, "scenario": scenario, "seed": seed, "environment_hash": run.environment_hash, "metrics": run.summary()["metrics"]})
+        summary = run.summary()
+        self.results.append({"experiment_id": run.id, "scenario": scenario, "seed": seed, "environment_hash": run.environment_hash, "effective_receiver": effective.receiver.model_dump(), "dataset": summary.get("dataset"), "metrics": summary["metrics"]})
         self.completed += 1
 
     def snapshot(self) -> dict:

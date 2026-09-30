@@ -25,11 +25,11 @@ Commands and locked dependencies are supplied so these checks can be repeated lo
 - Kept WebGL fallback content from mounting an unnecessary nested canvas.
 - Rendered original dataset previews on physical time/frequency coordinates, preserving irregular gaps.
 
-## Remaining external prerequisite
+## Official TSRD evaluation (2026-09-30)
 
-**An authorized Alan Turing Institute TSRD HDF5 subset is not installed.** The publisher requires account-holder access approval. The schema-specific importer is tested with explicitly synthetic test fixtures, but those fixtures are not distributed as official data and are never advertised as a genuine TSRD import.
+The authorized official validation recording is installed: 648,034 pulses, source and processed artifact checksums verified. Executed 24 paired worlds / 192 policy evaluations, across six seeds, four receiver budgets and eight policies. All 24 replay files passed checksum verification. The backend suite now passes 35 tests, including actual-recording provenance, deterministic reruns and official benchmark HTTP acceptance. TypeScript and production frontend builds passed. See [full results](validation/tsrd/README.md).
 
-Accept the publisher's conditions, then use `backend.datasets.fetch turing` with a locally supplied `HF_TOKEN`, or import an authorized local file using `backend.datasets.ingest turing ... --receiver-mode stare`. Until then, the UI reports **ACCESS REQUIRED**, and an end-to-end official-data evaluation cannot be claimed.
+Fresh publisher downloads require account-holder approval. The current evaluation covers one synthetic validation recording with modeled receiver energy. It does not establish field performance or the publisher's separate deinterleaving benchmark accuracy. Prior browser checks above belong to the earlier validation record; the new changes have not yet received a fresh browser interaction test.
 
 ## Validation scope
 

@@ -1,0 +1,17 @@
+.git
+.venv
+.env
+.env.*
+.aws
+.azure
+.aider*
+**/__pycache__
+**/.pytest_cache
+frontend/node_modules
+frontend/dist
+data/experiments
+docs
+presentation
+*.pptx
+*.zip
+*.log

@@ -6,7 +6,7 @@
 2. Run `./run_tests.sh` and the browser checks described in the README.
 3. Launch `./start_demo.sh`; open `http://127.0.0.1:8000`.
 4. Open Data Provenance and verify the measured e-CALLISTO artifact is available.
-5. If TSRD access has been approved, import an authorized **stare-mode** HDF5 and refresh the catalog. Otherwise explicitly state that the tested importer is ready but official pulses are not installed.
+5. Select **TSRD** in Benchmark Lab. Open the stored official-data comparisons: 648,034 publisher pulses, six seeds (42–47), four bandwidth settings, eight policies. Explain that receiver response is modeled over one synthetic validation recording. Show CSV exports and individual replays. See `docs/validation/tsrd/README.md` for exact results and limitations.
 6. Confirm the recorded sudden, periodic and agile demos and the multi-seed benchmark appear in replay/history. These are real saved experiments, not a simulated live stream.
 
 The default demo uses seed 42. Do not modify the world in response to algorithm performance. Both receivers share the same immutable world and random detector fields.

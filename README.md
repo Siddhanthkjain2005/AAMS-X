@@ -2,6 +2,33 @@
 
 ### Adaptive Autonomous Mission Spectrum eXplorer
 
+[![Quality checks](https://github.com/Siddhanthkjain2005/AAMS-X/actions/workflows/ci.yml/badge.svg)](https://github.com/Siddhanthkjain2005/AAMS-X/actions/workflows/ci.yml)
+
+## SIH judging resources
+
+| Resource | Open here |
+|---|---|
+| Website demo | Azure deployment link will appear here after verification |
+| Source code | [Siddhanthkjain2005/AAMS-X](https://github.com/Siddhanthkjain2005/AAMS-X) |
+| SIH presentation | [Download the presentation](presentation/AAMS-X-SIH2026.pptx) |
+| YouTube walkthrough | **VIDEO LINK TO BE ADDED** |
+| Verified dataset evaluation | [Official TSRD results and limitations](docs/validation/tsrd/README.md) |
+
+### A three-minute walkthrough
+
+1. **Command Center:** choose the official TSRD source and see the receiver's bandwidth budget.
+2. **Live Duel:** compare scheduling policies on the same world. Inspect which bands each receiver actually observes.
+3. **AI Observability:** pause a decision and inspect beliefs, memory, change detection and candidate scores.
+4. **Spectrum Cube:** rotate the 3D time-frequency view. Hidden truth remains a separate evaluator view.
+5. **Benchmark Lab:** open the stored TSRD results, inspect seed variation and confidence intervals, download CSV, then replay a run.
+6. **Data Provenance:** verify the source recording, units, transformations and SHA-256 hashes.
+
+### Evidence snapshot
+
+The official TSRD evaluation covers **648,034 retained pulses**, **24 paired worlds** and **192 policy evaluations**. Eight algorithms share each world's receiver budget and detector realization. At 4/64 bands, six-seed mean global recall is **31.48% for MAG-NTS**, **5.47% for fixed sweep** and **36.75% for Thompson**. Thompson leads on this recording. These are scheduling results over one official synthetic validation recording with modeled receiver noise, not field measurements or pulse-deinterleaving scores.
+
+**Validation:** 35 backend tests pass, including actual-file provenance, deterministic reruns and benchmark API acceptance. TypeScript and the production website build pass. See [the validation record](docs/VALIDATION.md) for scope and limitations.
+
 **An observation-only, uncertainty-aware active-sensing research workbench.**
 
 Built around SIH26055, **Smart Scan Strategy for Electronic Warfare**, a DRDO software problem statement: a receiver with limited instantaneous bandwidth must decide which contiguous frequency window to observe next.
@@ -44,10 +71,10 @@ Set `PORT=8080` to use a different port. See [the three-minute judging guide](do
 | Source | Category | This workspace | Evaluation scope |
 |---|---|---|---|
 | AAMS-X controlled environment | `CONTROLLED_SIMULATION` | Available; ten seeded presets | Complete truth within the abstract simulator |
-| Alan Turing Institute TSRD | `OFFICIAL_SYNTHETIC_RADAR` | **Importer implemented; publisher-authorized data still required** | Retained stare-mode pulse occupancy; scan-mode negatives are censored |
+| Alan Turing Institute TSRD | `OFFICIAL_SYNTHETIC_RADAR` | **Installed: 648,034 official pulses; 24 paired worlds / 192 policy evaluations** | Retained stare-mode pulse occupancy; scan-mode negatives are censored |
 | e-CALLISTO / FHNW public archive | `REAL_MEASURED_RF` | **Actual recording included**, 705,600 standardized samples | Measured intensity, coverage and detector events; no labelled EW emitter truth |
 
-**TSRD access is the remaining external prerequisite.** The publisher currently requires Hugging Face access approval. An unauthorized download was not substituted with generated pulses. The UI displays **ACCESS REQUIRED**, and the simulator is clearly identified as the fallback. Official-data mode becomes the preferred default when an authorized stare-mode artifact is installed.
+**TSRD is the primary SIH evaluation source in this installation.** The authorized `tsrd_val_stare_config_0.h5` recording contains 648,034 pulses. Benchmark Lab defaults to official TSRD and lets users compare other sources explicitly. See [the reproducible evaluation](docs/validation/tsrd/README.md). This is official synthetic radar data with modeled receiver noise, not a hardware field trial. Fresh downloads still require accepting the publisher's Hugging Face conditions.
 
 The included measured recording is **ALASKA-ANCHORAGE, 2024-05-10 16:00 UTC**, obtained from the public e-CALLISTO archive. It is a solar-radio spectrum recording, **not a recording of hostile radars**. Its original intensity unit is `digits`.
 
