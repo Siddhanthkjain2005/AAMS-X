@@ -37,7 +37,7 @@ Built around SIH26055, **Smart Scan Strategy for Electronic Warfare**, a DRDO so
 
 AAMS-X provides a working local simulator, receiver digital twin, online MAG-NTS scheduler, fair comparisons, dataset adapters, live WebSockets, explainability, a Three.js spectrum cube, multi-seed benchmarks, and recorded experiment replay.
 
-![AAMS-X Command Center](docs/screenshots/command-center.png)
+![AAMS-X Command Center on Azure](docs/screenshots/azure-command-center.png)
 
 ## Run locally
 

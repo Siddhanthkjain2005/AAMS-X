@@ -20,7 +20,7 @@ properties:
   template:
     containers:
       - name: aams-x
-        image: caf851fd20faacr.azurecr.io/aams-x:9c7614b85619406e8a0f9310d6d7bed264281a77
+        image: caf851fd20faacr.azurecr.io/aams-x:c32802a0997ca04fa4dc5fbd9695581433354e85
         resources:
           cpu: 1.0
           memory: 2Gi

@@ -27,9 +27,13 @@ Commands and locked dependencies are supplied so these checks can be repeated lo
 
 ## Official TSRD evaluation (2026-09-30)
 
-The authorized official validation recording is installed: 648,034 pulses, source and processed artifact checksums verified. Executed 24 paired worlds / 192 policy evaluations, across six seeds, four receiver budgets and eight policies. All 24 replay files passed checksum verification. The backend suite now passes 35 tests, including actual-recording provenance, deterministic reruns and official benchmark HTTP acceptance. TypeScript and production frontend builds passed. See [full results](validation/tsrd/README.md).
+The authorized official validation recording is installed: 648,034 pulses, source and processed artifact checksums verified. Executed 24 paired worlds / 192 policy evaluations, across six seeds, four receiver budgets and eight policies. All 24 replay files passed checksum verification. The backend suite now passes 36 tests, including actual-recording provenance, deterministic reruns, official benchmark HTTP acceptance and HTTP response compression. TypeScript and production frontend builds passed. GitHub Actions independently repeated all 36 tests and the production build successfully. See [full results](validation/tsrd/README.md).
 
-Fresh publisher downloads require account-holder approval. The current evaluation covers one synthetic validation recording with modeled receiver energy. It does not establish field performance or the publisher's separate deinterleaving benchmark accuracy. Prior browser checks above belong to the earlier validation record; the new changes have not yet received a fresh browser interaction test.
+Fresh publisher downloads require account-holder approval. The current evaluation covers one synthetic validation recording with modeled receiver energy. It does not establish field performance or the publisher's separate deinterleaving benchmark accuracy.
+
+## Public Azure validation (2026-09-30)
+
+The public HTTPS website passed a fresh Chromium workflow covering all eleven pages, official TSRD availability, the four stored benchmarks and CSV exports, replay navigation, 3D camera interaction, a complete 96-slot live TSRD run and observation-only trace retrieval. A 390-pixel mobile workflow exercised the navigation and Benchmark Lab. The desktop browser recorded no JavaScript page errors. Public screenshots accompany the repository. These are software/browser checks, not operational radar trials or a guarantee of uninterrupted hosting.
 
 ## Validation scope
 

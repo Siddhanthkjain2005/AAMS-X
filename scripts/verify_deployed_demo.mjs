@@ -1,0 +1,64 @@
+import fs from 'node:fs/promises';
+import { chromium, expect as baseExpect } from '../frontend/node_modules/@playwright/test/index.mjs';
+const expect=baseExpect.configure({timeout:30000});
+const base=process.argv[2];
+if(!/^https?:\/\//.test(base ?? ''))throw new Error('Usage: node scripts/verify_deployed_demo.mjs WEBSITE_URL [OUTPUT_FOLDER]');
+const output=process.argv[3] ?? 'docs/screenshots/azure-validation';
+await fs.mkdir(output,{recursive:true});
+const browser=await chromium.launch({args:['--enable-unsafe-swiftshader']});
+try {
+ const context=await browser.newContext({viewport:{width:1440,height:1050}});
+ const page=await context.newPage();
+ const errors=[]; page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(base,{waitUntil:'networkidle',timeout:60000});
+ await expect(page.getByRole('heading',{name:'Command Center',exact:true})).toBeVisible();
+ await page.screenshot({path:output+'/command.png',fullPage:true});
+ const datasets=await (await context.request.get(base+'/api/datasets')).json();
+ const official=datasets.find(d=>d.category==='OFFICIAL_SYNTHETIC_RADAR' && d.status==='available');
+ if(!official || official.pulse_count!==648034)throw new Error('Official TSRD missing');
+ await page.getByRole('button',{name:'Benchmark Lab',exact:true}).click();
+ await expect(page.getByLabel('Benchmark dataset',{exact:true})).toHaveValue(official.id);
+ const reports=await (await context.request.get(base+'/api/benchmarks')).json();
+ const tsrd=reports.filter(r=>r.config.dataset_id===official.id);
+ if(tsrd.length<4 || tsrd.reduce((n,r)=>n+r.completed,0)<24)throw new Error('TSRD evidence missing');
+ await expect(page.getByText(/Results source: TSRD/)).toBeVisible();
+ await page.screenshot({path:output+'/benchmark.png',fullPage:true});
+ for(const job of tsrd){const response=await context.request.get(base+`/api/benchmark/${job.id}/export?format=csv`);if(!response.ok())throw new Error('CSV export failed');}
+ await page.getByRole('button',{name:'Replay run',exact:true}).first().click();
+ await expect(page.getByRole('heading',{name:'AAMS-X vs Open-Loop',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:/^Spectrum Cube/}).click();
+ await expect(page.getByRole('heading',{name:'Spectrum Intelligence Cube',exact:true})).toBeVisible();
+ await expect(page.locator('canvas')).toBeVisible();
+ const webglVersion=await page.locator('canvas').evaluate(c=>{const gl=c.getContext('webgl2');return gl?.getParameter(gl.VERSION);});
+ if(!webglVersion?.includes('WebGL'))throw new Error('Actual WebGL context missing');
+ await page.getByRole('button',{name:'Top',exact:true}).click();
+ await page.screenshot({path:output+'/cube.png',fullPage:true});
+ for(const nav of ['AI Observability','Experiment Library','Periodic Challenge','Dataset Explorer','Data Provenance','Architecture','Methodology','Command Center']){
+   await page.getByRole('button',{name:nav,exact:true}).click();
+   await expect(page.locator('h1')).toBeVisible();
+ }
+ await page.getByLabel('Horizon',{exact:true}).selectOption('96');
+ await page.getByRole('button',{name:/^Live Duel/}).click();
+ await page.getByRole('button',{name:'RUN FAIR DUEL',exact:true}).first().click();
+ await expect(page.getByRole('button',{name:'Pause experiment',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'Playback speed 4x',exact:true}).click();
+ let run;
+ await expect.poll(async()=>{const runs=await(await context.request.get(base+'/api/experiments')).json();run=runs.find(r=>r.config.horizon===96 && r.config.dataset_id===official.id && ['running','completed'].includes(r.state));return run?.state;},{timeout:60000}).toBe('completed');
+ const trace=await(await context.request.get(base+`/api/experiment/${run.id}/trace`)).json();
+ if(trace.frames.length!==96 || trace.frames.some(f=>f.evaluation))throw new Error('Observation-only trace failed');
+ await page.screenshot({path:output+'/live-completed.png',fullPage:true});
+ const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+ const phone=await mobile.newPage();
+ await phone.goto(base,{waitUntil:'networkidle'});
+ await phone.getByRole('button',{name:'Open navigation',exact:true}).click();
+ await phone.getByRole('button',{name:'Benchmark Lab',exact:true}).click();
+ await expect(phone.getByRole('heading',{name:'Benchmark Lab',exact:true})).toBeVisible();
+ await expect(phone.getByRole('button',{name:'Open navigation',exact:true})).toHaveAttribute('aria-expanded','false');
+ await expect(phone.getByText(/Results source: TSRD/)).toBeVisible();
+ const overflow=await phone.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2);
+ if(overflow)throw new Error('Mobile document overflows horizontally');
+ await phone.screenshot({path:output+'/mobile.png',fullPage:true,animations:'disabled'});
+ if(errors.length)throw new Error(errors.join('\n'));
+ await fs.writeFile(output+'/report.json',JSON.stringify({base,dataset:official.id,pulses:official.pulse_count,benchmarkWorlds:24,algorithms:8,liveRun:run.id,liveSteps:96,pageErrors:errors,desktop:true,mobile:true,webglVersion},null,2));
+ console.log('PASS: all pages, official sources, benchmark CSVs, replay, 3D, full live TSRD run, mobile navigation');
+} finally {await browser.close();}

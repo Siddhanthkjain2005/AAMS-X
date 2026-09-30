@@ -23,13 +23,29 @@ The GitHub image workflow uses federated OIDC authentication. Its build identity
 
 ## Operator checks
 
+Public website: https://aams-x-sih.livelyocean-37549b44.eastasia.azurecontainerapps.io
+
+Verified deployment image: `caf851fd20faacr.azurecr.io/aams-x:c32802a0997ca04fa4dc5fbd9695581433354e85`. The instance reports Running, ready, with zero restarts. Minimum and maximum replicas are both one. The public Chromium check passes all pages, stored TSRD evidence, CSV exports, replay, a real WebGL 2 renderer, a full 96-slot live TSRD run and mobile navigation without document-wide horizontal overflow. The replay HTTP payload measured 2,535,981 compressed bytes, compared with 14,235,411 before compression. These checks describe the validation session, not a future uptime guarantee.
+
+To repeat the public browser check after installing frontend dependencies:
+
+```sh
+cd frontend
+npx playwright install chromium
+cd ..
+node scripts/verify_deployed_demo.mjs \
+  https://aams-x-sih.livelyocean-37549b44.eastasia.azurecontainerapps.io
+```
+
+This acceptance check starts a live experiment on the website and saves screenshots locally. Run it deliberately, rather than as an unbounded background monitor.
+
 ```sh
 az containerapp show -g rg-aams-x-sih -n aams-x-sih \
   --query '{state:properties.provisioningState,url:properties.configuration.ingress.fqdn,scale:properties.template.scale}'
 az containerapp revision list -g rg-aams-x-sih -n aams-x-sih -o table
 ```
 
-The image-build workflow is manual. Publishing a new GitHub commit does not silently change the running Azure revision. Build the selected revision, deploy its image and verify `/api/health`, `/api/status`, `/api/datasets`, benchmarks, exports and a live experiment before a judging session.
+The image-build workflow is manual. Publishing a new GitHub commit does not silently change the running Azure image. Build the selected commit, deploy its image and verify `/api/health`, `/api/status`, `/api/datasets`, benchmarks, exports and a live experiment before a judging session. The current Azure environment does not support custom revision suffixes. Use a normal image update and verify the resulting running image rather than adding unsupported revision options.
 
 ## Cost control
 
