@@ -8,7 +8,7 @@
 
 | Resource | Open here |
 |---|---|
-| Website demo | Azure deployment link will appear here after verification |
+| Website demo | [Open the Azure live demo](https://aams-x-sih.livelyocean-37549b44.eastasia.azurecontainerapps.io) |
 | Source code | [Siddhanthkjain2005/AAMS-X](https://github.com/Siddhanthkjain2005/AAMS-X) |
 | SIH presentation | [Download the presentation](presentation/AAMS-X-SIH2026.pptx) |
 | YouTube walkthrough | **VIDEO LINK TO BE ADDED** |
@@ -27,7 +27,9 @@
 
 The official TSRD evaluation covers **648,034 retained pulses**, **24 paired worlds** and **192 policy evaluations**. Eight algorithms share each world's receiver budget and detector realization. At 4/64 bands, six-seed mean global recall is **31.48% for MAG-NTS**, **5.47% for fixed sweep** and **36.75% for Thompson**. Thompson leads on this recording. These are scheduling results over one official synthetic validation recording with modeled receiver noise, not field measurements or pulse-deinterleaving scores.
 
-**Validation:** 35 backend tests pass, including actual-file provenance, deterministic reruns and benchmark API acceptance. TypeScript and the production website build pass. See [the validation record](docs/VALIDATION.md) for scope and limitations.
+**Validation:** 36 backend tests pass, including actual-file provenance, deterministic reruns, benchmark API acceptance and compressed responses. TypeScript and the production website build pass. See [the validation record](docs/VALIDATION.md) for scope and limitations.
+
+The Azure demo keeps one instance running rather than scaling to zero. [Hosting settings, costs and data durability](docs/AZURE.md) explain its availability limits. The YouTube row is an intentional placeholder for the team's forthcoming video.
 
 **An observation-only, uncertainty-aware active-sensing research workbench.**
 

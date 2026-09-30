@@ -43,3 +43,10 @@ def test_official_benchmark_http_accepts_recording(tmp_path):
             "runs": 1, "horizon": 24, "algorithms": ["fixed", "magnts"]})
         assert response.status_code == 200, response.text
         assert response.json()["config"]["scenarios"] == ["recording"]
+
+def test_remote_catalog_is_compressed_and_still_valid_json(tmp_path):
+    with TestClient(create_app(tmp_path)) as client:
+        response = client.get('/api/datasets', headers={'Accept-Encoding': 'gzip'})
+        assert response.status_code == 200
+        assert response.headers.get('content-encoding') == 'gzip'
+        assert isinstance(response.json(), list)

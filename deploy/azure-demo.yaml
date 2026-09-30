@@ -1,0 +1,57 @@
+name: aams-x-sih
+location: eastasia
+type: Microsoft.App/containerApps
+identity:
+  type: UserAssigned
+  userAssignedIdentities:
+    /subscriptions/730856d9-ab78-4475-8ae5-2afa21bcde3e/resourcegroups/rg-aams-x-sih/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aams-x-sih-pull: {}
+properties:
+  managedEnvironmentId: /subscriptions/730856d9-ab78-4475-8ae5-2afa21bcde3e/resourceGroups/rg-aams-x-sih/providers/Microsoft.App/managedEnvironments/aams-x-sih-env
+  configuration:
+    activeRevisionsMode: Single
+    ingress:
+      external: true
+      targetPort: 8080
+      transport: auto
+      allowInsecure: false
+    registries:
+      - server: caf851fd20faacr.azurecr.io
+        identity: /subscriptions/730856d9-ab78-4475-8ae5-2afa21bcde3e/resourcegroups/rg-aams-x-sih/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aams-x-sih-pull
+  template:
+    containers:
+      - name: aams-x
+        image: caf851fd20faacr.azurecr.io/aams-x:9c7614b85619406e8a0f9310d6d7bed264281a77
+        resources:
+          cpu: 1.0
+          memory: 2Gi
+        env:
+          - name: PORT
+            value: '8080'
+        probes:
+          - type: Startup
+            httpGet:
+              path: /api/health
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+          - type: Liveness
+            httpGet:
+              path: /api/health
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          - type: Readiness
+            httpGet:
+              path: /api/health
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+    scale:
+      minReplicas: 1
+      maxReplicas: 1

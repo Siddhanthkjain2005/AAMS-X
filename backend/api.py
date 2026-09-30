@@ -12,6 +12,7 @@ from fastapi import FastAPI, HTTPException, Query, WebSocket, WebSocketDisconnec
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.gzip import GZipMiddleware
 from pydantic import BaseModel
 
 from backend import __version__
@@ -132,6 +133,9 @@ def create_app(registry_directory: Path | None = None) -> FastAPI:
         await asyncio.gather(*runtime.tasks, return_exceptions=True)
 
     app = FastAPI(title="AAMS-X Research API", version=__version__, lifespan=lifespan)
+    # Full eight-policy replays contain substantial JSON. Compress HTTP
+    # responses for remote judging without changing WebSocket observations.
+    app.add_middleware(GZipMiddleware, minimum_size=1024, compresslevel=5)
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"], allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
 
     @app.exception_handler(KeyError)
